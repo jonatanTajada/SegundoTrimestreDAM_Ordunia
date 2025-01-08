@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ClasificarTriangulos</string>
+    <string name="hint_lado1">Lado 1</string>
+    <string name="hint_lado2">Lado 2</string>
+    <string name="hint_lado3">Lado 3</string>
+    <string name="boton_clasificar">Clasificar Triángulo</string>
+    <string name="boton_finalizar">Finalizar</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

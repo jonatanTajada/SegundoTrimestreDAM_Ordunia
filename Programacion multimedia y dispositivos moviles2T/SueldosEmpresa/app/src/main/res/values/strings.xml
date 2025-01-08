@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SueldosEmpresa</string>
+    <string name="hint_numero_empleados">Número de empleados</string>
+    <string name="hint_sueldos">Introduce un sueldo</string>
+    <string name="boton_agregar_sueldo">Agregar sueldo</string>
+    <string name="boton_calcular">Calcular</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ejemploTeoria1ConFXML.controladores.ControladorVentana">
+
+
+    <TextField fx:id="texto" promptText="Introduce tu nombre" />
+    <Button fx:id="boton" text="Saludar" onAction="#saludar" />
+
+
+
+
+
+</VBox>

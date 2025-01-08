@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.calculadora.controladores.Controlador">
+      
+    <TextField fx:id="campoValor1" promptText="Ingrese el primer valor" />
+    <TextField fx:id="campoValor2" promptText="Ingrese el segundo valor" />
+    
+    <Label text="Resultado:" />
+    <Label fx:id="etiquetaResultado" />
+
+</VBox>

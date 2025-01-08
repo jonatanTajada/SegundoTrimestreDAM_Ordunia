@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CompararListas</string>
+    <string name="hint_valor">Introduce un valor</string>
+    <string name="boton_agregar_lista1">Agregar a Lista 1</string>
+    <string name="boton_agregar_lista2">Agregar a Lista 2</string>
+    <string name="boton_comparar">Comparar Listas</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

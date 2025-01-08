@@ -1,0 +1,44 @@
+package com.ejemplo.servidor;
+
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
+
+public class Servidor {
+    private static final int PUERTO = 10103;
+
+    public static void main(String[] args) {
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(PUERTO);
+            JOptionPane.showMessageDialog(null, "Servidor iniciado. Escuchando en el puerto " + PUERTO, "Servidor Iniciado", JOptionPane.INFORMATION_MESSAGE);
+
+            while (true) {
+                try (Socket clienteSocket = serverSocket.accept()) {
+                    BufferedReader entrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
+                    PrintWriter salida = new PrintWriter(clienteSocket.getOutputStream(), true);
+
+                    String mensaje = entrada.readLine();
+                    if (mensaje != null) {
+                        int numero = Integer.parseInt(mensaje);
+                        int cuadrado = numero * numero;
+                        salida.println(cuadrado);
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error en la conexión con el cliente: " + e.getMessage(), "Error de Conexión", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al iniciar el servidor: " + e.getMessage(), "Error del Servidor", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                try {
+                    serverSocket.close();
+                    JOptionPane.showMessageDialog(null, "Servidor detenido y puerto liberado.", "Servidor Detenido", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error al cerrar el servidor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+}

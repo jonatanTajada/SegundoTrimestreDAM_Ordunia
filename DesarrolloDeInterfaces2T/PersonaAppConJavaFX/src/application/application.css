@@ -1,0 +1,27 @@
+/* Estilo para la tabla con borde alrededor */
+.table-view {
+    -fx-border-color: #cccccc; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 2px;
+    -fx-padding: 1px; 
+
+}
+
+/* Borde inferior para la última fila */
+.table-view .table-row-cell:filled:last-of-type {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 1px 0; 
+}
+
+/* Línea horizontal entre filas */
+.table-view .table-row-cell {
+    -fx-border-color: transparent transparent #cccccc transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Línea vertical entre columnas */
+.table-view .column-header,
+.table-view .table-cell {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 1px 0 0;
+}

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MayorYMenor</string>
+    <string name="hint_numero1">Introduce el primer número</string>
+    <string name="hint_numero2">Introduce el segundo número</string>
+    <string name="hint_numero3">Introduce el tercer número</string>
+    <string name="boton_calcular">Calcular mayor y menor</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

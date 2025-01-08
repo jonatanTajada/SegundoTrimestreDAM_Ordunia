@@ -1,0 +1,32 @@
+package com.ejemplo.cliente;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class Cliente {
+
+	public static void main(String[] args) {
+
+		// confiracion cliente
+		String servidorIP = "127.0.0.1";
+		int puerto = 10101;
+
+		
+		try (ServerSocket serverSocket = new ServerSocket(puerto)){
+			
+			
+			
+			
+			
+			
+			
+		} catch (IOException e) {
+			System.err.println("Error en el cliente: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
+}

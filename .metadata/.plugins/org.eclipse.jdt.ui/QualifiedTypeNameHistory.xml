@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javafx.scene.Scene"/>
+    <fullyQualifiedTypeName name="javafx.application.Application"/>
+    <fullyQualifiedTypeName name="javafx.fxml.FXMLLoader"/>
+    <fullyQualifiedTypeName name="javafx.beans.property.StringProperty"/>
+    <fullyQualifiedTypeName name="javafx.beans.property.SimpleStringProperty"/>
+    <fullyQualifiedTypeName name="com.calculadora.controladores.Controlador"/>
+    <fullyQualifiedTypeName name="javafx.scene.control.Label"/>
+    <fullyQualifiedTypeName name="java.awt.TextField"/>
+</qualifiedTypeNameHistroy>

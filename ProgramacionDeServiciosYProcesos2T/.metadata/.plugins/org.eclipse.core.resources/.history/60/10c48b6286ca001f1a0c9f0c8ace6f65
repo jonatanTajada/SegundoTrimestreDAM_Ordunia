@@ -1,0 +1,45 @@
+package com.ejemplo.cliente;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Cliente {
+
+	public static void main(String[] args) {
+
+		// confiracion cliente
+		String servidorIP = "127.0.0.1";
+		int puerto = 10101;
+
+		
+		try (Socket socket = new Socket(servidorIP, puerto)){
+			
+			System.out.println("Conectado al servidor: " + servidorIP + ": " + puerto);
+			
+			//streams de entrada y salida
+			BufferedReader entrada  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
+			
+			//leer numero del usuario
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Introduce un numero:");
+			double numero = scanner.nextDouble();
+			
+			//enviar numero al servidor
+			
+			
+			
+		} catch (IOException e) {
+			System.err.println("Error en el cliente: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;stage&apos; in &apos;com.calculadora.App.start(...)&apos; to &apos;ventanaPrincipal&apos;&#x0D;&#x0A;- Original project: &apos;CalculadoraBinding&apos;&#x0D;&#x0A;- Original element: &apos;com.calculadora.App.start(Stage).stage&apos;&#x0D;&#x0A;- Renamed element: &apos;stage&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;stage&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;com.calculadora{App.java[App~start~QStage;@stage!268!278!274!278!QStage;!0!true" name="ventanaPrincipal" references="true" stamp="1734775780052" version="1.0"/>
+</session>

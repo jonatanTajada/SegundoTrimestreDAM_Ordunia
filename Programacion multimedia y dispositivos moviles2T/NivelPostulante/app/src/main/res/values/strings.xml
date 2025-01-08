@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NivelPostulante</string>
+    <string name="hint_total_preguntas">Cantidad total de preguntas</string>
+    <string name="hint_respuestas_correctas">Cantidad de respuestas correctas</string>
+    <string name="boton_calcular_nivel">Calcular nivel</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

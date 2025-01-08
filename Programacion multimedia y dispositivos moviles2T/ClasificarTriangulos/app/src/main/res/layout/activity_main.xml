@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editarTextoLado1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lado 1"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editarTextoLado2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lado 2"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editarTextoLado3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lado 3"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/botonClasificar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clasificar Triángulo"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/botonFinalizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finalizar"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textoResultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resultado aquí"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AnalizarValores</string>
+    <string name="hint_valor">Introduce un valor</string>
+    <string name="boton_agregar_valor">Agregar valor</string>
+    <string name="boton_finalizar">Finalizar</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

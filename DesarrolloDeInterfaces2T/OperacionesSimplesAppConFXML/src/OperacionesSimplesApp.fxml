@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.OperadorControlador" spacing="10" alignment="CENTER">
+    
+    <TextField fx:id="operando1" promptText="Operando 1" />
+    <TextField fx:id="operando2" promptText="Operando 2" />
+    <Button text="Operar" onAction="#operar" />
+    
+    <HBox spacing="10" alignment="CENTER">
+        <RadioButton text="Suma" fx:id="rbSuma" selected="true"/>
+        <RadioButton text="Resta" fx:id="rbResta"/>
+        <RadioButton text="Multiplicacion" fx:id="rbMultiplicacion"/>
+        <RadioButton text="Division" fx:id="rbDivision"/>
+    </HBox>
+    
+    <TextField fx:id="resultado" promptText="Resultado" editable="false" />
+</VBox>

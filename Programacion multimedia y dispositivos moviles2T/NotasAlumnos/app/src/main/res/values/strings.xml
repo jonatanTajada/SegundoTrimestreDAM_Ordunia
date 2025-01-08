@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NotasAlumnos</string>
+    <string name="hint_nota">Introduce la nota (0 a 10)</string>
+    <string name="boton_agregar_nota">Agregar nota</string>
+    <string name="boton_finalizar">Finalizar</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

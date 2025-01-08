@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ControlPiezas</string>
+    <string name="hint_peso">Introduce el peso (Kg)</string>
+    <string name="boton_agregar_peso">Agregar peso</string>
+    <string name="boton_finalizar">Finalizar</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

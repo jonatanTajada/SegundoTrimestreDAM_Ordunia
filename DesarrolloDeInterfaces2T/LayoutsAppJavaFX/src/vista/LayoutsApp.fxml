@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.LayoutsControlador">
+
+    <!-- HBox en la parte superior con tres botones -->
+    <top>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Button text="Insertar" />
+            <Button text="Modificar" />
+            <Button text="Listar" />
+        </HBox>
+    </top>
+
+    <!-- VBox en el centro con etiqueta e imagen -->
+    <center>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+            <Label text="Esto es una etiqueta dentro de un VBox" />
+            <ImageView fx:id="imageView" fitHeight="200" fitWidth="300" />
+        </VBox>
+    </center>
+
+    <!-- HBox en la parte inferior con dos botones -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Button text="Borrar" />
+            <Button text="Reiniciar" />
+        </HBox>
+    </bottom>
+    
+</BorderPane>
