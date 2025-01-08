@@ -8,6 +8,8 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Cliente extends JFrame {
 
@@ -20,6 +22,7 @@ public class Cliente extends JFrame {
     private BufferedReader lector;
     private PrintWriter escritor;
     private String nombreUsuario;
+    private final Map<String, JFrame> ventanasPrivadas = new ConcurrentHashMap<>();
 
     public Cliente() {
         super("Cliente de Chat");
@@ -109,6 +112,13 @@ public class Cliente extends JFrame {
     private void procesarMensaje(String mensaje) {
         if (mensaje.startsWith("Usuarios conectados:")) {
             actualizarListaUsuarios(mensaje.replace("Usuarios conectados:", "").trim());
+        } else if (mensaje.contains("(Privado):")) {
+            String[] partes = mensaje.split(":", 3);
+            if (partes.length == 3) {
+                String remitente = partes[0].trim();
+                String contenido = partes[2].trim();
+                abrirVentanaPrivada(remitente, contenido);
+            }
         } else {
             SwingUtilities.invokeLater(() -> areaMensajes.append(mensaje + "\n"));
         }
@@ -135,9 +145,49 @@ public class Cliente extends JFrame {
                 escritor.println("Global:" + mensaje);
             } else {
                 escritor.println("@" + destinatario + ":" + mensaje);
+                abrirVentanaPrivada(destinatario, "Yo: " + mensaje); // Abrir ventana para el remitente
             }
             campoMensaje.setText("");
         }
+    }
+
+    private void abrirVentanaPrivada(String remitente, String mensaje) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame ventanaPrivada = ventanasPrivadas.computeIfAbsent(remitente, usuario -> {
+                JFrame nuevaVentana = new JFrame("Chat privado con " + usuario);
+                nuevaVentana.setSize(400, 400);
+                nuevaVentana.setLocationRelativeTo(null);
+                nuevaVentana.setLayout(new BorderLayout());
+
+                JTextArea areaChat = new JTextArea();
+                areaChat.setEditable(false);
+                JScrollPane scroll = new JScrollPane(areaChat);
+                nuevaVentana.add(scroll, BorderLayout.CENTER);
+
+                JTextField campoMensajePrivado = new JTextField();
+                JButton botonEnviarPrivado = new JButton("Enviar");
+                botonEnviarPrivado.addActionListener(e -> {
+                    String mensajePrivado = campoMensajePrivado.getText().trim();
+                    if (!mensajePrivado.isEmpty()) {
+                        escritor.println("@" + usuario + ":" + mensajePrivado);
+                        areaChat.append("Yo: " + mensajePrivado + "\n");
+                        campoMensajePrivado.setText("");
+                    }
+                });
+
+                JPanel panelInferior = new JPanel(new BorderLayout());
+                panelInferior.add(campoMensajePrivado, BorderLayout.CENTER);
+                panelInferior.add(botonEnviarPrivado, BorderLayout.EAST);
+
+                nuevaVentana.add(panelInferior, BorderLayout.SOUTH);
+                nuevaVentana.setVisible(true);
+                return nuevaVentana;
+            });
+
+            JTextArea areaChat = (JTextArea) ((JScrollPane) ventanaPrivada.getContentPane().getComponent(0)).getViewport().getView();
+            areaChat.append(remitente + ": " + mensaje + "\n");
+            ventanaPrivada.toFront();
+        });
     }
 
     private void cerrarConexion() {
