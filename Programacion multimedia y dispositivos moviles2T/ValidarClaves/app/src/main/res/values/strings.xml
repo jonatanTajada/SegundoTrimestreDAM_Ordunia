@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ValidarClaves</string>
+    <string name="hint_clave1">Introduce la primera clave</string>
+    <string name="hint_clave2">Introduce la segunda clave</string>
+    <string name="boton_validar_claves">Validar Claves</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ReproductorMusica</string>
+    <string name="hint_titulo">Introduce el título de la canción</string>
+    <string name="hint_artista">Introduce el nombre del artista</string>
+    <string name="hint_anio">Introduce el año de publicación</string>
+    <string name="hint_reproducciones">Introduce el número de reproducciones</string>
+    <string name="boton_mostrar_info">Mostrar información de la canción</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

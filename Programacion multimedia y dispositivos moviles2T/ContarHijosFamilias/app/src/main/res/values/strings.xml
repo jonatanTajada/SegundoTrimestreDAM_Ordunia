@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ContarHijosFamilias</string>
+    <string name="hint_hijos">Introduce la cantidad de hijos</string>
+    <string name="boton_agregar_familia">Agregar Familia</string>
+    <string name="boton_finalizar">Finalizar</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

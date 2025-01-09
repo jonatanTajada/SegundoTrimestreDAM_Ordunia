@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Internationalisation</string>
+    <string name="saludo">Bonjour à tous!</string>
+    <string name="bandera">Drapeau</string>
+</resources>

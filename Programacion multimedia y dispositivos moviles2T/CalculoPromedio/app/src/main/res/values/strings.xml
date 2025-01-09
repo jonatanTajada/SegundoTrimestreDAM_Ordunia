@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CalculoPromedio</string>
+    <string name="hint_nota1">Introduce la primera nota</string>
+    <string name="hint_nota2">Introduce la segunda nota</string>
+    <string name="hint_nota3">Introduce la tercera nota</string>
+    <string name="boton_calcular_promedio">Calcular Promedio</string>
+    <string name="resultado_placeholder">Resultado aquí</string>
+</resources>

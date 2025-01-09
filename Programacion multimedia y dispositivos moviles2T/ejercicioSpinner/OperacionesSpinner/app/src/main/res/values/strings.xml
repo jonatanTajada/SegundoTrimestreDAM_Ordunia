@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">OperacionesSpinner</string>
+    <string name="hint_numero1">Primer número</string>
+    <string name="hint_numero2">Segundo número</string>
+    <string name="boton_operar">Operar</string>
+    <string name="resultado">Resultado:</string>
+
+    <string-array name="operaciones">
+        <item>sumar</item>
+        <item>restar</item>
+        <item>multiplicar</item>
+        <item>dividir</item>
+    </string-array>
+</resources>
