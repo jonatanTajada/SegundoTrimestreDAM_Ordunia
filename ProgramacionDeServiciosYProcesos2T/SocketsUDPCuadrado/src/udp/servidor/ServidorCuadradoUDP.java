@@ -4,7 +4,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public class ServidorCuadradoUDP {
+	
     public static void main(String[] args) {
+    	
         try {
             // Crear el socket del servidor en el puerto 9877
             DatagramSocket servidorSocket = new DatagramSocket(9877);

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".activities.StockActivity">
+
+    <!-- Contenedor principal para el diseño -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Título principal de la pantalla -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Stock"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Campo para ingresar el código del producto -->
+        <EditText
+            android:id="@+id/editTextCodigo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Introduce cód. producto"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Campo para ingresar el nombre del producto -->
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Introduce el nombre"
+            app:layout_constraintTop_toBottomOf="@id/editTextCodigo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Campo para ingresar el precio del producto -->
+        <EditText
+            android:id="@+id/editTextPrecio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Introduce el precio"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/editTextNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para crear un producto -->
+        <Button
+            android:id="@+id/buttonCrearProducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="CREAR PRODUCTO"
+            app:layout_constraintTop_toBottomOf="@id/editTextPrecio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para buscar un producto por su código -->
+        <Button
+            android:id="@+id/buttonBuscarCodigo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BUSCAR POR CÓDIGO"
+            app:layout_constraintTop_toBottomOf="@id/buttonCrearProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para buscar un producto por su nombre -->
+        <Button
+            android:id="@+id/buttonBuscarNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BUSCAR POR NOMBRE"
+            app:layout_constraintTop_toBottomOf="@id/buttonBuscarCodigo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para eliminar un producto por su código -->
+        <Button
+            android:id="@+id/buttonEliminarCodigo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="ELIMINAR POR CÓDIGO"
+            app:layout_constraintTop_toBottomOf="@id/buttonBuscarNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para actualizar los datos de un producto -->
+        <Button
+            android:id="@+id/buttonActualizarProducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="ACTUALIZAR PRODUCTO"
+            app:layout_constraintTop_toBottomOf="@id/buttonEliminarCodigo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón para mostrar todos los productos -->
+        <Button
+            android:id="@+id/buttonMostrarTodos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="MOSTRAR TODOS"
+            app:layout_constraintTop_toBottomOf="@id/buttonActualizarProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Botón Salir -->
+        <Button
+            android:id="@+id/buttonSalir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SALIR"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@id/buttonMostrarTodos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

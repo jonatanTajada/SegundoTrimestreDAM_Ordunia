@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Campo para el nombre -->
+    <EditText
+        android:id="@+id/editTextNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce tu nombre"
+        android:inputType="textPersonName" />
+
+    <!-- Campo para el correo -->
+    <EditText
+        android:id="@+id/editTextCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce tu correo"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/editTextNombre"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón para insertar -->
+    <Button
+        android:id="@+id/buttonInsertar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insertar Usuario"
+        android:layout_below="@id/editTextCorreo"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón para mostrar -->
+    <Button
+        android:id="@+id/buttonMostrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mostrar Usuarios"
+        android:layout_below="@id/buttonInsertar"
+        android:layout_marginTop="16dp" />
+
+    <!-- TextView para mostrar los datos -->
+    <TextView
+        android:id="@+id/textViewDatos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonMostrar"
+        android:layout_marginTop="16dp"
+        android:text="Aquí aparecerán los datos"
+        android:textSize="16sp" />
+</RelativeLayout>

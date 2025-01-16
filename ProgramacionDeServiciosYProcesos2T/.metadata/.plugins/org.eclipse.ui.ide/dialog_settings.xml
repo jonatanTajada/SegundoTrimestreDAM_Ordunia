@@ -20,6 +20,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T"/>
 			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna\gestionDeComprasVentas"/>
 			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna\programacionDeServiciosYProcesos"/>
 			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna\gestionContactos"/>

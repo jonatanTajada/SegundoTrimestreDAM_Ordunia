@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.CalculadoraControlador"
+          hgap="10" vgap="10" alignment="center">
+    <!-- Campo para el primer número -->
+    <TextField fx:id="campoNumero1" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <!-- Campo para el segundo número -->
+    <TextField fx:id="campoNumero2" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <!-- Botones de operaciones -->
+    <Button text="+" onAction="#sumar" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <Button text="-" onAction="#restar" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Button text="*" onAction="#multiplicar" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <Button text="/" onAction="#dividir" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <!-- Resultado -->
+    <Label fx:id="resultado" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+</GridPane>

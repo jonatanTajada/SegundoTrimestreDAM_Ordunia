@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calendario Actividades</string>
+    <string name="titulo_actividades">Actividades del Calendario</string>
+    <string name="hint_fecha">Ingrese fecha (DD/MM/AAAA)</string>
+    <string name="hint_actividades">Escriba las actividades</string>
+    <string name="boton_grabar">Grabar</string>
+    <string name="boton_recuperar">Recuperar</string>
+    <string name="boton_salir">Salir</string>
+</resources>

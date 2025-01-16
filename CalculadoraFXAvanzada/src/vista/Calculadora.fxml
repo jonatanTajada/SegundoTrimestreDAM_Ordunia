@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.CalculadoraControlador">
+
+    <!-- Parte superior (Top): Título -->
+    <top>
+        <Label text="Calculadora" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10" bottom="10" />
+            </BorderPane.margin>
+        </Label>
+    </top>
+
+    <!-- Parte central (Center): Campos de texto y etiquetas -->
+    <center>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <children>
+                <!-- Etiqueta y campo para el primer número -->
+                <Label text="Número 1:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <TextField fx:id="campoNumero1" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <!-- Etiqueta y campo para el segundo número -->
+                <Label text="Número 2:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <TextField fx:id="campoNumero2" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+    </center>
+
+    <!-- Parte inferior (Bottom): Botones de operaciones -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button text="+" onAction="#sumar" />
+                <Button text="-" onAction="#restar" />
+                <Button text="*" onAction="#multiplicar" />
+                <Button text="/" onAction="#dividir" />
+            </children>
+            <HBox.margin>
+                <Insets top="10" bottom="10" />
+            </HBox.margin>
+        </HBox>
+    </bottom>
+</BorderPane>

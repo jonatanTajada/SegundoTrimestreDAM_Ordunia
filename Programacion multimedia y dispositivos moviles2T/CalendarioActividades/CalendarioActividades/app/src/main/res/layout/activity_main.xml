@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actividades del Calendario"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Campo para la fecha -->
+    <EditText
+        android:id="@+id/editTextFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese fecha (DD_MM_AAAA)"
+        android:inputType="text" />
+
+    <!-- Campo para las actividades -->
+    <EditText
+        android:id="@+id/editTextActividades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Escriba las actividades"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="top" />
+
+    <!-- Botón para grabar -->
+    <Button
+        android:id="@+id/buttonGrabar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grabar" />
+
+    <!-- Botón para recuperar -->
+    <Button
+        android:id="@+id/buttonRecuperar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recuperar"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botón para salir de la app -->
+    <Button
+        android:id="@+id/buttonSalir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salir"
+        android:layout_marginTop="8dp" />
+
+    <!-- Campo para mostrar los resultados -->
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:background="#FFFF99"
+        android:padding="8dp"
+        android:minHeight="100dp" />
+</LinearLayout>

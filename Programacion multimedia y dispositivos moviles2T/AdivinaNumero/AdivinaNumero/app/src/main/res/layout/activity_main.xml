@@ -1,0 +1,56 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textoEtiquetaPuntaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etiqueta_puntaje"
+        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/textoPuntaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/textoEtiquetaPuntaje"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/campoNumero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="@string/hint_campo_numero"
+        android:inputType="number"
+        android:padding="12dp"
+        android:layout_below="@id/textoEtiquetaPuntaje"
+        android:layout_marginTop="16dp" />
+
+
+    <Button
+        android:id="@+id/botonVerificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_verificar"
+        android:layout_below="@id/campoNumero"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/textoPista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        android:layout_below="@id/botonVerificar"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+</RelativeLayout>

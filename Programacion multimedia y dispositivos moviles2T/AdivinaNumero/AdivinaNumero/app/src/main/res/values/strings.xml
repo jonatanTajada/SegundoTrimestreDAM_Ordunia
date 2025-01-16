@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Adivina el Número</string>
+    <string name="etiqueta_puntaje">Puntaje</string>
+    <string name="hint_campo_numero">Adivina un número entre 1 y 50</string>
+    <string name="boton_verificar">Verificar</string>
+    <string name="introducir_numero_valido">Por favor, introduce un número válido.</string>
+    <string name="numero_mayor">El número es mayor.</string>
+    <string name="numero_menor">El número es menor.</string>
+    <string name="numero_correcto">¡Correcto! Introduce otro número para jugar de nuevo.</string>
+</resources>
