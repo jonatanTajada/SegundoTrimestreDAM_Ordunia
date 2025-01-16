@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.AñadirContactoControlador"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+  
+    <!-- Título -->
+    <Label text="Añadir Nuevo Contacto" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+  
+    <!-- Campos de entrada -->
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="100" />
+        </columnConstraints>
+      
+        <!-- Nombre -->
+        <Label text="Nombre:" />
+        <TextField fx:id="txtNombre" GridPane.columnIndex="1" />
+      
+        <!-- Correo -->
+        <Label text="Correo:" GridPane.rowIndex="1" />
+        <TextField fx:id="txtCorreo" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+      
+        <!-- Teléfono -->
+        <Label text="Teléfono:" GridPane.rowIndex="2" />
+        <TextField fx:id="txtTelefono" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+      
+        <!-- Sitio Web -->
+        <Label text="Sitio Web:" GridPane.rowIndex="3" />
+        <TextField fx:id="txtSitioWeb" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+      
+        <!-- Imagen -->
+        <Label text="Imagen:" GridPane.rowIndex="4" />
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <TextField fx:id="txtRutaImagen" promptText="Ruta de la imagen" />
+            <Button text="Seleccionar" onAction="#seleccionarImagen" />
+        </HBox>
+    </GridPane>
+  
+    <!-- Botones -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Guardar" onAction="#guardarContacto" />
+        <Button text="Cancelar" onAction="#cancelar" />
+    </HBox>
+</VBox>

@@ -1,0 +1,33 @@
+/* Botón verde principal */
+.boton-verde {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Estilo normal para etiquetas */
+.label-normal {
+    -fx-font-size: 18px;
+    -fx-text-fill: gray;
+}
+
+/* Estilo especial para etiquetas */
+.label-especial {
+    -fx-font-size: 18px;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+/* Botones adicionales */
+.boton-rojo {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+.boton-azul {
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}

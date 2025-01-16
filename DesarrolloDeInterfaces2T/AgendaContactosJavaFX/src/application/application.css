@@ -1,1 +1,61 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/* Estilo general */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f4f4f9;
+}
+
+/* Encabezado */
+.label {
+    -fx-text-fill: #333;
+}
+
+.label[style*="-fx-font-size: 24px;"] {
+    -fx-text-fill: #2c3e50;
+}
+
+/* Tabla */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.table-column {
+    -fx-font-size: 14px;
+}
+
+/* Panel lateral (detalles del contacto) */
+.vbox {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Imagen del perfil */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.2, 0, 0);
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Fondo general */
+.border-pane {
+    -fx-padding: 10px;
+    -fx-background-color: #ecf0f1;
+}
