@@ -1,3 +1,4 @@
+// Clase ManejadorCliente para gestionar la comunicacion entre un cliente y el servidor
 package com.chat.servidor;
 
 import java.io.*;
@@ -5,15 +6,16 @@ import java.net.Socket;
 
 public class ManejadorCliente implements Runnable {
 
-    private Socket clienteSocket;
-    private BufferedReader lector;
-    private PrintWriter escritor;
-    private Servidor servidor; // Referencia al servidor principal
-    private String nombreUsuario; // Nombre del usuario conectado
+    private Socket clienteSocket; 
+    private BufferedReader lector; 
+    private PrintWriter escritor; 
+    private Servidor servidor; 
+    private String nombreUsuario; 
 
+    // Constructor que inicializa la conexion del cliente con el servidor
     public ManejadorCliente(Socket clienteSocket, Servidor servidor) {
         this.clienteSocket = clienteSocket;
-        this.servidor = servidor; // Guardar referencia al servidor principal
+        this.servidor = servidor; 
 
         try {
             // Inicializar streams de entrada y salida
@@ -24,6 +26,7 @@ public class ManejadorCliente implements Runnable {
         }
     }
 
+    // Metodo que se ejecuta cuando el hilo inicia
     @Override
     public void run() {
         try {
@@ -34,7 +37,7 @@ public class ManejadorCliente implements Runnable {
                 return;
             }
 
-            // Agregar el usuario al servidor y notificar a los demás clientes
+            // Agregar el usuario al servidor y notificar a los demas clientes
             servidor.agregarUsuario(nombreUsuario, escritor);
 
             // Enviar mensaje de bienvenida al cliente
@@ -46,12 +49,12 @@ public class ManejadorCliente implements Runnable {
             // Escuchar mensajes del cliente
             while ((mensaje = lector.readLine()) != null) {
                 if (mensaje.startsWith("Global:")) {
-                    // Mensaje global
+                    // Manejar mensajes globales
                     String contenido = mensaje.replace("Global:", "").trim();
                     servidor.enviarMensaje(contenido, nombreUsuario, "Global");
                 } else if (mensaje.startsWith("@")) {
-                    // Mensaje privado
-                    int separador = mensaje.indexOf(":");
+                    // Manejar mensajes privados
+                    int separador = mensaje.indexOf("|");
                     if (separador > 0) {
                         String destinatario = mensaje.substring(1, separador).trim();
                         String contenido = mensaje.substring(separador + 1).trim();
@@ -60,12 +63,13 @@ public class ManejadorCliente implements Runnable {
                 }
             }
         } catch (IOException e) {
-            servidor.agregarLog("Error en la conexión con el cliente: " + e.getMessage());
+            servidor.agregarLog("Error en la conexion con el cliente: " + e.getMessage());
         } finally {
             cerrarConexion();
         }
     }
 
+    // Cierra la conexion del cliente con el servidor
     private void cerrarConexion() {
         try {
             if (lector != null) {
@@ -78,14 +82,14 @@ public class ManejadorCliente implements Runnable {
                 clienteSocket.close();
             }
 
-            // Eliminar al usuario del servidor y notificar a los demás clientes
+            // Eliminar al usuario del servidor y notificar a los demas clientes
             if (nombreUsuario != null && !nombreUsuario.trim().isEmpty()) {
                 servidor.eliminarUsuario(nombreUsuario);
             }
 
             servidor.agregarLog("Cliente desconectado: " + nombreUsuario);
         } catch (IOException e) {
-            servidor.agregarLog("Error al cerrar la conexión con el cliente: " + e.getMessage());
+            servidor.agregarLog("Error al cerrar la conexion con el cliente: " + e.getMessage());
         }
     }
 }
