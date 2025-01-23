@@ -1,7 +1,9 @@
 package com.gestorventasapp.view;
 
 import javax.swing.*;
+import com.gestorventasapp.util.EstiloUI;
 import java.awt.*;
+import java.net.URL;
 
 public class VistaPrincipal {
 
@@ -10,45 +12,74 @@ public class VistaPrincipal {
 	public VistaPrincipal() {
 		// Configuración de la ventana principal
 		ventana = new JFrame("Gestión de Negocio");
-		ventana.setSize(600, 400);
+		ventana.setSize(800, 600);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.setLayout(new GridLayout(2, 3, 10, 10)); // Diseño de rejilla para los botones
+		ventana.setLayout(new BorderLayout());
 
-		// Crear botones para cada módulo
-		JButton btnClientes = new JButton("Gestión de Clientes");
-		JButton btnVentas = new JButton("Gestión de Ventas");
-		JButton btnProductos = new JButton("Gestión de Productos");
-		JButton btnDetalles = new JButton("Gestión de Detalles de Ventas"); // NUEVO BOTÓN
-		JButton btnSalir = new JButton("Salir");
+		// Crear encabezado profesional
+		JPanel encabezado = EstiloUI.crearEncabezado("Gestión de Negocio");
+		ventana.add(encabezado, BorderLayout.NORTH);
 
-		// Aplicar cursor de mano para los botones
-		btnClientes.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnVentas.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnProductos.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnDetalles.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cursor para el botón nuevo
-		btnSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		// Crear panel central con botones de módulos
+		JPanel panelCentral = crearPanelCentral();
+		ventana.add(panelCentral, BorderLayout.CENTER);
 
-		// Añadir acciones a los botones
-		btnClientes.addActionListener(e -> abrirClientes());
-		btnVentas.addActionListener(e -> abrirVentas());
-		btnProductos.addActionListener(e -> abrirProductos());
-		btnDetalles.addActionListener(e -> abrirDetalles()); // Acción para DetalleVentaView
-		btnSalir.addActionListener(e -> System.exit(0));
+		// Crear pie de página con botón Salir
+		JPanel piePagina = crearPiePagina();
+		ventana.add(piePagina, BorderLayout.SOUTH);
 
-		// Añadir botones a la ventana
-		ventana.add(btnClientes);
-		ventana.add(btnVentas);
-		ventana.add(btnProductos);
-		ventana.add(btnDetalles); // Agregar el nuevo botón
-		ventana.add(new JLabel()); // Espacio vacío
-		ventana.add(btnSalir);
-
-		// Configuración final de la ventana
+		// Configuración final
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 	}
 
-	// Métodos para abrir los diferentes módulos
+	private JPanel crearPanelCentral() {
+		JPanel panelCentral = new JPanel(new GridLayout(2, 2, 20, 20));
+		panelCentral.setBackground(new Color(245, 245, 245)); // Gris claro
+		panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+		// Crear botones
+		JButton btnClientes = new JButton("Gestión de Clientes");
+		JButton btnVentas = new JButton("Gestión de Ventas");
+		JButton btnProductos = new JButton("Gestión de Productos");
+		JButton btnDetalles = new JButton("Gestión de Detalles de Ventas");
+
+		// Aplicar el nuevo estilo a los botones
+		EstiloUI.aplicarEstiloBotonWorkspace(btnClientes);
+		EstiloUI.aplicarEstiloBotonWorkspace(btnVentas);
+		EstiloUI.aplicarEstiloBotonWorkspace(btnProductos);
+		EstiloUI.aplicarEstiloBotonWorkspace(btnDetalles);
+
+		// Agregar acciones a los botones
+		btnClientes.addActionListener(e -> abrirClientes());
+		btnVentas.addActionListener(e -> abrirVentas());
+		btnProductos.addActionListener(e -> abrirProductos());
+		btnDetalles.addActionListener(e -> abrirDetalles());
+
+		// Agregar botones al panel
+		panelCentral.add(btnClientes);
+		panelCentral.add(btnVentas);
+		panelCentral.add(btnProductos);
+		panelCentral.add(btnDetalles);
+
+		return panelCentral;
+	}
+
+	private JPanel crearPiePagina() {
+		JPanel piePagina = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		piePagina.setBackground(new Color(245, 245, 245)); // Gris claro
+		piePagina.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		JButton btnSalir = new JButton("Salir");
+		EstiloUI.aplicarEstiloBoton(btnSalir); // Aplicar estilo uniforme
+
+		btnSalir.addActionListener(e -> System.exit(0));
+
+		piePagina.add(btnSalir);
+		return piePagina;
+	}
+
+	// Métodos para abrir los módulos
 	private void abrirClientes() {
 		new ClienteView();
 	}
@@ -61,7 +92,7 @@ public class VistaPrincipal {
 		new ProductoView();
 	}
 
-	private void abrirDetalles() { // NUEVO MÉTODO
+	private void abrirDetalles() {
 		new DetalleVentaView();
 	}
 

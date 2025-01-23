@@ -14,183 +14,186 @@ import java.util.List;
 
 public class VentaFormulario extends JDialog {
 
-    private JComboBox<Cliente> comboCliente;
-    private JTextField campoFecha;
-    private JButton btnGuardar;
-    private JButton btnCancelar;
-    private JButton btnNuevoCliente;
+	private JComboBox<Cliente> comboCliente;
+	private JTextField campoFecha;
+	private JButton btnGuardar;
+	private JButton btnCancelar;
+	private JButton btnNuevoCliente;
 
-    private VentaController ventaController;
-    private ClienteController clienteController;
-    private Venta venta;
-    private JFrame parent; 
+	private VentaController ventaController;
+	private ClienteController clienteController;
+	private Venta venta;
+	private JFrame parent;
 
-    // Constructor del formulario
-    public VentaFormulario(JFrame parent, String titulo, VentaController ventaController,
-                           ClienteController clienteController, Venta venta) {
-        super(parent, titulo, true);
-        this.parent=parent;
-        this.ventaController = ventaController;
-        this.clienteController = clienteController;
-        this.venta = venta;
+	// Constructor del formulario
+	public VentaFormulario(JFrame parent, String titulo, VentaController ventaController,
+			ClienteController clienteController, Runnable callbackActualizarTabla) {
+		super(parent, titulo, true);
+		this.ventaController = ventaController;
+		this.clienteController = clienteController;
+		this.callbackActualizarTabla = callbackActualizarTabla;
 
-        setSize(400, 300);
-        setResizable(false);
-        setLocationRelativeTo(parent);
-        setLayout(new BorderLayout());
+		// Configuración inicial del formulario
+		setSize(400, 300);
+		setResizable(false);
+		setLocationRelativeTo(parent);
+		setLayout(new BorderLayout());
 
-        // Crear y añadir paneles
-        add(crearPanelSuperior(), BorderLayout.NORTH);
-        add(crearPanelCentral(), BorderLayout.CENTER);
-        add(crearPanelInferior(), BorderLayout.SOUTH);
+		// Crear y añadir paneles
+		add(crearPanelSuperior(), BorderLayout.NORTH);
+		add(crearPanelCentral(), BorderLayout.CENTER);
+		add(crearPanelInferior(), BorderLayout.SOUTH);
 
-        if (venta == null) {
-            cargarClientes(); // Cargar clientes para nueva venta
-            campoFecha.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-        } else {
-            cargarDatosVenta(); // Cargar datos para actualizar venta
-        }
-    }
+		// Inicializar valores
+		if (venta == null) {
+			cargarClientes();
+			campoFecha.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		} else {
+			cargarDatosVenta();
+		}
+	}
 
-    // Crear el panel superior (Título)
-    private JPanel crearPanelSuperior() {
-        JPanel panelSuperior = new JPanel();
-        JLabel lblTitulo = new JLabel(venta == null ? "Agregar Venta" : "Actualizar Venta");
-        EstiloUI.aplicarEstiloTitulo(lblTitulo);
-        panelSuperior.add(lblTitulo);
-        return panelSuperior;
-    }
+//Propiedad del callback
+	private final Runnable callbackActualizarTabla;
 
-    // Crear el panel central (Formulario)
-    private JPanel crearPanelCentral() {
-        JPanel panelCentral = new JPanel(new GridLayout(3, 2, 10, 10));
-        panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+//Método para ejecutar el callback después de guardar/actualizar
+	private void ejecutarCallback() {
+		if (callbackActualizarTabla != null) {
+			callbackActualizarTabla.run();
+		}
+	}
 
-        JLabel lblCliente = new JLabel("Cliente:");
-        EstiloUI.aplicarEstiloFormulario(lblCliente);
+	// Crear el panel superior (Título)
+	private JPanel crearPanelSuperior() {
+		JPanel panelSuperior = new JPanel();
+		JLabel lblTitulo = new JLabel(venta == null ? "Agregar Venta" : "Actualizar Venta");
+		EstiloUI.aplicarEstiloEtiqueta(lblTitulo);
+		panelSuperior.add(lblTitulo);
+		return panelSuperior;
+	}
 
-        comboCliente = new JComboBox<>();
-        comboCliente.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
-                                                          boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof Cliente) {
-                    Cliente cliente = (Cliente) value;
-                    setText(cliente.getNombre() + " (" + cliente.getIdCliente() + ")");
-                    setToolTipText("Email: " + cliente.getEmail() + ", Teléfono: " + cliente.getTelefono());
-                }
-                return this;
-            }
-        });
+	// Crear el panel central (Formulario)
+	private JPanel crearPanelCentral() {
+		JPanel panelCentral = new JPanel(new GridLayout(3, 2, 10, 10));
+		panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        btnNuevoCliente = new JButton("Añadir Cliente");
-        EstiloUI.aplicarEstiloBoton(btnNuevoCliente);
-        btnNuevoCliente.addActionListener(e -> abrirFormularioCliente());
+		JLabel lblCliente = new JLabel("Cliente:");
+		EstiloUI.aplicarEstiloEtiqueta(lblCliente);
 
-        JLabel lblFecha = new JLabel("Fecha:");
-        EstiloUI.aplicarEstiloFormulario(lblFecha);
-        campoFecha = new JTextField();
+		comboCliente = new JComboBox<>();
+		comboCliente.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (value instanceof Cliente) {
+					Cliente cliente = (Cliente) value;
+					setText(cliente.getNombre() + " (" + cliente.getIdCliente() + ")");
+					setToolTipText("Email: " + cliente.getEmail() + ", Teléfono: " + cliente.getTelefono());
+				}
+				return this;
+			}
+		});
 
-        panelCentral.add(lblCliente);
-        panelCentral.add(comboCliente);
-        panelCentral.add(new JLabel()); // Espacio en blanco
-        panelCentral.add(btnNuevoCliente);
-        panelCentral.add(lblFecha);
-        panelCentral.add(campoFecha);
+		btnNuevoCliente = new JButton("Añadir Cliente");
+		EstiloUI.aplicarEstiloBoton(btnNuevoCliente);
+		btnNuevoCliente.addActionListener(e -> abrirFormularioCliente());
 
-        return panelCentral;
-    }
+		JLabel lblFecha = new JLabel("Fecha:");
+		EstiloUI.aplicarEstiloEtiqueta(lblFecha);
+		campoFecha = new JTextField();
 
-    // Crear el panel inferior (Botones)
-    private JPanel crearPanelInferior() {
-        JPanel panelInferior = new JPanel(new FlowLayout());
+		panelCentral.add(lblCliente);
+		panelCentral.add(comboCliente);
+		panelCentral.add(new JLabel()); // Espacio en blanco
+		panelCentral.add(btnNuevoCliente);
+		panelCentral.add(lblFecha);
+		panelCentral.add(campoFecha);
 
-        btnGuardar = new JButton("Guardar");
-        btnCancelar = new JButton("Cancelar");
+		return panelCentral;
+	}
 
-        EstiloUI.aplicarEstiloBoton(btnGuardar);
-        EstiloUI.aplicarEstiloBoton(btnCancelar);
+	// Crear el panel inferior (Botones)
+	private JPanel crearPanelInferior() {
+		JPanel panelInferior = new JPanel(new FlowLayout());
 
-        btnGuardar.addActionListener(e -> guardarVenta());
-        btnCancelar.addActionListener(e -> dispose());
+		btnGuardar = new JButton("Guardar");
+		btnCancelar = new JButton("Cancelar");
 
-        panelInferior.add(btnGuardar);
-        panelInferior.add(btnCancelar);
+		EstiloUI.aplicarEstiloBoton(btnGuardar);
+		EstiloUI.aplicarEstiloBoton(btnCancelar);
 
-        return panelInferior;
-    }
+		btnGuardar.addActionListener(e -> guardarVenta());
+		btnCancelar.addActionListener(e -> dispose());
 
-    // Cargar los clientes en el combo
-    private void cargarClientes() {
-        comboCliente.removeAllItems();
-        List<Cliente> clientes = clienteController.getAllClientes();
-        for (Cliente cliente : clientes) {
-            comboCliente.addItem(cliente);
-        }
-    }
+		panelInferior.add(btnGuardar);
+		panelInferior.add(btnCancelar);
 
-    // Cargar los datos de una venta existente
-    private void cargarDatosVenta() {
-        cargarClientes(); // Asegurarse de que el combo esté lleno
-        comboCliente.setSelectedItem(venta.getCliente());
-        campoFecha.setText(venta.getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-    }
+		return panelInferior;
+	}
 
-    // Guardar o actualizar la venta
- // Guardar o actualizar la venta
-    private void guardarVenta() {
-        try {
-            Cliente clienteSeleccionado = (Cliente) comboCliente.getSelectedItem();
-            if (clienteSeleccionado == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione un cliente.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+	// Cargar los clientes en el combo
+	private void cargarClientes() {
+		comboCliente.removeAllItems();
+		List<Cliente> clientes = clienteController.getAllClientes();
+		for (Cliente cliente : clientes) {
+			comboCliente.addItem(cliente);
+		}
+	}
 
-            LocalDateTime fecha = LocalDateTime.parse(
-                campoFecha.getText(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-            );
+	// Cargar los datos de una venta existente
+	private void cargarDatosVenta() {
+		cargarClientes(); // Asegurarse de que el combo esté lleno
+		comboCliente.setSelectedItem(venta.getCliente());
+		campoFecha.setText(venta.getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+	}
 
-            if (venta == null) { // Crear nueva venta
-                String mensaje = ventaController.addVenta(clienteSeleccionado, fecha);
-                JOptionPane.showMessageDialog(this, mensaje);
-            } else { // Actualizar venta existente
-                venta.setCliente(clienteSeleccionado);
-                venta.setFecha(fecha);
-                String mensaje = ventaController.updateVenta(venta.getIdVenta(), clienteSeleccionado, fecha);
-                JOptionPane.showMessageDialog(this, mensaje);
-            }
+	// Guardar o actualizar la venta
+	// Guardar o actualizar la venta
+	private void guardarVenta() {
+		try {
+			Cliente clienteSeleccionado = (Cliente) comboCliente.getSelectedItem();
+			if (clienteSeleccionado == null) {
+				JOptionPane.showMessageDialog(this, "Seleccione un cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
-            // Cerrar la ventana actual
-            dispose();
+			LocalDateTime fecha = LocalDateTime.parse(campoFecha.getText(),
+					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-            // Cerrar todas las ventanas excepto la principal
-            for (Frame frame : Frame.getFrames()) {
-                if (frame instanceof JFrame && frame != parent) {
-                    frame.dispose(); // Cierra las ventanas secundarias
-                }
-            }
+			if (venta == null) { // Crear nueva venta
+				String mensaje = ventaController.addVenta(clienteSeleccionado, fecha);
+				JOptionPane.showMessageDialog(this, mensaje);
+			} else { // Actualizar venta existente
+				venta.setCliente(clienteSeleccionado);
+				venta.setFecha(fecha);
+				String mensaje = ventaController.updateVenta(venta.getIdVenta(), clienteSeleccionado, fecha);
+				JOptionPane.showMessageDialog(this, mensaje);
+			}
 
+			// Cerrar la ventana actual
+			dispose();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la venta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+			// Cerrar todas las ventanas excepto la principal
+			for (Frame frame : Frame.getFrames()) {
+				if (frame instanceof JFrame && frame != parent) {
+					frame.dispose(); // Cierra las ventanas secundarias
+				}
+			}
 
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al guardar la venta: " + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
-
-
-    // Abrir formulario para agregar cliente
- // Abrir formulario para agregar cliente
-    private void abrirFormularioCliente() {
-        ClienteFormularioAgregar formularioCliente = new ClienteFormularioAgregar(
-            this,
-            "Agregar Cliente",
-            clienteController,
-            this::cargarClientes // Callback para recargar la lista después de agregar cliente
-        );
-        formularioCliente.setVisible(true);
-    }
+	// Abrir formulario para agregar cliente
+	// Abrir formulario para agregar cliente
+	private void abrirFormularioCliente() {
+		ClienteFormularioAgregar formularioCliente = new ClienteFormularioAgregar(this, "Agregar Cliente",
+				clienteController, this::cargarClientes // Callback para recargar la lista después de agregar cliente
+		);
+		formularioCliente.setVisible(true);
+	}
 
 }

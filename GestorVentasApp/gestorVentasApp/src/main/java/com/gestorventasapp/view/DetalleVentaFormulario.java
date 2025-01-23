@@ -51,7 +51,7 @@ public class DetalleVentaFormulario extends JDialog {
 		JPanel panelSuperior = new JPanel();
 		JLabel lblTitulo = new JLabel("Detalle de Venta");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		EstiloUI.aplicarEstiloTitulo(lblTitulo);
+		EstiloUI.aplicarEstiloEtiqueta(lblTitulo);
 		panelSuperior.add(lblTitulo);
 		return panelSuperior;
 	}
@@ -62,23 +62,23 @@ public class DetalleVentaFormulario extends JDialog {
 		panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 		JLabel lblProducto = new JLabel("Producto:");
-		EstiloUI.aplicarEstiloFormulario(lblProducto);
+		EstiloUI.aplicarEstiloEtiqueta(lblProducto);
 
 		comboProducto = new JComboBox<>();
 		cargarProductos(); // Cargar productos en el combo
 		comboProducto.addActionListener(e -> calcularSubtotal()); // Recalcular subtotal al seleccionar producto
 
 		JLabel lblCantidad = new JLabel("Cantidad:");
-		EstiloUI.aplicarEstiloFormulario(lblCantidad);
+		EstiloUI.aplicarEstiloEtiqueta(lblCantidad);
 
 		campoCantidad = new JTextField();
 		campoCantidad.addCaretListener(e -> calcularSubtotal()); // Recalcular subtotal al cambiar cantidad
 
 		JLabel lblSubtotalText = new JLabel("Subtotal:");
-		EstiloUI.aplicarEstiloFormulario(lblSubtotalText);
+		EstiloUI.aplicarEstiloEtiqueta(lblSubtotalText);
 
 		lblSubtotal = new JLabel("0.00");
-		EstiloUI.aplicarEstiloFormulario(lblSubtotal);
+		EstiloUI.aplicarEstiloEtiqueta(lblSubtotal);
 
 		panelCentral.add(lblProducto);
 		panelCentral.add(comboProducto);

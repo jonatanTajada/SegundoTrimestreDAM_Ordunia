@@ -42,15 +42,15 @@ public class ClienteFormularioAgregar extends JDialog {
 		panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 		JLabel lblNombre = new JLabel("Nombre:");
-		EstiloUI.aplicarEstiloFormulario(lblNombre);
+		EstiloUI.aplicarEstiloEtiqueta (lblNombre);
 		campoNombre = new JTextField();
 
 		JLabel lblEmail = new JLabel("Email:");
-		EstiloUI.aplicarEstiloFormulario(lblEmail);
+		EstiloUI.aplicarEstiloEtiqueta(lblEmail);
 		campoEmail = new JTextField();
 
 		JLabel lblTelefono = new JLabel("Teléfono:");
-		EstiloUI.aplicarEstiloFormulario(lblTelefono);
+		EstiloUI.aplicarEstiloEtiqueta(lblTelefono);
 		campoTelefono = new JTextField();
 
 		panelCentral.add(lblNombre);
