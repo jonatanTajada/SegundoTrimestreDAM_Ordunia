@@ -1,14 +1,15 @@
 package com.gestorventasapp.view;
 
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import com.gestorventasapp.controller.DetalleVentaController;
 import com.gestorventasapp.controller.ProductoController;
 import com.gestorventasapp.model.DetalleVenta;
 import com.gestorventasapp.model.Venta;
 import com.gestorventasapp.util.EstiloUI;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
 public class DetalleVentaView extends ModuloBaseView {
 
@@ -19,6 +20,7 @@ public class DetalleVentaView extends ModuloBaseView {
 	public DetalleVentaView() {
 		super("Gestión de Detalles de Ventas",
 				new String[] { "ID Detalle", "Producto", "Cantidad", "Precio", "Subtotal" });
+
 		detalleVentaController = new DetalleVentaController();
 		productoController = new ProductoController();
 
@@ -26,9 +28,7 @@ public class DetalleVentaView extends ModuloBaseView {
 		ventana.setJMenuBar(EstiloUI.crearBarraMenu(ventana));
 
 		// Configurar SwingWorker para cargar datos en segundo plano
-		ejecutarSwingWorker(() -> cargarDatosTabla(), // Tarea en segundo plano
-				null // No se requiere tarea adicional después de cargar
-		);
+		ejecutarSwingWorker(() -> cargarDatosTabla(), null);
 	}
 
 	public void setVentaSeleccionada(Venta venta) {
@@ -46,6 +46,11 @@ public class DetalleVentaView extends ModuloBaseView {
 		EstiloUI.aplicarEstiloBoton(btnEliminar);
 		EstiloUI.aplicarEstiloBoton(btnActualizar);
 
+		// Configurar tooltips
+		EstiloUI.configurarToolTip(btnAgregar, "Añadir un nuevo detalle de venta.");
+		EstiloUI.configurarToolTip(btnEliminar, "Eliminar el detalle seleccionado.");
+		EstiloUI.configurarToolTip(btnActualizar, "Actualizar la tabla con los datos más recientes.");
+
 		// Configurar acciones de los botones
 		btnAgregar.addActionListener(e -> accionAgregarDetalle());
 		btnEliminar.addActionListener(e -> accionEliminarDetalle());
@@ -58,7 +63,6 @@ public class DetalleVentaView extends ModuloBaseView {
 	}
 
 	private void cargarDatosTabla() {
-		// Cargar detalles de ventas desde el controlador
 		List<DetalleVenta> detalles = detalleVentaController.getAllDetalleVentas();
 		Object[][] datos = detalles.stream().map(d -> new Object[] { d.getIdDetalle(), d.getProducto().getNombre(),
 				d.getCantidad(), d.getProducto().getPrecio(), d.getSubtotal() }).toArray(Object[][]::new);
@@ -66,13 +70,8 @@ public class DetalleVentaView extends ModuloBaseView {
 	}
 
 	private void accionAgregarDetalle() {
-		DetalleVentaFormulario formulario = new DetalleVentaFormulario(ventana, // JFrame principal
-				"Agregar Detalle", // Título
-				detalleVentaController, // Controlador de detalles
-				productoController, // Controlador de productos
-				ventaSeleccionada, // Venta asociada (debe estar definida)
-				this::cargarDatosTabla // Callback para actualizar la tabla
-		);
+		DetalleVentaFormulario formulario = new DetalleVentaFormulario(ventana, "Agregar Detalle",
+				detalleVentaController, productoController, ventaSeleccionada, this::cargarDatosTabla);
 		formulario.setVisible(true);
 	}
 
@@ -91,7 +90,7 @@ public class DetalleVentaView extends ModuloBaseView {
 
 	@Override
 	protected void cargarDatosOriginales() {
-		cargarDatosTabla(); // Cargar los datos originales (sin filtro)
+		cargarDatosTabla();
 	}
 
 	@Override

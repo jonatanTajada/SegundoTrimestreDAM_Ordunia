@@ -11,44 +11,58 @@ public abstract class ModuloBaseView {
 	protected DefaultTableModel modeloTabla;
 	protected JPanel panelBotones;
 	protected JTextField campoBuscador; // Campo de texto para el buscador dinámico
+	protected JMenuBar barraMenu; // Barra de menú
 
 	public ModuloBaseView(String titulo, String[] columnas) {
 		// Configurar ventana principal del módulo
 		ventana = new JFrame(titulo);
 		ventana.setSize(800, 600);
 		ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		ventana.setLayout(new BorderLayout());
 
-		// Crear panel superior para incluir encabezado y buscador
-		JPanel panelSuperior = new JPanel();
-		panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
+		// Usar GridBagLayout para permitir ajuste dinámico
+		JPanel contenedor = new JPanel(new GridBagLayout());
+		ventana.setContentPane(contenedor);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10); // Margen entre componentes
 
-		// Agregar encabezado
+		// Agregar barra de menú
+		barraMenu = EstiloUI.crearBarraMenu(ventana);
+		ventana.setJMenuBar(barraMenu);
+
+		// Encabezado
 		JPanel encabezado = EstiloUI.crearEncabezado(titulo);
-		panelSuperior.add(encabezado);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1.0;
+		gbc.weighty = 0.05; // Ocupa un 5% del espacio vertical
+		gbc.fill = GridBagConstraints.BOTH;
+		contenedor.add(encabezado, gbc);
 
-		// Agregar buscador dinámico
+		// Buscador dinámico
 		campoBuscador = new JTextField();
 		JPanel panelBuscador = EstiloUI.crearPanelBuscadorDinamico("Buscar:", campoBuscador);
-		panelSuperior.add(panelBuscador);
+		gbc.gridy = 1;
+		gbc.weighty = 0.05; // Ocupa un 5% del espacio vertical
+		contenedor.add(panelBuscador, gbc);
 
-		// Añadir el panel superior al norte de la ventana
-		ventana.add(panelSuperior, BorderLayout.NORTH);
-
-		// Configurar la tabla y su contenedor
+		// Tabla
 		modeloTabla = new DefaultTableModel(columnas, 0);
 		tabla = new JTable(modeloTabla);
-		EstiloUI.configurarEstiloTabla(tabla); // Aplicar estilo personalizado a la tabla
+		EstiloUI.configurarEstiloTabla(tabla);
 		JScrollPane scrollPane = new JScrollPane(tabla);
-		ventana.add(scrollPane, BorderLayout.CENTER);
+		gbc.gridy = 3; // Cambiar posición para dejar espacio al indicador de carga
+		gbc.weighty = 0.7; // Ocupa un 70% del espacio vertical
+		contenedor.add(scrollPane, gbc);
 
-		// Configurar panel de botones
-		panelBotones = new JPanel(new FlowLayout());
-		EstiloUI.aplicarEstiloPanelBotones(panelBotones); // Estilo uniforme para botones
+		// Panel de botones
+		panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		EstiloUI.aplicarEstiloPanelBotones(panelBotones);
 		inicializarBotones();
-		ventana.add(panelBotones, BorderLayout.SOUTH);
+		gbc.gridy = 4;
+		gbc.weighty = 0.15; // Ocupa un 15% del espacio vertical
+		contenedor.add(panelBotones, gbc);
 
-		// Mostrar la ventana por defecto
+		// Configurar la ventana para que los componentes se ajusten al redimensionar
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 
@@ -139,36 +153,72 @@ public abstract class ModuloBaseView {
 	 * @return Matriz de objetos con los datos filtrados.
 	 */
 	protected abstract Object[][] obtenerDatosFiltrados(String textoFiltro);
-	
+
+	/**
+	 * Ejecuta una tarea en segundo plano utilizando SwingWorker.
+	 * 
+	 * @param tareaEnSegundoPlano  Tarea que se ejecutará en segundo plano.
+	 * @param tareaDespuesDeCargar Tarea que se ejecutará después de completar la
+	 *                             carga.
+	 */
 	protected void ejecutarSwingWorker(Runnable tareaEnSegundoPlano, Runnable tareaDespuesDeCargar) {
-	    // Mostrar un indicador de carga en la parte superior de la ventana
-	    JLabel lblCargando = new JLabel("Cargando datos...");
-	    lblCargando.setHorizontalAlignment(SwingConstants.CENTER);
-	    ventana.add(lblCargando, BorderLayout.CENTER);
-	    ventana.revalidate();
-	    ventana.repaint();
+		// Crear un JPanel como contenedor para el indicador de carga y barra de
+		// progreso
+		JPanel panelCargando = new JPanel();
+		panelCargando.setLayout(new BoxLayout(panelCargando, BoxLayout.Y_AXIS));
+		panelCargando.setOpaque(false);
 
-	    // Ejecutar la tarea en segundo plano con SwingWorker
-	    new SwingWorker<Void, Void>() {
-	        @Override
-	        protected Void doInBackground() throws Exception {
-	            tareaEnSegundoPlano.run();
-	            return null;
-	        }
+		// Crear un JLabel para el texto "Cargando datos..."
+		JLabel lblCargando = new JLabel("Cargando datos...");
+		lblCargando.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblCargando.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-	        @Override
-	        protected void done() {
-	            // Eliminar el indicador de carga
-	            ventana.remove(lblCargando);
-	            ventana.revalidate();
-	            ventana.repaint();
+		// Crear una barra de progreso indeterminada
+		JProgressBar barraProgreso = new JProgressBar();
+		barraProgreso.setIndeterminate(true);
+		barraProgreso.setPreferredSize(new Dimension(200, 15));
+		barraProgreso.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-	            // Ejecutar cualquier tarea después de cargar (si se proporciona)
-	            if (tareaDespuesDeCargar != null) {
-	                tareaDespuesDeCargar.run();
-	            }
-	        }
-	    }.execute();
+		// Añadir el texto y la barra de progreso al panel
+		panelCargando.add(lblCargando);
+		panelCargando.add(Box.createRigidArea(new Dimension(0, 10))); // Espaciado entre componentes
+		panelCargando.add(barraProgreso);
+
+		// Configurar constraints para el indicador de carga
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 2; // Justo entre el buscador y la tabla
+		gbc.gridwidth = 1;
+		gbc.weightx = 1.0;
+		gbc.weighty = 0.0; // No ocupar espacio vertical extra
+		gbc.anchor = GridBagConstraints.CENTER;
+
+		// Añadir el panel de carga al contenedor
+		Container contenedor = ventana.getContentPane();
+		contenedor.add(panelCargando, gbc);
+		ventana.revalidate();
+		ventana.repaint();
+
+		// Ejecutar la tarea en segundo plano
+		new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				tareaEnSegundoPlano.run();
+				return null;
+			}
+
+			@Override
+			protected void done() {
+				// Eliminar el panel de carga
+				contenedor.remove(panelCargando);
+				ventana.revalidate();
+				ventana.repaint();
+
+				// Ejecutar cualquier tarea después de cargar (si se proporciona)
+				if (tareaDespuesDeCargar != null) {
+					tareaDespuesDeCargar.run();
+				}
+			}
+		}.execute();
 	}
-
 }

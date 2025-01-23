@@ -40,6 +40,12 @@ public class VentaView extends ModuloBaseView {
 		EstiloUI.aplicarEstiloBoton(btnActualizar);
 		EstiloUI.aplicarEstiloBoton(btnVerDetalles);
 
+		// Configurar tooltips en los botones
+		EstiloUI.configurarToolTip(btnAgregar, "Añadir una nueva venta al sistema");
+		EstiloUI.configurarToolTip(btnEliminar, "Eliminar la venta seleccionada");
+		EstiloUI.configurarToolTip(btnActualizar, "Actualizar los datos de la tabla de ventas");
+		EstiloUI.configurarToolTip(btnVerDetalles, "Ver los detalles de la venta seleccionada");
+
 		// Agregar acciones
 		btnAgregar.addActionListener(e -> accionAgregarVenta());
 		btnEliminar.addActionListener(e -> accionEliminarVenta());
@@ -55,13 +61,9 @@ public class VentaView extends ModuloBaseView {
 
 	private void cargarDatosTabla() {
 		List<Venta> ventas = ventaController.getAllVentas();
-		Object[][] datos = ventas.stream()
-				.map(v -> new Object[] { v.getIdVenta(), v.getCliente().getNombre(), v.getFecha(), calcularTotalVenta(v) // Formatear
-																															// total
-																															// con
-																															// dos
-																															// decimales
-				}).toArray(Object[][]::new);
+		Object[][] datos = ventas.stream().map(
+				v -> new Object[] { v.getIdVenta(), v.getCliente().getNombre(), v.getFecha(), calcularTotalVenta(v) })
+				.toArray(Object[][]::new);
 		actualizarTabla(datos);
 	}
 

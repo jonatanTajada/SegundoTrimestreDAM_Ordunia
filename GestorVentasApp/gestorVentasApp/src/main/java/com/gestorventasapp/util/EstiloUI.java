@@ -328,6 +328,14 @@ public class EstiloUI {
         return barraMenu;
     }
 
+   
+    // Método para configurar tooltips de cualquier componente
+    public static void configurarToolTip(JComponent componente, String texto) {
+        componente.setToolTipText(texto);
+        ToolTipManager.sharedInstance().setInitialDelay(100); // Reducir el tiempo de espera para mostrar
+        ToolTipManager.sharedInstance().setDismissDelay(5000); // Aumentar tiempo visible del tooltip
+    }
 
+    
 	
 }
