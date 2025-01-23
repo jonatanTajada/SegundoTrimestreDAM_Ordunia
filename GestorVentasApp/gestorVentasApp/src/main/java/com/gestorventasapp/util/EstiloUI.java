@@ -5,6 +5,12 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+
+import com.gestorventasapp.view.ClienteView;
+import com.gestorventasapp.view.DetalleVentaView;
+import com.gestorventasapp.view.ProductoView;
+import com.gestorventasapp.view.VentaView;
+
 import java.awt.*;
 
 public class EstiloUI {
@@ -279,6 +285,49 @@ public class EstiloUI {
 
         return panelBuscador;
     }
+
+    /**
+     * Crea una barra de menú común para las vistas principales de la aplicación.
+     * La barra incluye opciones para acceder a los módulos de gestión y un apartado de ayuda.
+     *
+     * @param ventana La ventana (JFrame) en la que se añadirá la barra de menú.
+     * @return JMenuBar configurado con las opciones de la aplicación.
+     */
+    public static JMenuBar crearBarraMenu(JFrame ventana) {
+        JMenuBar barraMenu = new JMenuBar();
+
+        // Menú "Gestión"
+        JMenu menuGestion = new JMenu("Gestión");
+        JMenuItem menuClientes = new JMenuItem("Clientes");
+        JMenuItem menuVentas = new JMenuItem("Ventas");
+        JMenuItem menuProductos = new JMenuItem("Productos");
+        JMenuItem menuDetalles = new JMenuItem("Detalles de Ventas");
+
+        // Agregar acciones a los elementos
+        menuClientes.addActionListener(e -> new ClienteView().mostrar());
+        menuVentas.addActionListener(e -> new VentaView().mostrar());
+        menuProductos.addActionListener(e -> new ProductoView().mostrar());
+        menuDetalles.addActionListener(e -> new DetalleVentaView().mostrar());
+
+        // Añadir elementos al menú
+        menuGestion.add(menuClientes);
+        menuGestion.add(menuVentas);
+        menuGestion.add(menuProductos);
+        menuGestion.add(menuDetalles);
+
+        barraMenu.add(menuGestion);
+
+        // Menú "Ayuda"
+        JMenu menuAyuda = new JMenu("Ayuda");
+        JMenuItem menuAcercaDe = new JMenuItem("Acerca de");
+        menuAcercaDe.addActionListener(e -> JOptionPane.showMessageDialog(ventana, "Gestión de Negocio v1.0"));
+        menuAyuda.add(menuAcercaDe);
+
+        barraMenu.add(menuAyuda);
+
+        return barraMenu;
+    }
+
 
 	
 }

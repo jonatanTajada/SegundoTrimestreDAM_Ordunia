@@ -17,8 +17,11 @@ public class VistaPrincipal {
 		ventana.setLayout(new BorderLayout());
 
 		// Crear encabezado profesional
-		JPanel encabezado = EstiloUI.crearEncabezado("Gestión de Negocio");
+		JPanel encabezado = crearEncabezado();
 		ventana.add(encabezado, BorderLayout.NORTH);
+
+		// Crear barra de menú
+		ventana.setJMenuBar(EstiloUI.crearBarraMenu(ventana));
 
 		// Crear panel central con botones de módulos
 		JPanel panelCentral = crearPanelCentral();
@@ -31,6 +34,31 @@ public class VistaPrincipal {
 		// Configuración final
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
+	}
+
+	private JPanel crearEncabezado() {
+		JPanel panelEncabezado = new JPanel(new BorderLayout());
+		panelEncabezado.setBackground(new Color(70, 130, 180)); // Azul suave
+		panelEncabezado.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		// Título centrado
+		JLabel titulo = new JLabel("Gestión de Negocio", SwingConstants.CENTER);
+		titulo.setFont(new Font("Arial", Font.BOLD, 24));
+		titulo.setForeground(Color.WHITE);
+
+		// Logo a la derecha
+		URL logoURL = getClass().getResource("/logo.jpg");
+		JLabel lblLogo = new JLabel();
+		if (logoURL != null) {
+			ImageIcon logo = new ImageIcon(
+					new ImageIcon(logoURL).getImage().getScaledInstance(100, 50, Image.SCALE_SMOOTH));
+			lblLogo.setIcon(logo);
+		}
+
+		panelEncabezado.add(titulo, BorderLayout.CENTER);
+		panelEncabezado.add(lblLogo, BorderLayout.EAST);
+
+		return panelEncabezado;
 	}
 
 	private JPanel crearPanelCentral() {
@@ -71,8 +99,7 @@ public class VistaPrincipal {
 		piePagina.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		JButton btnSalir = new JButton("Salir");
-		EstiloUI.aplicarEstiloBoton(btnSalir); // Aplicar estilo uniforme
-
+		EstiloUI.aplicarEstiloBoton(btnSalir); // Aplicar estilo unificado
 		btnSalir.addActionListener(e -> System.exit(0));
 
 		piePagina.add(btnSalir);

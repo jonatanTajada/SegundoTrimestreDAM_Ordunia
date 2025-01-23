@@ -17,6 +17,9 @@ public class ProductoView extends ModuloBaseView {
 		super("Gestión de Productos", new String[] { "ID", "Nombre", "Precio", "Stock" });
 		productoController = new ProductoController();
 
+		// Agregar la barra de menú
+		ventana.setJMenuBar(EstiloUI.crearBarraMenu(ventana));
+
 		// Configurar SwingWorker para cargar datos en segundo plano
 		ejecutarSwingWorker(() -> {
 			productosOriginales = productoController.getAllProducts(); // Cargar datos originales

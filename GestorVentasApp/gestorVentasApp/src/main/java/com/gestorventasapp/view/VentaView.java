@@ -10,126 +10,116 @@ import java.util.List;
 
 public class VentaView extends ModuloBaseView {
 
-    private VentaController ventaController;
-    private ClienteController clienteController;
+	private VentaController ventaController;
+	private ClienteController clienteController;
 
-    public VentaView() {
-        super("Gestión de Ventas", new String[] { "ID Venta", "Cliente", "Fecha", "Total" });
-        ventaController = new VentaController();
-        clienteController = new ClienteController();
+	public VentaView() {
+		super("Gestión de Ventas", new String[] { "ID Venta", "Cliente", "Fecha", "Total" });
+		ventaController = new VentaController();
+		clienteController = new ClienteController();
 
-        // Configurar SwingWorker para cargar datos en segundo plano
-        ejecutarSwingWorker(
-            () -> cargarDatosTabla(), // Tarea en segundo plano
-            null // No se requiere tarea adicional después de cargar
-        );
-    }
+		// Agregar la barra de menú
+		ventana.setJMenuBar(EstiloUI.crearBarraMenu(ventana));
 
-    @Override
-    protected void inicializarBotones() {
-        JButton btnAgregar = new JButton("Agregar Venta");
-        JButton btnEliminar = new JButton("Eliminar Venta");
-        JButton btnActualizar = new JButton("Actualizar Tabla");
-        JButton btnVerDetalles = new JButton("Ver Detalles");
+		// Configurar SwingWorker para cargar datos en segundo plano
+		ejecutarSwingWorker(() -> cargarDatosTabla(), // Tarea en segundo plano
+				null // No se requiere tarea adicional después de cargar
+		);
+	}
 
-        // Aplicar estilos a los botones
-        EstiloUI.aplicarEstiloBoton(btnAgregar);
-        EstiloUI.aplicarEstiloBoton(btnEliminar);
-        EstiloUI.aplicarEstiloBoton(btnActualizar);
-        EstiloUI.aplicarEstiloBoton(btnVerDetalles);
+	@Override
+	protected void inicializarBotones() {
+		JButton btnAgregar = new JButton("Agregar Venta");
+		JButton btnEliminar = new JButton("Eliminar Venta");
+		JButton btnActualizar = new JButton("Actualizar Tabla");
+		JButton btnVerDetalles = new JButton("Ver Detalles");
 
-        // Agregar acciones
-        btnAgregar.addActionListener(e -> accionAgregarVenta());
-        btnEliminar.addActionListener(e -> accionEliminarVenta());
-        btnActualizar.addActionListener(e -> cargarDatosTabla());
-        btnVerDetalles.addActionListener(e -> abrirDetalleVenta());
+		// Aplicar estilos a los botones
+		EstiloUI.aplicarEstiloBoton(btnAgregar);
+		EstiloUI.aplicarEstiloBoton(btnEliminar);
+		EstiloUI.aplicarEstiloBoton(btnActualizar);
+		EstiloUI.aplicarEstiloBoton(btnVerDetalles);
 
-        // Agregar los botones al panel
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnActualizar);
-        panelBotones.add(btnVerDetalles);
-    }
+		// Agregar acciones
+		btnAgregar.addActionListener(e -> accionAgregarVenta());
+		btnEliminar.addActionListener(e -> accionEliminarVenta());
+		btnActualizar.addActionListener(e -> cargarDatosTabla());
+		btnVerDetalles.addActionListener(e -> abrirDetalleVenta());
 
-    private void cargarDatosTabla() {
-        List<Venta> ventas = ventaController.getAllVentas();
-        Object[][] datos = ventas.stream()
-            .map(v -> new Object[] {
-                v.getIdVenta(),
-                v.getCliente().getNombre(),
-                v.getFecha(),
-                calcularTotalVenta(v) // Formatear total con dos decimales
-            })
-            .toArray(Object[][]::new);
-        actualizarTabla(datos);
-    }
+		// Agregar los botones al panel
+		panelBotones.add(btnAgregar);
+		panelBotones.add(btnEliminar);
+		panelBotones.add(btnActualizar);
+		panelBotones.add(btnVerDetalles);
+	}
 
-    private void accionAgregarVenta() {
-        VentaFormulario formulario = new VentaFormulario(
-            ventana,
-            "Agregar Venta",
-            ventaController,
-            clienteController,
-            this::cargarDatosTabla // Callback para actualizar la tabla
-        );
-        formulario.setVisible(true);
-    }
+	private void cargarDatosTabla() {
+		List<Venta> ventas = ventaController.getAllVentas();
+		Object[][] datos = ventas.stream()
+				.map(v -> new Object[] { v.getIdVenta(), v.getCliente().getNombre(), v.getFecha(), calcularTotalVenta(v) // Formatear
+																															// total
+																															// con
+																															// dos
+																															// decimales
+				}).toArray(Object[][]::new);
+		actualizarTabla(datos);
+	}
 
-    private void accionEliminarVenta() {
-        int filaSeleccionada = tabla.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(ventana, "Seleccione una venta para eliminar.");
-            return;
-        }
+	private void accionAgregarVenta() {
+		VentaFormulario formulario = new VentaFormulario(ventana, "Agregar Venta", ventaController, clienteController,
+				this::cargarDatosTabla // Callback para actualizar la tabla
+		);
+		formulario.setVisible(true);
+	}
 
-        int idVenta = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
-        String mensaje = ventaController.deleteVenta(idVenta);
-        JOptionPane.showMessageDialog(ventana, mensaje);
-        cargarDatosTabla();
-    }
+	private void accionEliminarVenta() {
+		int filaSeleccionada = tabla.getSelectedRow();
+		if (filaSeleccionada == -1) {
+			JOptionPane.showMessageDialog(ventana, "Seleccione una venta para eliminar.");
+			return;
+		}
 
-    private String calcularTotalVenta(Venta venta) {
-        double total = venta.getDetallesVenta().stream()
-            .mapToDouble(detalle -> detalle.getCantidad() * detalle.getPrecioUnitario())
-            .sum();
-        return String.format("%.2f", total);
-    }
+		int idVenta = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+		String mensaje = ventaController.deleteVenta(idVenta);
+		JOptionPane.showMessageDialog(ventana, mensaje);
+		cargarDatosTabla();
+	}
 
-    private void abrirDetalleVenta() {
-        int filaSeleccionada = tabla.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(ventana, "Seleccione una venta para ver los detalles.");
-            return;
-        }
+	private String calcularTotalVenta(Venta venta) {
+		double total = venta.getDetallesVenta().stream()
+				.mapToDouble(detalle -> detalle.getCantidad() * detalle.getPrecioUnitario()).sum();
+		return String.format("%.2f", total);
+	}
 
-        int idVenta = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
-        Venta ventaSeleccionada = ventaController.getVentaById(idVenta);
+	private void abrirDetalleVenta() {
+		int filaSeleccionada = tabla.getSelectedRow();
+		if (filaSeleccionada == -1) {
+			JOptionPane.showMessageDialog(ventana, "Seleccione una venta para ver los detalles.");
+			return;
+		}
 
-        DetalleVentaView detalleVentaView = new DetalleVentaView();
-        detalleVentaView.setVentaSeleccionada(ventaSeleccionada);
-        detalleVentaView.mostrar();
-    }
+		int idVenta = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+		Venta ventaSeleccionada = ventaController.getVentaById(idVenta);
 
-    @Override
-    protected void cargarDatosOriginales() {
-        cargarDatosTabla();
-    }
+		DetalleVentaView detalleVentaView = new DetalleVentaView();
+		detalleVentaView.setVentaSeleccionada(ventaSeleccionada);
+		detalleVentaView.mostrar();
+	}
 
-    @Override
-    protected Object[][] obtenerDatosFiltrados(String textoFiltro) {
-        List<Venta> ventasFiltradas = ventaController.getAllVentas().stream()
-                .filter(v -> v.getCliente().getNombre().toLowerCase().contains(textoFiltro) || 
-                             String.valueOf(v.getIdVenta()).contains(textoFiltro))
-                .toList();
+	@Override
+	protected void cargarDatosOriginales() {
+		cargarDatosTabla();
+	}
 
-        return ventasFiltradas.stream()
-                .map(v -> new Object[] {
-                        v.getIdVenta(),
-                        v.getCliente().getNombre(),
-                        v.getFecha(),
-                        calcularTotalVenta(v)
-                })
-                .toArray(Object[][]::new);
-    }
+	@Override
+	protected Object[][] obtenerDatosFiltrados(String textoFiltro) {
+		List<Venta> ventasFiltradas = ventaController.getAllVentas().stream()
+				.filter(v -> v.getCliente().getNombre().toLowerCase().contains(textoFiltro)
+						|| String.valueOf(v.getIdVenta()).contains(textoFiltro))
+				.toList();
 
+		return ventasFiltradas.stream().map(
+				v -> new Object[] { v.getIdVenta(), v.getCliente().getNombre(), v.getFecha(), calcularTotalVenta(v) })
+				.toArray(Object[][]::new);
+	}
 }

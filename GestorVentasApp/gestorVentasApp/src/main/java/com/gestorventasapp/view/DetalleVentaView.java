@@ -22,6 +22,9 @@ public class DetalleVentaView extends ModuloBaseView {
 		detalleVentaController = new DetalleVentaController();
 		productoController = new ProductoController();
 
+		// Agregar la barra de menú
+		ventana.setJMenuBar(EstiloUI.crearBarraMenu(ventana));
+
 		// Configurar SwingWorker para cargar datos en segundo plano
 		ejecutarSwingWorker(() -> cargarDatosTabla(), // Tarea en segundo plano
 				null // No se requiere tarea adicional después de cargar
