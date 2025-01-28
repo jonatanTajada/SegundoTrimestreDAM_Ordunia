@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Colores existentes -->
+    <color name="primary">#6200EE</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="fondo_principal">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+    <color name="imagen_fondo">#CCBDBDBD</color> <!-- Opacidad del 80% -->
+    <color name="imagen_fondo_contraste">#E0E0E0</color> <!-- Ejemplo: gris claro -->
+    <color name="primary_color">#6200EE</color> <!-- Color púrpura de ejemplo -->
+    <color name="item_fondo_categoria">#F8BBD0</color> <!-- Color rosa claro -->
+    <color name="item_borde_categoria">#E91E63</color> <!-- Color rosa oscuro -->
+    <color name="fondo_categorias">#E3F2FD</color> <!-- Azul muy claro -->
+    <color name="borde_categorias">#2196F3</color> <!-- Azul brillante -->
+    <color name="fondo_recetas">#FFF3E0</color> <!-- Naranja claro -->
+    <color name="borde_recetas">#FF9800</color> <!-- Naranja vibrante -->
+
+
+
+
+
+</resources>

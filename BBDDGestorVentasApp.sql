@@ -18,13 +18,25 @@ CREATE TABLE IF NOT EXISTS Cliente (
     telefono VARCHAR(9) NOT NULL CHECK (telefono REGEXP '^[0-9]{9}$') -- Teléfono debe tener 9 dígitos numéricos
 );
 
+-- Tabla Empleado
+CREATE TABLE IF NOT EXISTS Empleado (
+    id_empleado INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'), -- Validación de email
+    contrasena VARCHAR(100) NOT NULL, -- Contraseña del empleado (puede estar encriptada)
+    telefono VARCHAR(9) NOT NULL CHECK (telefono REGEXP '^[0-9]{9}$'), -- Teléfono debe tener 9 dígitos numéricos
+    puesto VARCHAR(50) NOT NULL -- Puesto del empleado (e.g., 'Cajero', 'Administrador')
+);
+
 -- Tabla Venta
 CREATE TABLE IF NOT EXISTS Venta (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha por defecto
     id_cliente INT NOT NULL,
-    
-    CONSTRAINT fkCliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
+    id_empleado INT NOT NULL, -- Relación con el empleado que realiza la venta
+
+    CONSTRAINT fkCliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE,
+    CONSTRAINT fkEmpleado FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado) ON DELETE CASCADE
 );
 
 -- Tabla Detalle_Venta
@@ -34,7 +46,7 @@ CREATE TABLE IF NOT EXISTS Detalle_Venta (
     id_producto INT NOT NULL,
     cantidad INT NOT NULL CHECK (cantidad > 0), -- Cantidad debe ser positiva
     subtotal DECIMAL(10,2) NOT NULL CHECK (subtotal >= 0), -- Subtotal no puede ser negativo
-    
+
     CONSTRAINT fkVenta FOREIGN KEY (id_venta) REFERENCES Venta(id_venta) ON DELETE CASCADE,
     CONSTRAINT fkProducto FOREIGN KEY (id_producto) REFERENCES Producto(id_producto) ON DELETE CASCADE,
     UNIQUE (id_venta, id_producto) -- Garantiza que no se dupliquen combinaciones de venta y producto
@@ -57,11 +69,16 @@ INSERT INTO Cliente (nombre, email, telefono) VALUES
 ('Luis Martínez', 'luis.martinez@example.com', '620987654'),
 ('María López', 'maria.lopez@example.com', '630876543');
 
+-- Insertar empleados
+INSERT INTO Empleado (nombre, email, contrasena, telefono, puesto) VALUES
+('Jonatan Tajada', 'joantanTajada@gmail.com', '1234', '640123456', 'Administrador'),
+('Laura Fernández', 'lauraFernandez@gmail.com', 'empleado456', '650654321', 'Cajero');
+
 -- Insertar ventas
-INSERT INTO Venta (fecha, id_cliente) VALUES
-('2025-01-18 10:30:00', 1), -- Venta de Carlos Pérez
-('2025-01-18 11:00:00', 2), -- Venta de Ana Gómez
-('2025-01-18 12:15:00', 3); -- Venta de Luis Martínez
+INSERT INTO Venta (fecha, id_cliente, id_empleado) VALUES
+('2025-01-18 10:30:00', 1, 1), -- Venta de Carlos Pérez realizada por Juan Sánchez
+('2025-01-18 11:00:00', 2, 2), -- Venta de Ana Gómez realizada por Laura Fernández
+('2025-01-18 12:15:00', 3, 1); -- Venta de Luis Martínez realizada por Juan Sánchez
 
 -- Insertar detalles de ventas
 INSERT INTO Detalle_Venta (id_venta, id_producto, cantidad, subtotal) VALUES
@@ -70,6 +87,19 @@ INSERT INTO Detalle_Venta (id_venta, id_producto, cantidad, subtotal) VALUES
 (2, 3, 3, 2.70),  -- Ana Gómez compra 3 leches
 (2, 4, 1, 1.50),  -- Ana Gómez compra 1 arroz
 (3, 5, 12, 28.80); -- Luis Martínez compra 12 huevos
+
+-- Índice para buscar ventas por cliente
+CREATE INDEX idx_venta_cliente ON Venta (id_cliente);
+
+-- Índice para buscar ventas por empleado
+CREATE INDEX idx_venta_empleado ON Venta (id_empleado);
+
+-- Índice para buscar detalles por venta
+CREATE INDEX idx_detalle_venta ON Detalle_Venta (id_venta);
+
+-- Índice para buscar detalles por producto
+CREATE INDEX idx_detalle_producto ON Detalle_Venta (id_producto);
+
 
 -- -------------------------------------------------------------------------------------------
 SELECT * FROM Producto;
@@ -99,16 +129,6 @@ JOIN
 WHERE 
     c.id_cliente = 1; -- Cambia este ID por el cliente que quieres consultar
     
--- ------------------------------------------------------------------------------------------------------------
-
--- Índice para buscar ventas por cliente
-CREATE INDEX idx_venta_cliente ON Venta (id_cliente);
-
--- Índice para buscar detalles por venta
-CREATE INDEX idx_detalle_venta ON Detalle_Venta (id_venta);
-
--- Índice para buscar detalles por producto
-CREATE INDEX idx_detalle_producto ON Detalle_Venta (id_producto);
 
 -- ---------------------------------------------------------------------------------------------
 -- ------# este codigo de abajo no esta ejecutado. Para hacerlo mas simple no lo he hecho.------

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <!-- Colores primarios -->
+        <color name="primary">#1E88E5</color> <!-- Azul principal -->
+        <color name="primary_dark">#1565C0</color> <!-- Azul oscuro -->
+        <color name="primary_light">#BBDEFB</color> <!-- Azul claro -->
+
+        <!-- Colores secundarios -->
+        <color name="secondary">#FFC107</color> <!-- Amarillo -->
+        <color name="secondary_dark">#FFA000</color> <!-- Amarillo oscuro -->
+        <color name="secondary_light">#FFE082</color> <!-- Amarillo claro -->
+
+        <!-- Texto -->
+        <color name="text_primary">#212121</color> <!-- Negro/gris oscuro -->
+        <color name="text_secondary">#757575</color> <!-- Gris medio -->
+        <color name="text_hint">#BDBDBD</color> <!-- Gris claro para pistas -->
+
+        <!-- Fondo -->
+        <color name="background">#FFFFFF</color> <!-- Blanco -->
+        <color name="background_alt">#F5F5F5</color> <!-- Gris claro para secciones -->
+
+        <!-- Otros -->
+        <color name="error">#D32F2F</color> <!-- Rojo para errores -->
+        <color name="success">#388E3C</color> <!-- Verde para éxito -->
+        <color name="divider">#E0E0E0</color> <!-- Gris para líneas divisorias -->
+
+        <color name="white">#FFFFFF</color>
+
+        <color name="primary_night">#121212</color> <!-- Un gris oscuro -->
+        <color name="primary_dark_night">#000000</color> <!-- Negro total -->
+        <color name="secondary_night">#1F1B24</color> <!-- Un morado oscuro -->
+        <color name="secondary_dark_night">#3700B3</color> <!-- Un tono más oscuro de morado -->
+
+</resources>

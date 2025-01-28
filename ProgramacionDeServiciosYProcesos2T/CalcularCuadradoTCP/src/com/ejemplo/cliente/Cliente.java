@@ -1,97 +1,56 @@
 package com.ejemplo.cliente;
 
-import com.ejemplo.configuracion.cliente.VentanaConfiguracion;
-
-import javax.swing.*;
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
+
+import com.ejemplo.configuracion.cliente.VentanaConfiguracion;
 
 public class Cliente {
-
+	
 	public static void main(String[] args) {
-		// Mostrar la ventana de configuración
+		
+		// Mostrar la ventana de configuracion
 		VentanaConfiguracion configuracion = new VentanaConfiguracion();
 		configuracion.setVisible(true);
 
-		// Verificar si el usuario aceptó la configuración
-		if (!configuracion.isAceptado()) {
-			JOptionPane.showMessageDialog(null, "Configuración cancelada.", "Información",
-					JOptionPane.INFORMATION_MESSAGE);
+		// Esperar a que el usuario cierre la ventana de configuracion
+		while (configuracion.isVisible()) {
+			try {
+				Thread.sleep(100); // Espera activa mientras se configura
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String direccionIp = configuracion.getDireccionIP();
+		int puerto = configuracion.getPuerto();
+
+		// Validar que el usuario haya introducido valores validos
+		if (direccionIp == null || direccionIp.isEmpty() || puerto <= 0) {
+			System.out.println("La configuracion no es valida. Terminando el programa.");
 			return;
 		}
 
-		// Obtener los valores ingresados por el usuario
-		String servidorIP = configuracion.getIP();
-		int puerto = Integer.parseInt(configuracion.getPuerto());
-		String nombre = configuracion.getNombre();
+		// Iniciar la conexion con el servidor
+		try (Socket socket = new Socket(direccionIp, puerto);
+				BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
+				Scanner scanner = new Scanner(System.in)) {
 
-		try (Socket socket = new Socket(servidorIP, puerto)) {
-			// Mensaje de conexión exitosa
-			JOptionPane.showMessageDialog(null, "Conectado al servidor en " + servidorIP + ":" + puerto,
-					"Conexión Exitosa", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Conectado al servidor en " + direccionIp + ":" + puerto);
 
-			// Streams de entrada y salida
-			PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-			// Enviar el nombre del cliente al servidor
-			salida.println(nombre);
-
-			// Solicitar un número al usuario
-			String numeroStr = solicitarNumero();
-			if (numeroStr == null) {
-				// El usuario canceló o no ingresó un número válido
-				JOptionPane.showMessageDialog(null, "Operación cancelada. No se introdujo un número válido.",
-						"Cancelado", JOptionPane.INFORMATION_MESSAGE);
-				return;
-			}
-
-			// Convertir el número a entero y enviarlo al servidor
-			int numero = Integer.parseInt(numeroStr.trim());
+			// Enviar numero al servidor
+			System.out.print("Introduce un numero para calcular su cuadrado: ");
+			int numero = scanner.nextInt();
 			salida.println(numero);
 
-			// Leer la respuesta del servidor
-			String respuesta = entrada.readLine();
-
-			// Mostrar el resultado en una ventana
-			JOptionPane.showMessageDialog(null, "El cuadrado de " + numero + " es: " + respuesta, "Resultado",
-					JOptionPane.INFORMATION_MESSAGE);
+			// Recibir resultado del servidor
+			String resultado = entrada.readLine();
+			System.out.println("El cuadrado del numero es: " + resultado);
 
 		} catch (IOException e) {
-			// Mostrar error si no se puede conectar o enviar datos
-			JOptionPane.showMessageDialog(null, "Error en el cliente: " + e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	/**
-	 * Solicita un número al usuario mediante un cuadro de diálogo.
-	 * 
-	 * @return El número ingresado como cadena o null si el usuario cancela.
-	 */
-	private static String solicitarNumero() {
-		while (true) {
-			String numeroStr = JOptionPane.showInputDialog(null, "Introduce un número:", "Entrada de Datos",
-					JOptionPane.QUESTION_MESSAGE);
-
-			if (numeroStr == null || numeroStr.trim().isEmpty()) {
-				// Si se cancela o no se introduce nada
-				int confirmacion = JOptionPane.showConfirmDialog(null, "¿Deseas cancelar la operación?",
-						"Confirmar Cancelación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if (confirmacion == JOptionPane.YES_OPTION) {
-					return null; // Usuario decidió cancelar
-				}
-			} else {
-				try {
-					// Validar si el número es válido
-					Integer.parseInt(numeroStr.trim());
-					return numeroStr;
-				} catch (NumberFormatException e) {
-					// Mostrar mensaje de error si no es un número válido
-					JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
+			System.out.println("Error al conectar con el servidor: " + e.getMessage());
 		}
 	}
 }

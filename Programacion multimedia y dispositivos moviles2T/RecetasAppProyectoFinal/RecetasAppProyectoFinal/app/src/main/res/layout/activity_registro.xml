@@ -1,0 +1,62 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Campo para el nombre -->
+        <EditText
+            android:id="@+id/et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_nombre"
+            android:inputType="textPersonName"
+            android:autofillHints="name"
+            android:importantForAutofill="yes"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_secondary"
+            android:background="@drawable/input_border" />
+
+        <!-- Campo para el correo -->
+        <EditText
+            android:id="@+id/et_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_correo"
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
+            android:importantForAutofill="yes"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_secondary"
+            android:background="@drawable/input_border" />
+
+        <!-- Campo para la contraseña -->
+        <EditText
+            android:id="@+id/et_contrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_contrasena"
+            android:inputType="textPassword"
+            android:autofillHints="password"
+            android:importantForAutofill="yes"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_secondary"
+            android:background="@drawable/input_border" />
+
+        <!-- Botón para registrarse -->
+        <Button
+            android:id="@+id/btn_registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar" />
+
+    </LinearLayout>
+</ScrollView>

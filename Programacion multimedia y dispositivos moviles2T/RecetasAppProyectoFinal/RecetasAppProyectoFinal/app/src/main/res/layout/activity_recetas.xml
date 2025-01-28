@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/fondo_principal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título de la pantalla -->
+        <TextView
+            android:id="@+id/tv_titulo_recetas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/titulo_receta"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="12dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Campo para el título de la receta -->
+        <EditText
+            android:id="@+id/et_titulo_receta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_titulo_receta"
+            android:inputType="text"
+            android:autofillHints="name"
+            android:padding="12dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Campo para ingredientes -->
+        <EditText
+            android:id="@+id/et_ingredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_ingredientes"
+            android:inputType="textMultiLine"
+            android:autofillHints="text"
+            android:padding="12dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:minHeight="100dp"
+            android:gravity="top"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Campo para instrucciones -->
+        <EditText
+            android:id="@+id/et_instrucciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_instrucciones"
+            android:inputType="textMultiLine"
+            android:autofillHints="text"
+            android:padding="12dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:minHeight="100dp"
+            android:gravity="top"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Imagen de la receta -->
+        <ImageView
+            android:id="@+id/iv_imagen_receta"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@color/imagen_fondo_contraste"
+            android:contentDescription="@string/content_desc_imagen_receta"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botón para seleccionar imagen -->
+        <Button
+            android:id="@+id/btn_seleccionar_imagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_seleccionar_imagen"
+            android:backgroundTint="@color/primary"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Spinner para elegir la categoría -->
+        <Spinner
+            android:id="@+id/sp_categorias"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <!-- Botones de acción -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <!-- Botón Guardar Receta -->
+            <Button
+                android:id="@+id/btn_guardar_receta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_guardar_receta"
+                android:backgroundTint="@color/primary"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

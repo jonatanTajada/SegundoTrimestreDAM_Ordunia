@@ -1,0 +1,47 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Título centrado -->
+    <TextView
+        android:id="@+id/tv_titulo_crear_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_crear_categoria"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:textColor="@android:color/black" />
+
+    <!-- Campo para el nombre de la categoría -->
+    <EditText
+        android:id="@+id/et_nombre_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="@string/hint_nombre_categoria"
+        android:inputType="textCapWords"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:autofillHints="name"
+        android:importantForAutofill="yes"
+        android:background="@drawable/input_border"
+        android:textColorHint="@color/text_secondary" />
+
+    <!-- Botón para guardar la categoría -->
+    <Button
+        android:id="@+id/btn_guardar_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_guardar_categoria"
+        android:textSize="16sp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/primary"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

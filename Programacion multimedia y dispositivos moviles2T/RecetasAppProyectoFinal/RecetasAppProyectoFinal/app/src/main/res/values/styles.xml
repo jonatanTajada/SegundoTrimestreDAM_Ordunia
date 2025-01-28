@@ -1,0 +1,36 @@
+<resources>
+    <!-- Estilo para TextInputLayout -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Color del hint -->
+        <item name="android:textColorHint">@color/secondary</item>
+        <!-- Color del borde cuando está activo -->
+        <item name="boxStrokeColor">@color/primary</item>
+        <!-- Color del fondo -->
+        <item name="boxBackgroundColor">@color/fondo_principal</item>
+        <!-- Ancho del borde -->
+        <item name="boxStrokeWidth">2dp</item>
+        <!-- Ancho del borde al ganar enfoque -->
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <!-- Radio de las esquinas -->
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <!-- Tamaño del texto del hint -->
+        <item name="hintTextAppearance">@style/HintTextAppearance</item>
+        <!-- Apariencia del texto del campo -->
+        <item name="android:textAppearance">@style/TextInputTextAppearance</item>
+    </style>
+
+    <!-- Estilo para el hint del TextInputLayout -->
+    <style name="HintTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Estilo para el texto del campo -->
+    <style name="TextInputTextAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

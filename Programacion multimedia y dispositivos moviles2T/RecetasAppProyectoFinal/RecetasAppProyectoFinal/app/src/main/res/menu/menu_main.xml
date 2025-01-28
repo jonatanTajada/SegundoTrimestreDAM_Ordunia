@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Opción de Perfil -->
+    <item
+        android:id="@+id/menu_perfil"
+        android:title="@string/menu_perfil"
+        android:icon="@drawable/logo_usuario"
+        app:showAsAction="ifRoom" />
+
+    <!-- Opción de Categorías -->
+    <item
+        android:id="@+id/menu_categorias"
+        android:title="@string/menu_categorias"
+        android:icon="@drawable/categorias"
+        app:showAsAction="ifRoom" />
+
+    <!-- Opción de Salir -->
+    <item
+        android:id="@+id/menu_salir"
+        android:title="@string/menu_salir"
+        android:icon="@drawable/salir_cerrar_session"
+        app:showAsAction="ifRoom" />
+
+</menu>

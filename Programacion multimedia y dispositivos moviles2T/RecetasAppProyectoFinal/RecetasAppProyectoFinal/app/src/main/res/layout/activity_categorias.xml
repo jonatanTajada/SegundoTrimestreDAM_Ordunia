@@ -1,0 +1,52 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Título centrado -->
+    <TextView
+        android:id="@+id/tv_titulo_categorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_categorias"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="12dp"
+        android:textColor="@android:color/black" />
+
+    <!-- Mensaje cuando no haya categorías -->
+    <TextView
+        android:id="@+id/tv_no_categorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/no_categorias"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="@android:color/darker_gray" />
+
+    <!-- RecyclerView para mostrar las categorías -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_categorias"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+
+    <!-- Botón para agregar una nueva categoría -->
+    <Button
+        android:id="@+id/btn_agregar_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_agregar_categoria"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary"
+        android:textColor="@android:color/white" />
+</LinearLayout>

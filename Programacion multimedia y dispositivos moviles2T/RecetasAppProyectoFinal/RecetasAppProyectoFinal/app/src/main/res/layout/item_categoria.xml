@@ -1,0 +1,18 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/bg_item_categoria"
+    android:elevation="4dp">
+
+    <TextView
+        android:id="@+id/tv_nombre_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre_categoria_placeholder"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:padding="8dp" />
+</LinearLayout>

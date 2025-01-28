@@ -1,0 +1,67 @@
+<resources>
+    <!-- Nombre de la app -->
+    <string name="app_name">Gestor de Tareas</string>
+
+    <!-- Textos generales -->
+    <string name="title_welcome">Bienvenido</string>
+    <string name="title_tasks">Mis Tareas</string>
+    <string name="title_add_task">Nueva Tarea</string>
+    <string name="title_login">Iniciar Sesión</string>
+    <string name="title_register">Registrarse</string>
+
+    <!-- Botones -->
+    <string name="btn_save">Guardar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_add">Agregar</string>
+
+    <!-- Campos de formulario -->
+    <string name="hint_task_name">Nombre de la tarea</string>
+    <string name="hint_task_date">Seleccionar fecha</string>
+    <string name="hint_task_category">Seleccionar categoría</string>
+
+    <!-- Mensajes -->
+    <string name="msg_task_saved">Tarea guardada correctamente</string>
+    <string name="msg_task_deleted">Tarea eliminada</string>
+    <string name="msg_fill_fields">Por favor, completa todos los campos</string>
+    <string name="msg_invalid_login">Usuario o contraseña incorrectos</string>
+
+    <string name="menu_add">Agregar tarea</string>
+    <string name="menu_settings">Ajustes</string>
+
+
+    <string name="dashboard_title">Menú Principal</string>
+    <string name="dashboard_ver_tareas">📋 Ver Tareas</string>
+    <string name="dashboard_agregar_tarea">➕ Agregar Tarea</string>
+    <string name="dashboard_ajustes">⚙️ Ajustes</string>
+    <string name="dashboard_cerrar_sesion">🔐 Cerrar Sesión</string>
+
+    <string name="lista_tareas_title">Lista de Tareas</string>
+
+
+
+    <!-- Agregar Tarea -->
+    <string name="agregar_tarea_title">Nueva Tarea</string>
+    <string name="ingrese_tarea">Escriba una tarea...</string>
+    <string name="guardar_tarea">Guardar Tarea</string>
+    <string name="tarea_guardada">✅ Tarea guardada</string>
+    <string name="tarea_vacia_error">⚠️ Ingrese una tarea válida</string>
+
+    <!-- General -->
+    <string name="volver_atras">⬅️ Volver</string>
+
+
+
+    <string name="ajustes_title">Ajustes</string>
+    <string name="ajustes_cambiar_tema">Cambiar Tema</string>
+    <string name="ajustes_eliminar_tareas">Eliminar Todas las Tareas</string>
+
+
+    <string name="cerrar_sesion_titulo">Cerrar Aplicación</string>
+    <string name="cerrar_sesion_mensaje">¿Estás seguro de que quieres salir?</string>
+    <string name="cerrar_sesion_si">Sí</string>
+    <string name="cerrar_sesion_no">No</string>
+    <string name="ajustes_cerrar_sesion">Cerrar Sesión</string>
+
+
+</resources>

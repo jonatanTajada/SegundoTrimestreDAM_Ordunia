@@ -1,0 +1,43 @@
+<resources>
+    <!-- Estilos para textos -->
+    <style name="TextTitle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextSubtitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TextBody">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Estilos para botones (SIN cornerRadius) -->
+    <style name="ButtonPrimary">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- Estilos para formularios (EditText) -->
+    <style name="EditTextStyle">
+        <item name="android:background">@android:drawable/editbox_background</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Fondo general para actividades -->
+    <style name="ScreenBackground">
+        <item name="android:background">@color/background</item>
+    </style>
+</resources>

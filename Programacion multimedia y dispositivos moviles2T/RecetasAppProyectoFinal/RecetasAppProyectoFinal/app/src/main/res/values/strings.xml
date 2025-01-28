@@ -1,0 +1,107 @@
+<resources>
+    <!-- Nombre de la app -->
+    <string name="app_name">RecetasApp</string>
+
+    <!-- General -->
+    <string name="ingredientes_receta">Ingredientes</string>
+    <string name="instrucciones_receta">Instrucciones</string>
+    <string name="seleccionar_imagen">Seleccionar Imagen</string>
+    <string name="categoria">Categoría</string>
+    <string name="imagen_receta">Imagen de la receta</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_categorias">Ver Categorías</string>
+    <string name="menu_salir">Salir</string>
+
+    <!-- Categorías -->
+    <string name="titulo_categoria">Título de la Categoría</string>
+    <string name="buscar_receta">Buscar receta</string>
+    <string name="crear_nueva_receta">Crear Nueva Receta</string>
+    <string name="guardar_receta">Guardar Receta</string>
+    <string name="btn_agregar_categoria">Agregar Categoría</string>
+    <string name="msg_sin_categorias">No hay categorías. Agrega una nueva categoría para comenzar.</string>
+    <string name="hint_nombre_categoria">Nombre de la categoría</string>
+    <string name="accessibility_nombre_categoria">Introduce el nombre de la categoría</string>
+    <string name="content_desc_nombre_categoria">Introduce el nombre de la categoría</string>
+    <string name="btn_guardar_categoria">Guardar Categoría</string>
+    <string name="btn_crear_categoria">Crear Nueva Categoría</string>
+    <string name="content_desc_lista_categorias">Lista de categorías disponibles</string>
+    <string name="nombre_categoria">Nombre de la categoría</string>
+    <string name="no_categorias">No tienes categorías creadas</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="titulo_categorias">Categorías</string>
+    <string name="nombre_categoria_placeholder">Nombre de la categoría</string>
+    <string name="titulo_crear_categoria">Crear nueva categoría</string>
+
+
+
+
+
+
+
+
+
+
+    <!-- Login y Registro -->
+    <string name="btn_iniciar_sesion">Iniciar sesión</string>
+    <string name="texto_registrarse">¿No tienes cuenta? Regístrate aquí</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="btn_registrar">Registrar</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="hint_nombre_completo">Nombre completo</string>
+    <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+    <string name="btn_registrarse">Registrarse</string>
+
+
+
+    <!-- Descripciones para accesibilidad -->
+    <string name="content_description_correo">Introduce tu correo electrónico</string>
+    <string name="content_description_contrasena">Introduce tu contraseña</string>
+    <string name="content_description_login">Presiona para iniciar sesión</string>
+    <string name="content_description_registrar">Presiona para registrarte</string>
+
+    <!-- Edición de recetas -->
+    <string name="hint_titulo_receta">Título de la receta</string>
+    <string name="hint_ingredientes">Ingredientes (separados por comas)</string>
+    <string name="hint_instrucciones">Instrucciones de preparación</string>
+    <string name="btn_seleccionar_imagen">Actualizar Imagen</string>
+    <string name="btn_guardar_cambios">Guardar Cambios</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="titulo_crear_receta">Crear Receta</string>
+
+
+    <!-- Detalles de recetas -->
+    <string name="content_desc_imagen_receta">Imagen representativa de la receta</string>
+    <string name="titulo_receta">Título de la receta</string>
+    <string name="ingredientes_label">Ingredientes:</string>
+    <string name="ingredientes_placeholder">Lista de ingredientes</string>
+    <string name="instrucciones_label">Instrucciones:</string>
+    <string name="instrucciones_placeholder">Paso a paso</string>
+    <string name="btn_guardar_receta">Guardar Receta</string>
+
+
+
+    <!-- Elementos de recetas -->
+    <string name="content_desc_imagen_item">Imagen representativa del elemento</string>
+    <string name="titulo_receta_item">Título de la receta</string>
+
+    <!-- Fragment Perfil -->
+    <string name="hint_nombre_perfil">Nombre</string>
+    <string name="hint_correo_perfil">Correo</string>
+    <string name="hint_contrasena_perfil">Contraseña</string>
+    <string name="btn_actualizar_perfil">Actualizar</string>
+
+    <!-- Descripciones de accesibilidad -->
+    <string name="content_desc_nombre_perfil">Introduce tu nombre</string>
+    <string name="content_desc_correo_perfil">Correo del usuario (no editable)</string>
+    <string name="content_desc_contrasena_perfil">Introduce tu contraseña</string>
+    <string name="content_desc_btn_actualizar_perfil">Presiona para actualizar el perfil</string>
+
+
+    <string name="accessibility_contrasena_perfil">Introduce tu contraseña</string>
+    <string name="accessibility_correo_perfil">Introduce tu correo electrónico</string>
+    <string name="accessibility_nombre_perfil">Introduce tu nombre</string>
+
+
+
+</resources>

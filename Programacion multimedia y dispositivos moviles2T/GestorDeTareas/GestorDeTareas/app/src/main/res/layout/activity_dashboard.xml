@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:titleTextColor="@color/white"
+        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+        android:title="@string/dashboard_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Contenedor de botones (centrado en pantalla) -->
+    <LinearLayout
+        android:id="@+id/contenedor_botones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"> <!-- Centramos los botones en la pantalla -->
+
+        <!-- Botón Ver Tareas -->
+        <Button
+            android:id="@+id/btn_ver_tareas"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_ver_tareas"
+            android:layout_marginBottom="12dp"/>
+
+
+        <!-- Botón Agregar Tarea -->
+        <Button
+            android:id="@+id/btn_agregar_tarea"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_agregar_tarea"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Botón Ajustes -->
+        <Button
+            android:id="@+id/btn_ajustes"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_ajustes"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Botón Cerrar Sesión -->
+        <!-- Botón para cerrar sesión (desde el Dashboard) -->
+        <Button
+            android:id="@+id/btn_cerrar_sesion_dashboard"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_cerrar_sesion"
+            android:backgroundTint="@color/error"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
