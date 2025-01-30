@@ -7,19 +7,25 @@
     <string name="title_tasks">Mis Tareas</string>
     <string name="title_add_task">Nueva Tarea</string>
     <string name="title_login">Iniciar Sesión</string>
-    <string name="title_register">Registrarse</string>
+    <string name="text_no_cuenta">¿No tienes cuenta? <b><font color='#1976D2'>Regístrate aquí</font></b></string>
 
     <!-- Botones -->
-        <string name="btn_save">💾 Guardar</string>
-        <string name="btn_cancel">❌ Cancelar</string>
-        <string name="btn_add">➕ Agregar</string>
-
-
+    <string name="btn_save">💾 Guardar</string>
+    <string name="btn_cancel">❌ Cancelar</string>
+    <string name="btn_add">➕ Agregar</string>
+    <string name="btn_eliminar_tarea">🗑️ Eliminar</string>
+    <string name="btn_actualizar_tarea">🔄 Editar</string>
+    <string name="btn_ver_detalles">ℹ️ Detalles</string>
+    <string name="btn_atras">⬅️ Volver</string>
+    <string name="btn_elegir_imagen">Elegir Imagen</string>
 
     <!-- Campos de formulario -->
     <string name="hint_task_name">Nombre de la tarea</string>
     <string name="hint_task_date">Seleccionar fecha</string>
     <string name="hint_task_category">Seleccionar categoría</string>
+    <string name="hint_titulo_tarea">Escriba el título de la tarea</string>
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="password_hint">Contraseña</string>
 
     <!-- Mensajes -->
     <string name="msg_task_saved">Tarea guardada correctamente</string>
@@ -27,10 +33,7 @@
     <string name="msg_fill_fields">Por favor, completa todos los campos</string>
     <string name="msg_invalid_login">Usuario o contraseña incorrectos</string>
 
-    <string name="menu_add">Agregar tarea</string>
-    <string name="menu_settings">Ajustes</string>
-
-
+    <!-- Dashboard y menú -->
     <string name="dashboard_title">Menú Principal</string>
     <string name="dashboard_ver_tareas">📋 Ver Tareas</string>
     <string name="dashboard_agregar_tarea">➕ Agregar Tarea</string>
@@ -38,83 +41,60 @@
     <string name="dashboard_cerrar_sesion">🔐 Cerrar Sesión</string>
 
     <string name="lista_tareas_title">Lista de Tareas</string>
-
-
-
-    <!-- Agregar Tarea -->
     <string name="agregar_tarea_title">Nueva Tarea</string>
-    <string name="ingrese_tarea">Escriba una tarea...</string>
-    <string name="guardar_tarea">Guardar Tarea</string>
-    <string name="tarea_guardada">✅ Tarea guardada</string>
-    <string name="tarea_vacia_error">⚠️ Ingrese una tarea válida</string>
 
-    <!-- General -->
-    <string name="volver_atras">⬅️ Volver</string>
-
-
-
+    <!-- Ajustes -->
     <string name="ajustes_title">Ajustes</string>
     <string name="ajustes_cambiar_tema">Cambiar Tema</string>
     <string name="ajustes_eliminar_tareas">Eliminar Todas las Tareas</string>
+    <string name="ajustes_cerrar_sesion">Cerrar Sesión</string>
 
-
+    <!-- Confirmación cierre sesión -->
     <string name="cerrar_sesion_titulo">Cerrar Aplicación</string>
     <string name="cerrar_sesion_mensaje">¿Estás seguro de que quieres salir?</string>
     <string name="cerrar_sesion_si">Sí</string>
     <string name="cerrar_sesion_no">No</string>
-    <string name="ajustes_cerrar_sesion">Cerrar Sesión</string>
 
-    <!-- Texto para la tarea -->
+    <!-- Información de tareas -->
     <string name="tarea_default">Tarea aquí</string>
-
-    <!-- Texto para botones -->
-    <string name="btn_eliminar_tarea">Eliminar</string>
-    <string name="btn_actualizar_tarea">Actualizar</string>
-
-    <!-- Texto para la tarea -->
-
-    <string name="seleccionar_fecha">Seleccionar Fecha</string>
-
-    <!-- Texto del botón de login -->
-    <string name="login_button">Iniciar sesión</string>
-
-    <!-- Título para la pantalla de login -->
-    <string name="login_title">Iniciar sesión</string>
-
-    <!-- Sugerencia para el nombre de usuario -->
-    <string name="username_hint">Nombre de usuario</string>
-
-    <!-- Sugerencia para la contraseña -->
-    <string name="password_hint">Contraseña</string>
-    <string name="descripcion_imagen">Imagen de la tarea</string>
-    <string name="btn_elegir_imagen">Elegir Imagen</string>
+    <string name="tarea_guardada">✅ Tarea guardada</string>
+    <string name="tarea_vacia_error">⚠️ Ingrese una tarea válida</string>
+    <string name="tarea_actualizada">Tarea actualizada correctamente</string>
+    <string name="guardar_tarea">💾 Guardar Tarea</string>
 
 
+    <!-- Etiquetas de información -->
     <string name="titulo_tarea">Título de la tarea</string>
     <string name="descripcion_tarea">Descripción de la tarea</string>
     <string name="fecha_tarea">Fecha</string>
-    <string name="eliminar_todas_las_tareas">Eliminar Todas las Tareas</string>
-    <string name="tarea_actualizada">Tarea actualizada correctamente</string>
-    <string name="btn_ver_detalles">Ver Detalles</string>
-
-    <string name="desc_eliminar_tarea">Eliminar tarea</string>
-    <string name="desc_actualizar_tarea">Actualizar tarea</string>
-    <string name="desc_ver_detalles">Ver detalles de la tarea</string>
-
-
-        <!-- Botones -->
-    <string name="btn_delete">🗑️ Eliminar</string>
-    <string name="btn_update">🔄 Editar</string>
-    <string name="btn_view_details">ℹ️ Detalles</string>
-    <string name="btn_atras">⬅️ Volver</string>
-    <string name="hint_titulo_tarea">Escriba el título de la tarea</string>
-
-    <string name="detalles_tarea">📋 Detalles de la tarea</string>
-
+    <string name="descripcion_imagen">Imagen de la tarea</string>
 
     <string name="label_descripcion">Descripción:</string>
     <string name="label_fecha">Fecha:</string>
     <string name="label_imagen">Imagen:</string>
+
+    <!-- Otros -->
+    <string name="seleccionar_fecha">Seleccionar Fecha</string>
+    <string name="eliminar_todas_las_tareas">Eliminar Todas las Tareas</string>
+    <string name="detalles_tarea">📋 Detalles de la tarea</string>
+    <string name="login_button">🔑 Iniciar Sesión</string>
+    <string name="menu_add">Agregar tarea</string>
+    <string name="menu_settings">Ajustes</string>
+
+
+        <!-- Registro -->
+    <string name="title_register">Registro</string>
+    <string name="hint_nombre">Nombre completo</string>
+    <string name="hint_telefono">Teléfono</string>
+    <string name="hint_ciudad">Ciudad</string>
+    <string name="btn_register">📝 Registrarse</string>
+    <string name="text_tienes_cuenta">¿Ya tienes cuenta? <b><font color='#1976D2'>Inicia sesión aquí</font></b></string>
+    <string name="tv_tienes_cuenta">¿Ya tienes cuenta?</string>
+
+    <string name="btn_delete">🗑️ Eliminar</string>
+    <string name="btn_update">🔄 Editar</string>
+    <string name="btn_view_details">ℹ️ Detalles</string>
+    <string name="hint_correo">Correo Electrónico</string>
 
 
 </resources>

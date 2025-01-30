@@ -6,9 +6,10 @@
     <uses-permission android:name="android.permission.WRITE_MEDIA_IMAGES" />
 
     <!-- Permiso de la cámara -->
-   <!--
-    <uses-permission android:name="android.permission.CAMERA" />
-   -->
+    <!--
+     <uses-permission android:name="android.permission.CAMERA" />
+    -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,9 +19,9 @@
         android:theme="@style/Theme.GestorDeTareas"
         tools:targetApi="31">
 
-        <!-- MainActivity: Pantalla de inicio que abre el Dashboard -->
+        <!-- LoginActivity: Ahora es la pantalla inicial -->
         <activity
-            android:name=".MainActivity"
+            android:name=".vista.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +34,8 @@
         <activity android:name=".vista.AjustesActivity" android:exported="true" />
         <activity android:name=".vista.DashboardActivity" android:exported="true" />
         <activity android:name=".vista.ListaTareasActivity" android:exported="true" />
-        <activity android:name=".vista.LoginActivity" android:exported="true" />
         <activity android:name=".vista.DetalleTareaActivity" android:exported="true"/>
+        <activity android:name=".vista.RegistroActivity" android:exported="true" />
 
     </application>
 </manifest>

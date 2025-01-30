@@ -1,5 +1,6 @@
 package com.example.gestordetareas.vista;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -71,16 +72,28 @@ public class AjustesActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    // 🔥 Cerrar sesión correctamente y volver a LoginActivity
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
-                .setTitle("Cerrar Aplicación")
-                .setMessage("¿Estás seguro de que quieres salir?")
-                .setPositiveButton("Sí", (dialog, which) -> {
-                    finishAffinity();
-                    System.exit(0);
-                })
+                .setTitle("Cerrar Sesión")
+                .setMessage("¿Estás seguro de que quieres cerrar sesión?")
+                .setPositiveButton("Sí", (dialog, which) -> cerrarSesion())
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    // Método para cerrar sesión y redirigir a LoginActivity
+    private void cerrarSesion() {
+        // Borrar datos de sesión guardados
+        SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+
+        // Redirigir al LoginActivity
+        Intent intent = new Intent(AjustesActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Evita volver atrás con el botón de retroceso
+        startActivity(intent);
     }
 
     private void eliminarTodasLasTareas() {
