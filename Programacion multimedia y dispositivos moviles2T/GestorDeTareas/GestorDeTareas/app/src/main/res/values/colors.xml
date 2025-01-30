@@ -27,6 +27,8 @@
 
         <color name="white">#FFFFFF</color>
 
+
+
         <color name="primary_night">#121212</color> <!-- Un gris oscuro -->
         <color name="primary_dark_night">#000000</color> <!-- Negro total -->
         <color name="secondary_night">#1F1B24</color> <!-- Un morado oscuro -->

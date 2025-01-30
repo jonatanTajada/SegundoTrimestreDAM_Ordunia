@@ -1,7 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos de lectura y escritura para medios (imágenes y videos) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.WRITE_MEDIA_IMAGES" />
+
+    <!-- Permiso de la cámara -->
+   <!--
+    <uses-permission android:name="android.permission.CAMERA" />
+   -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +18,7 @@
         android:theme="@style/Theme.GestorDeTareas"
         tools:targetApi="31">
 
-
-    <!-- MainActivity: Pantalla de inicio que abre el Dashboard -->
+        <!-- MainActivity: Pantalla de inicio que abre el Dashboard -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,25 +28,13 @@
             </intent-filter>
         </activity>
 
-
-        <!-- DashboardActivity: Pantalla principal de la app -->
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="true"/>
-
-        <!-- ListaTareasActivity: Vista para ver la lista de tareas -->
-        <activity
-            android:name=".ListaTareasActivity"
-            android:exported="true"/>
-
-        <!-- AgregarTareaActivity: Vista para agregar nuevas tareas -->
-        <activity
-            android:name=".AgregarTareaActivity"
-            android:exported="true"/>
-
-        <activity android:name=".AjustesActivity" android:exported="true"/>
-
-
+        <!-- Otras actividades dentro del paquete vista -->
+        <activity android:name=".vista.AgregarTareaActivity" android:exported="true" />
+        <activity android:name=".vista.AjustesActivity" android:exported="true" />
+        <activity android:name=".vista.DashboardActivity" android:exported="true" />
+        <activity android:name=".vista.ListaTareasActivity" android:exported="true" />
+        <activity android:name=".vista.LoginActivity" android:exported="true" />
+        <activity android:name=".vista.DetalleTareaActivity" android:exported="true"/>
 
     </application>
 </manifest>

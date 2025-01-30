@@ -10,10 +10,11 @@
     <string name="title_register">Registrarse</string>
 
     <!-- Botones -->
-    <string name="btn_save">Guardar</string>
-    <string name="btn_cancel">Cancelar</string>
-    <string name="btn_delete">Eliminar</string>
-    <string name="btn_add">Agregar</string>
+        <string name="btn_save">💾 Guardar</string>
+        <string name="btn_cancel">❌ Cancelar</string>
+        <string name="btn_add">➕ Agregar</string>
+
+
 
     <!-- Campos de formulario -->
     <string name="hint_task_name">Nombre de la tarea</string>
@@ -62,6 +63,58 @@
     <string name="cerrar_sesion_si">Sí</string>
     <string name="cerrar_sesion_no">No</string>
     <string name="ajustes_cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- Texto para la tarea -->
+    <string name="tarea_default">Tarea aquí</string>
+
+    <!-- Texto para botones -->
+    <string name="btn_eliminar_tarea">Eliminar</string>
+    <string name="btn_actualizar_tarea">Actualizar</string>
+
+    <!-- Texto para la tarea -->
+
+    <string name="seleccionar_fecha">Seleccionar Fecha</string>
+
+    <!-- Texto del botón de login -->
+    <string name="login_button">Iniciar sesión</string>
+
+    <!-- Título para la pantalla de login -->
+    <string name="login_title">Iniciar sesión</string>
+
+    <!-- Sugerencia para el nombre de usuario -->
+    <string name="username_hint">Nombre de usuario</string>
+
+    <!-- Sugerencia para la contraseña -->
+    <string name="password_hint">Contraseña</string>
+    <string name="descripcion_imagen">Imagen de la tarea</string>
+    <string name="btn_elegir_imagen">Elegir Imagen</string>
+
+
+    <string name="titulo_tarea">Título de la tarea</string>
+    <string name="descripcion_tarea">Descripción de la tarea</string>
+    <string name="fecha_tarea">Fecha</string>
+    <string name="eliminar_todas_las_tareas">Eliminar Todas las Tareas</string>
+    <string name="tarea_actualizada">Tarea actualizada correctamente</string>
+    <string name="btn_ver_detalles">Ver Detalles</string>
+
+    <string name="desc_eliminar_tarea">Eliminar tarea</string>
+    <string name="desc_actualizar_tarea">Actualizar tarea</string>
+    <string name="desc_ver_detalles">Ver detalles de la tarea</string>
+
+
+        <!-- Botones -->
+    <string name="btn_delete">🗑️ Eliminar</string>
+    <string name="btn_update">🔄 Editar</string>
+    <string name="btn_view_details">ℹ️ Detalles</string>
+    <string name="btn_atras">⬅️ Volver</string>
+    <string name="hint_titulo_tarea">Escriba el título de la tarea</string>
+
+    <string name="detalles_tarea">📋 Detalles de la tarea</string>
+
+
+    <string name="label_descripcion">Descripción:</string>
+    <string name="label_fecha">Fecha:</string>
+    <string name="label_imagen">Imagen:</string>
 
 
 </resources>

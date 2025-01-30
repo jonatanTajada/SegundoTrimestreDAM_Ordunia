@@ -1,4 +1,14 @@
 <resources>
+    <!-- Tema predeterminado (claro) -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Personaliza tu tema claro aquí -->
+    </style>
+
+    <!-- Tema oscuro -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Personaliza tu tema oscuro aquí -->
+    </style>
+
     <!-- Estilos para textos -->
     <style name="TextTitle">
         <item name="android:textSize">24sp</item>
@@ -40,4 +50,11 @@
     <style name="ScreenBackground">
         <item name="android:background">@color/background</item>
     </style>
+
+    <style name="ToolbarStyle" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:titleTextColor">@android:color/white</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+    </style>
+
 </resources>
