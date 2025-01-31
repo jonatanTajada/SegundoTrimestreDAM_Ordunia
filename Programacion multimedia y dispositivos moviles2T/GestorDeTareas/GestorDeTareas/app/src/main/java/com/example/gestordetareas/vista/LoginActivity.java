@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         Button btnIniciarSesion = findViewById(R.id.btn_iniciar_sesion);
         TextView tvRegistro = findViewById(R.id.tv_registro);
-        Button btnVolver = findViewById(R.id.btn_volver);
 
         // Inicializar el DAO para manejar la base de datos SQLite
         usuarioDAO = new UsuarioDAO(this);
@@ -43,9 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
             startActivity(intent);
         });
-
-        // Botón para volver atrás
-        btnVolver.setOnClickListener(v -> finish());
     }
 
     // Método para iniciar sesión

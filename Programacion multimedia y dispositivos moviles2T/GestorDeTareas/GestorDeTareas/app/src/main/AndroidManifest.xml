@@ -36,6 +36,7 @@
         <activity android:name=".vista.ListaTareasActivity" android:exported="true" />
         <activity android:name=".vista.DetalleTareaActivity" android:exported="true"/>
         <activity android:name=".vista.RegistroActivity" android:exported="true" />
+        <activity android:name=".vista.SobreAppActivity"/>
 
     </application>
 </manifest>

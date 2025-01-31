@@ -94,4 +94,19 @@
     <string name="btn_update">🔄 Edit</string>
     <string name="btn_view_details">ℹ️ Details</string>
     <string name="hint_correo">Email</string>
+
+    <!-- Footer -->
+    <string name="btn_sobre_app">ℹ️ About the App</string>
+    <string name="dialog_sobre_titulo">About Task Manager</string>
+    <string name="dialog_sobre_contenido">Task Manager v1.0\n\nThis application allows efficient task management. Developed in Android using SQLite for data storage.</string>
+    <string name="dialog_sobre_cerrar">Close</string>
+    <string name="footer_text">© 2024 Task Manager. All rights reserved.</string>
+
+
+    <!-- Pantalla "About the App" -->
+    <string name="sobre_app_titulo">About the App</string>
+    <string name="sobre_app_contenido">Task Manager is an application designed to help you organize your tasks efficiently. You can easily add, edit, and delete tasks. It also includes options to change the theme of the application.</string>
+    <string name="sobre_app_cerrar">Close</string>
+
+
 </resources>

@@ -96,5 +96,19 @@
     <string name="btn_view_details">ℹ️ Detalles</string>
     <string name="hint_correo">Correo Electrónico</string>
 
+    <!-- Footer -->
+    <string name="btn_sobre_app">ℹ️ Sobre la Aplicación</string>
+    <string name="dialog_sobre_titulo">Sobre Gestor de Tareas</string>
+    <string name="dialog_sobre_contenido">Gestor de Tareas v1.0\n\nEsta aplicación permite gestionar tareas de manera eficiente. Desarrollada en Android con SQLite para el almacenamiento de datos.</string>
+    <string name="dialog_sobre_cerrar">Cerrar</string>
+    <string name="footer_text">© 2024 Gestor de Tareas. Todos los derechos reservados.</string>
+
+
+    <!--Nueva pantalla "Sobre la Aplicación" -->
+    <string name="sobre_app_titulo">Sobre la Aplicación</string>
+    <string name="sobre_app_contenido">Gestor de Tareas es una aplicación diseñada para ayudarte a organizar tus tareas de manera eficiente. Puedes agregar, editar y eliminar tareas fácilmente. Además, incluye opciones para cambiar el tema de la aplicación.</string>
+    <string name="sobre_app_cerrar">Cerrar</string>
+
+
 
 </resources>

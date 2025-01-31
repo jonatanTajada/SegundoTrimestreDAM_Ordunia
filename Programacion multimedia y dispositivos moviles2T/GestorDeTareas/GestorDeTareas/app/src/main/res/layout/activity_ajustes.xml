@@ -43,6 +43,14 @@
             android:layout_height="wrap_content"
             android:text="@string/ajustes_cambiar_tema"
             android:layout_marginBottom="16dp"/>
+        <!-- Botón para "Sobre la Aplicación" -->
+        <Button
+            android:id="@+id/btn_sobre_app"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_sobre_app"
+            android:layout_marginBottom="16dp"/>
 
         <!-- Botón para eliminar todas las tareas -->
         <Button
@@ -63,6 +71,23 @@
             android:text="@string/ajustes_cerrar_sesion"
             android:backgroundTint="@color/error"
             android:layout_marginBottom="16dp"/>
+
+
     </LinearLayout>
+
+    <!-- Footer con información -->
+    <TextView
+        android:id="@+id/tv_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/footer_text"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

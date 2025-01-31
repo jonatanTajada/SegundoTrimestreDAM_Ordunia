@@ -15,33 +15,38 @@ import com.example.gestordetareas.R;
 
 public class AjustesActivity extends AppCompatActivity {
 
-    private Button btnCambiarTema, btnEliminarTareas, btnCerrarSesion;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        // Configurar Toolbar con botón de retroceso
+        // ✅ Configurar Toolbar con botón de retroceso y título "Ajustes"
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.ajustes_title)); // Ahora se ve "Ajustes"
         }
 
-        // Referencias a los botones
-        btnCambiarTema = findViewById(R.id.btn_cambiar_tema);
-        btnEliminarTareas = findViewById(R.id.btn_eliminar_tareas);
-        btnCerrarSesion = findViewById(R.id.btn_cerrar_sesion_ajustes);
+        // 🔹 Referencias a los botones
+        Button btnCambiarTema = findViewById(R.id.btn_cambiar_tema);
+        Button btnEliminarTareas = findViewById(R.id.btn_eliminar_tareas);
+        Button btnCerrarSesion = findViewById(R.id.btn_cerrar_sesion_ajustes);
+        Button btnSobreApp = findViewById(R.id.btn_sobre_app); // Botón nuevo
 
-        // Eventos de los botones
+        // 📌 Eventos de los botones
         btnCambiarTema.setOnClickListener(view -> cambiarTema());
         btnEliminarTareas.setOnClickListener(view -> eliminarTodasLasTareas());
         btnCerrarSesion.setOnClickListener(view -> mostrarDialogoCerrarSesion());
+        btnSobreApp.setOnClickListener(view -> {
+            Intent intent = new Intent(AjustesActivity.this, SobreAppActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     /**
-     * Habilitar botón de retroceso en la Toolbar.
+     * 🔙 Habilita el botón de retroceso en la Toolbar.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -53,83 +58,54 @@ public class AjustesActivity extends AppCompatActivity {
     }
 
     /**
-     * Método para cambiar entre modo claro y modo oscuro.
-     * Guarda la preferencia del usuario y recrea la actividad.
+     * 🌗 Cambia entre modo claro y oscuro.
      */
     private void cambiarTema() {
         boolean isDarkMode = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
 
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            guardarTema(false);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            guardarTema(true);
-        }
+        AppCompatDelegate.setDefaultNightMode(isDarkMode ?
+                AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
 
-        recreate(); // Recargar actividad para aplicar cambios
+        guardarTema(!isDarkMode);
+        recreate();
     }
 
     /**
-     * Guarda la preferencia del tema en `SharedPreferences`.
-     * @param isDarkMode Indica si el usuario ha activado el modo oscuro.
+     * 💾 Guarda la preferencia del tema en `SharedPreferences`.
      */
     private void guardarTema(boolean isDarkMode) {
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("temaOscuro", isDarkMode);
-        editor.apply();
+        prefs.edit().putBoolean("temaOscuro", isDarkMode).apply();
     }
 
     /**
-     * Muestra un cuadro de diálogo para confirmar el cierre de sesión.
-     * Si el usuario confirma, se ejecuta `cerrarSesion()`.
+     * 🔥 Muestra un cuadro de diálogo para confirmar el cierre de sesión.
      */
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
-                .setTitle("Cerrar Sesión")
-                .setMessage("¿Estás seguro de que quieres cerrar sesión?")
-                .setPositiveButton("Sí", (dialog, which) -> cerrarSesion())
-                .setNegativeButton("No", null)
-                .show();
-    }
-
-    /**
-     * Método para cerrar sesión.
-     * Elimina los datos de sesión y redirige al usuario al `LoginActivity`.
-     * 🔥 Muestra un cuadro de diálogo antes de cerrar sesión y salir de la aplicación.
-     */
-    private void cerrarSesion() {
-        new AlertDialog.Builder(this)
-                .setTitle("Cerrar Sesión")
-                .setMessage("¿Estás seguro de que quieres cerrar sesión y salir de la aplicación?")
-                .setPositiveButton("Sí", (dialog, which) -> {
-                    // 🔹 Borrar datos de sesión guardados
+                .setTitle(getString(R.string.cerrar_sesion_titulo))
+                .setMessage(getString(R.string.cerrar_sesion_mensaje))
+                .setPositiveButton(getString(R.string.cerrar_sesion_si), (dialog, which) -> {
+                    // Borrar datos de sesión
                     SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();
-                    editor.apply();
+                    prefs.edit().clear().apply();
 
-                    // 🔥 Cerrar la aplicación completamente
-                    finishAffinity(); // Cierra todas las actividades
-                    System.exit(0); // Asegura que el proceso se cierre completamente
+                    // Cerrar la aplicación completamente
+                    finishAffinity();
+                    System.exit(0);
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(getString(R.string.cerrar_sesion_no), null)
                 .show();
     }
 
-
-
     /**
-     * Método para eliminar todas las tareas guardadas en `SharedPreferences`.
-     * Muestra un mensaje de confirmación cuando la acción se completa.
+     * 🗑 Elimina todas las tareas guardadas en `SharedPreferences`.
      */
     private void eliminarTodasLasTareas() {
         SharedPreferences prefs = getSharedPreferences("MisTareas", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.apply();
-        Toast.makeText(this, "Todas las tareas han sido eliminadas", Toast.LENGTH_SHORT).show();
+        prefs.edit().clear().apply();
+        Toast.makeText(this, getString(R.string.msg_task_deleted), Toast.LENGTH_SHORT).show();
     }
+
 }
