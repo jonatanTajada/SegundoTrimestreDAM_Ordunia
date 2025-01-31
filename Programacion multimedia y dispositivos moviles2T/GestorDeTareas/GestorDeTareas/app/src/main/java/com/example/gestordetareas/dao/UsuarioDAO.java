@@ -81,9 +81,6 @@ public class UsuarioDAO {
     }
 
 
-
-
-
     // Método para obtener un usuario por correo
     public Usuario obtenerUsuario(String correo) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

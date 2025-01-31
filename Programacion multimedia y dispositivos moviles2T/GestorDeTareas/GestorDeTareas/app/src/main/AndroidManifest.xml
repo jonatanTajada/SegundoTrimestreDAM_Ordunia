@@ -19,7 +19,7 @@
         android:theme="@style/Theme.GestorDeTareas"
         tools:targetApi="31">
 
-        <!-- LoginActivity: Ahora es la pantalla inicial -->
+        <!-- LoginActivity: pantalla inicial -->
         <activity
             android:name=".vista.LoginActivity"
             android:exported="true">
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Otras actividades dentro del paquete vista -->
+        <!-- Resto actividades dentro del paquete vista -->
         <activity android:name=".vista.AgregarTareaActivity" android:exported="true" />
         <activity android:name=".vista.AjustesActivity" android:exported="true" />
         <activity android:name=".vista.DashboardActivity" android:exported="true" />

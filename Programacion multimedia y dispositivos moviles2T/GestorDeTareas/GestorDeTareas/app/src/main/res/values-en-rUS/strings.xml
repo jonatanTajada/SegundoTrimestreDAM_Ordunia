@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Task Manager</string>
+
+    <!-- General Texts -->
+    <string name="title_welcome">Welcome</string>
+    <string name="title_tasks">My Tasks</string>
+    <string name="title_add_task">New Task</string>
+    <string name="title_login">Login</string>
+    <string name="text_no_cuenta">Don’t have an account? <b><font color='#1976D2'>Sign up here</font></b></string>
+
+    <!-- Buttons -->
+    <string name="btn_save">💾 Save</string>
+    <string name="btn_cancel">❌ Cancel</string>
+    <string name="btn_add">➕ Add</string>
+    <string name="btn_eliminar_tarea">🗑️ Delete</string>
+    <string name="btn_actualizar_tarea">🔄 Edit</string>
+    <string name="btn_ver_detalles">ℹ️ Details</string>
+    <string name="btn_atras">⬅️ Back</string>
+    <string name="btn_elegir_imagen">Choose Image</string>
+
+    <!-- Form Fields -->
+    <string name="hint_task_name">Task name</string>
+    <string name="hint_task_date">Select date</string>
+    <string name="hint_task_category">Select category</string>
+    <string name="hint_titulo_tarea">Enter task title</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+
+    <!-- Messages -->
+    <string name="msg_task_saved">Task successfully saved</string>
+    <string name="msg_task_deleted">Task deleted</string>
+    <string name="msg_fill_fields">Please complete all fields</string>
+    <string name="msg_invalid_login">Invalid username or password</string>
+
+    <!-- Dashboard & Menu -->
+    <string name="dashboard_title">Main Menu</string>
+    <string name="dashboard_ver_tareas">📋 View Tasks</string>
+    <string name="dashboard_agregar_tarea">➕ Add Task</string>
+    <string name="dashboard_ajustes">⚙️ Settings</string>
+    <string name="dashboard_cerrar_sesion">🔐 Logout</string>
+
+    <string name="lista_tareas_title">Task List</string>
+    <string name="agregar_tarea_title">New Task</string>
+
+    <!-- Settings -->
+    <string name="ajustes_title">Settings</string>
+    <string name="ajustes_cambiar_tema">Change Theme</string>
+    <string name="ajustes_eliminar_tareas">Delete All Tasks</string>
+    <string name="ajustes_cerrar_sesion">Logout</string>
+
+    <!-- Logout Confirmation -->
+    <string name="cerrar_sesion_titulo">Close Application</string>
+    <string name="cerrar_sesion_mensaje">Are you sure you want to exit?</string>
+    <string name="cerrar_sesion_si">Yes</string>
+    <string name="cerrar_sesion_no">No</string>
+
+    <!-- Task Info -->
+    <string name="tarea_default">Task here</string>
+    <string name="tarea_guardada">✅ Task saved</string>
+    <string name="tarea_vacia_error">⚠️ Please enter a valid task</string>
+    <string name="tarea_actualizada">Task updated successfully</string>
+    <string name="guardar_tarea">💾 Save Task</string>
+
+    <!-- Labels -->
+    <string name="titulo_tarea">Task Title</string>
+    <string name="descripcion_tarea">Task Description</string>
+    <string name="fecha_tarea">Date</string>
+    <string name="descripcion_imagen">Task Image</string>
+
+    <string name="label_descripcion">Description:</string>
+    <string name="label_fecha">Date:</string>
+    <string name="label_imagen">Image:</string>
+
+    <!-- Others -->
+    <string name="seleccionar_fecha">Select Date</string>
+    <string name="eliminar_todas_las_tareas">Delete All Tasks</string>
+    <string name="detalles_tarea">📋 Task Details</string>
+    <string name="login_button">🔑 Login</string>
+    <string name="menu_add">Add Task</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Registration -->
+    <string name="title_register">Register</string>
+    <string name="hint_nombre">Full Name</string>
+    <string name="hint_telefono">Phone</string>
+    <string name="hint_ciudad">City</string>
+    <string name="btn_register">📝 Sign Up</string>
+    <string name="text_tienes_cuenta">Already have an account? <b><font color='#1976D2'>Log in here</font></b></string>
+    <string name="tv_tienes_cuenta">Already have an account?</string>
+
+    <string name="btn_delete">🗑️ Delete</string>
+    <string name="btn_update">🔄 Edit</string>
+    <string name="btn_view_details">ℹ️ Details</string>
+    <string name="hint_correo">Email</string>
+</resources>
