@@ -40,7 +40,9 @@ public class AjustesActivity extends AppCompatActivity {
         btnCerrarSesion.setOnClickListener(view -> mostrarDialogoCerrarSesion());
     }
 
-    // Habilitar botón de retroceso en la Toolbar
+    /**
+     * Habilitar botón de retroceso en la Toolbar.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -50,6 +52,10 @@ public class AjustesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Método para cambiar entre modo claro y modo oscuro.
+     * Guarda la preferencia del usuario y recrea la actividad.
+     */
     private void cambiarTema() {
         boolean isDarkMode = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
@@ -62,9 +68,13 @@ public class AjustesActivity extends AppCompatActivity {
             guardarTema(true);
         }
 
-        recreate();
+        recreate(); // Recargar actividad para aplicar cambios
     }
 
+    /**
+     * Guarda la preferencia del tema en `SharedPreferences`.
+     * @param isDarkMode Indica si el usuario ha activado el modo oscuro.
+     */
     private void guardarTema(boolean isDarkMode) {
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -72,7 +82,10 @@ public class AjustesActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    // 🔥 Cerrar sesión correctamente y volver a LoginActivity
+    /**
+     * Muestra un cuadro de diálogo para confirmar el cierre de sesión.
+     * Si el usuario confirma, se ejecuta `cerrarSesion()`.
+     */
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
                 .setTitle("Cerrar Sesión")
@@ -82,20 +95,36 @@ public class AjustesActivity extends AppCompatActivity {
                 .show();
     }
 
-    // Método para cerrar sesión y redirigir a LoginActivity
+    /**
+     * Método para cerrar sesión.
+     * Elimina los datos de sesión y redirige al usuario al `LoginActivity`.
+     * 🔥 Muestra un cuadro de diálogo antes de cerrar sesión y salir de la aplicación.
+     */
     private void cerrarSesion() {
-        // Borrar datos de sesión guardados
-        SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.apply();
+        new AlertDialog.Builder(this)
+                .setTitle("Cerrar Sesión")
+                .setMessage("¿Estás seguro de que quieres cerrar sesión y salir de la aplicación?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    // 🔹 Borrar datos de sesión guardados
+                    SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.clear();
+                    editor.apply();
 
-        // Redirigir al LoginActivity
-        Intent intent = new Intent(AjustesActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Evita volver atrás con el botón de retroceso
-        startActivity(intent);
+                    // 🔥 Cerrar la aplicación completamente
+                    finishAffinity(); // Cierra todas las actividades
+                    System.exit(0); // Asegura que el proceso se cierre completamente
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
+
+
+    /**
+     * Método para eliminar todas las tareas guardadas en `SharedPreferences`.
+     * Muestra un mensaje de confirmación cuando la acción se completa.
+     */
     private void eliminarTodasLasTareas() {
         SharedPreferences prefs = getSharedPreferences("MisTareas", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

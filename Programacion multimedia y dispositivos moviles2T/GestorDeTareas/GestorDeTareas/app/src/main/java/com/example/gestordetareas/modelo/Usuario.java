@@ -8,11 +8,10 @@ public class Usuario {
     private String telefono;
     private String ciudad;
 
-    // 🔹 Constructor vacío (obligatorio para SQLite)
-    public Usuario() {
-    }
+    // Constructor vacío (obligatorio para SQLite)
+    public Usuario() {}
 
-    // 🔹 Constructor con parámetros (útil para insertar usuarios)
+    // Constructor con parámetros
     public Usuario(String nombre, String correo, String password, String telefono, String ciudad) {
         this.nombre = nombre;
         this.correo = correo;
@@ -21,12 +20,12 @@ public class Usuario {
         this.ciudad = ciudad;
     }
 
-    public Usuario(String nombre, String correo, String telefono, String ciudad) {
+    /*public Usuario(String nombre, String correo, String telefono, String ciudad) {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         this.ciudad = ciudad;
-    }
+    }*/
 
 
     // 🔹 Getters y Setters

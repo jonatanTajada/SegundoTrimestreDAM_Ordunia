@@ -3,22 +3,11 @@ package com.example.gestordetareas.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BD = "gestor_tareas.db";
     private static final int VERSION_BD = 1;
-
-    // Sentencia para crear la tabla de usuarios
-    private static final String CREAR_TABLA_USUARIOS = "CREATE TABLE usuarios (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "nombre TEXT NOT NULL, " +
-            "correo TEXT UNIQUE NOT NULL, " +
-            "password TEXT NOT NULL, " +
-            "telefono TEXT, " +
-            "ciudad TEXT" +
-            ");";
 
     public BaseDatos(Context context) {
         super(context, NOMBRE_BD, null, VERSION_BD);
@@ -44,10 +33,10 @@ public class BaseDatos extends SQLiteOpenHelper {
                 "FOREIGN KEY(usuario_id) REFERENCES usuarios(id))");
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS usuarios");
+        db.execSQL("DROP TABLE IF EXISTS tareas");
         onCreate(db);
     }
 }

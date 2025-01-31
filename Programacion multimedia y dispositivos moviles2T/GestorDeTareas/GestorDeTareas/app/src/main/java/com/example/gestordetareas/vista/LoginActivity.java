@@ -58,10 +58,10 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // 🔹 Encriptar la contraseña antes de comparar
+        // Encriptar la contraseña antes de comparar
         String passwordEncriptada = EncriptacionUtils.encriptar(password);
 
-        // 🔹 Verificar el usuario con la contraseña encriptada
+        //  Verificar el usuario con la contraseña encriptada
         boolean usuarioValido = usuarioDAO.verificarLogin(correo, passwordEncriptada);
 
         if (usuarioValido) {

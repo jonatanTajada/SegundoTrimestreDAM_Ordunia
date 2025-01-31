@@ -39,7 +39,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MisTareas";
     private static final String KEY_TAREAS = "lista_tareas";
 
-    // Lanzador para abrir la galería
+    // Lanzador para abrir la galería y seleccionar una imagen
     ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -60,7 +60,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Obtener los datos pasados por el Intent (crear o actualizar)
+        // Obtener los datos pasados por el Intent (crear o actualizar tarea)
         Intent intent = getIntent();
         String titulo = intent.getStringExtra("TITULO");
         String descripcion = intent.getStringExtra("DESCRIPCION");
@@ -99,13 +99,14 @@ public class AgregarTareaActivity extends AppCompatActivity {
             finish(); // Cerrar actividad después de guardar
         });
 
-
-
         btnVolver.setOnClickListener(v -> finish()); // Botón volver
         etFecha.setOnClickListener(v -> mostrarDatePickerDialog());
     }
 
-    // Habilitar botón de atrás en la Toolbar
+    /**
+     * Método para manejar la acción del botón de retroceso en la Toolbar.
+     * Cierra la actividad si el usuario presiona el botón de volver.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -115,6 +116,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Método para actualizar una tarea existente en la lista.
+     * @param tareaId ID de la tarea que se va a actualizar.
+     */
     private void actualizarTarea(int tareaId) {
         String nuevoTitulo = etTarea.getText().toString().trim();
         String nuevaDescripcion = etDescripcion.getText().toString().trim();
@@ -140,6 +145,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Método para guardar una nueva tarea en la lista.
+     */
     private void guardarTarea() {
         String nuevoTitulo = etTarea.getText().toString().trim();
         String nuevaDescripcion = etDescripcion.getText().toString().trim();
@@ -160,6 +168,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         finish();
     }
 
+
+    // Carga la lista de tareas almacenadas en SharedPreferences
     private List<Tarea> cargarTareas() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String json = prefs.getString(KEY_TAREAS, "");
@@ -175,6 +185,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         return new ArrayList<>();
     }
 
+
+    // Guarda la lista de tareas en SharedPreferences
     private void guardarListaTareas(List<Tarea> tareas) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -183,6 +195,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
+    /**
+     * Método para mostrar un DatePickerDialog que permite seleccionar una fecha.
+     */
     private void mostrarDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -198,6 +214,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    /**
+     * Método para abrir la galería de imágenes y seleccionar una imagen para la tarea.
+     */
     private void elegirImagen() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickImageLauncher.launch(galleryIntent);

@@ -7,11 +7,11 @@ public class Tarea {
     private final String descripcion;
     private final String fecha;
     private final Uri imagenUri;
-    private final int id; // El id es opcional, puedes hacerlo automático si lo prefieres
+    private final int id;
 
     // Constructor con id automático
     public Tarea(String titulo, String descripcion, String fecha, Uri imagenUri) {
-        this.id = generateUniqueId();  // Método para generar un ID único
+        this.id = generateUniqueId();
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -52,6 +52,7 @@ public class Tarea {
 
     // Método para generar un ID único si es necesario
     private static int generateUniqueId() {
+
         return (int) (System.currentTimeMillis() & 0xfffffff);
     }
 }

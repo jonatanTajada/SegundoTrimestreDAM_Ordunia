@@ -41,6 +41,7 @@ public class RegistroActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(v -> finish());
     }
 
+    // Método registrar Usuario
     private void registrarUsuario() {
         String nombre = etNombre.getText().toString().trim();
         String correo = etCorreo.getText().toString().trim();
