@@ -34,4 +34,8 @@
         <color name="secondary_night">#1F1B24</color> <!-- Un morado oscuro -->
         <color name="secondary_dark_night">#3700B3</color> <!-- Un tono más oscuro de morado -->
 
+        <color name="card_background">#4A148C</color> <!-- Un tono gris claro, puedes cambiarlo -->
+
+
+
 </resources>
