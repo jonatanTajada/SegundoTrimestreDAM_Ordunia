@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/background">
+
+    <!-- CABECERO -->
+    <include layout="@layout/header"/>
+
+    <!-- Título Principal: "Detalles de la Tarea" CENTRADO -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalle_tarea_titulo"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:gravity="center"
+        android:paddingBottom="10dp"/>
+
+    <!-- Contenido -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/card_background"
+            android:elevation="4dp"
+            android:layout_margin="10dp"
+            android:paddingBottom="20dp">
+
+            <!-- Imagen de la tarea -->
+            <ImageView
+                android:id="@+id/ivImagenDetalle"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:contentDescription="@string/descripcion_imagen_detalle"
+                android:src="@drawable/ic_placeholder"/>
+
+            <!-- Etiqueta "Título" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- Contenido del Título -->
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Etiqueta "Fecha" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_tarea_fecha"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- Contenido de la Fecha -->
+            <TextView
+                android:id="@+id/tvFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Etiqueta "Descripción" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_tarea_descripcion"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- Contenido de la Descripción -->
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:lineSpacingExtra="6sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTÓN VOLVER -->
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volver"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/button_text"
+        android:padding="12dp"
+        android:layout_margin="16dp"/>
+
+    <!-- FOOTER -->
+    <include layout="@layout/footer"/>
+</LinearLayout>

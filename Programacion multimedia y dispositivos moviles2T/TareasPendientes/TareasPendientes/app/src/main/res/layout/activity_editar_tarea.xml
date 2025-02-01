@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- CABECERO -->
+    <include layout="@layout/header"/>
+
+    <!-- Contenedor Principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center">
+
+        <!-- Campo de Título -->
+        <EditText
+            android:id="@+id/etTituloEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_titulo"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/primary_variant"
+            android:padding="12dp"
+            android:minHeight="50dp"
+            android:inputType="textCapSentences"
+            android:layout_marginHorizontal="20dp"
+            android:autofillHints="name"/>
+
+        <!-- Campo de Fecha -->
+        <EditText
+            android:id="@+id/etFechaEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_fecha"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/primary_variant"
+            android:padding="12dp"
+            android:minHeight="50dp"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginHorizontal="20dp"
+            android:autofillHints="date"/>
+
+        <!-- Campo de Descripción -->
+        <EditText
+            android:id="@+id/etDescripcionEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_descripcion"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/primary_variant"
+            android:padding="12dp"
+            android:minHeight="80dp"
+            android:maxLines="5"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginHorizontal="20dp"
+            android:autofillHints="description"/>
+
+        <!-- Selección de Imagen -->
+        <ImageView
+            android:id="@+id/ivImagenEditar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/descripcion_imagen_editar"/>
+
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seleccionar_imagen"
+            android:backgroundTint="@color/secondary"
+            android:textColor="@color/text_primary"
+            android:padding="12dp"
+            android:minHeight="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <!-- Espaciado -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <!-- Botones de Acción -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="20dp">
+
+            <Button
+                android:id="@+id/btnVolver"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/volver"
+                android:backgroundTint="@color/error"
+                android:textColor="@color/button_text"
+                android:padding="12dp"
+                android:minHeight="50dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"/>
+
+            <Button
+                android:id="@+id/btnGuardarEdicion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/guardar"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/button_text"
+                android:padding="12dp"
+                android:minHeight="50dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- FOOTER -->
+    <include layout="@layout/footer"/>
+</LinearLayout>

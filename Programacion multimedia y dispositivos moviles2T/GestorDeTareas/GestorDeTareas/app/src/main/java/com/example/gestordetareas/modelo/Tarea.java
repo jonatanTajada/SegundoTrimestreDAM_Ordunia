@@ -1,58 +1,50 @@
 package com.example.gestordetareas.modelo;
 
-import android.net.Uri;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo;
 
+@Entity(tableName = "tareas")
 public class Tarea {
-    private final String titulo;
-    private final String descripcion;
-    private final String fecha;
-    private final Uri imagenUri;
-    private final int id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
-    // Constructor con id automático
-    public Tarea(String titulo, String descripcion, String fecha, Uri imagenUri) {
-        this.id = generateUniqueId();
+    @ColumnInfo(name = "titulo")
+    private String titulo;
+
+    @ColumnInfo(name = "descripcion")
+    private String descripcion;
+
+    @ColumnInfo(name = "fecha")
+    private String fecha;
+
+    @ColumnInfo(name = "imagenUri")
+    private String imagenUri;
+
+    // Constructor vacío (Room lo necesita)
+    public Tarea() {}
+
+    // Constructor con parámetros
+    public Tarea(String titulo, String descripcion, String fecha, String imagenUri) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.imagenUri = imagenUri;
     }
 
-    // Constructor sin id
-    public Tarea(String titulo, String descripcion, String fecha, Uri imagenUri, int id) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.imagenUri = imagenUri;
-        this.id = id;
-    }
+    // Getters y Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Getters y setters
-    public int getId() {
-        return id;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
 
-    public String getFecha() {
-        return fecha;
-    }
-
-    public Uri getImagenUri() {
-        return imagenUri;
-    }
-
-
-
-    // Método para generar un ID único si es necesario
-    private static int generateUniqueId() {
-
-        return (int) (System.currentTimeMillis() & 0xfffffff);
-    }
+    public String getImagenUri() { return imagenUri; }
+    public void setImagenUri(String imagenUri) { this.imagenUri = imagenUri; }
 }

@@ -1,9 +1,7 @@
 package com.example.gestordetareas.vista;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,22 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gestordetareas.R;
+import com.example.gestordetareas.dao.TareaDAO;
 import com.example.gestordetareas.modelo.Tarea;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListaTareasActivity extends AppCompatActivity {
 
-    private List<Tarea> listaTareas;
-    private static final String PREFS_NAME = "MisTareas";
-    private static final String KEY_TAREAS = "lista_tareas";
-    private static final String TAG = "DepuracionTareas";
-
     private TareasAdapter adapter;
+    private TareaDAO tareaDAO;
+    private List<Tarea> listaTareas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,81 +40,61 @@ public class ListaTareasActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_tareas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // ✅ Cargar y mostrar las tareas
-        listaTareas = cargarTareas();
-        Log.d(TAG, "Número de tareas cargadas: " + listaTareas.size());
+        // ✅ Obtener instancia de la base de datos
+        tareaDAO = AppDatabase.getInstance(this).tareaDAO();
 
-        if (listaTareas.isEmpty()) {
-            Log.e(TAG, "La lista de tareas está VACÍA.");
-        } else {
-            for (Tarea tarea : listaTareas) {
-                Log.d(TAG, "Tarea cargada: " + tarea.getTitulo());
-            }
-        }
+        // ✅ Cargar y mostrar tareas desde la base de datos
+        cargarTareas();
 
-        // 🔥 Adaptador local para la lista de tareas
-        adapter = new TareasAdapter(this, listaTareas);
-        recyclerView.setAdapter(adapter);
-
-
-        // ✅ Botón para eliminar todas las tareas
+        // ✅ Configurar botones
         Button btnEliminarTodas = findViewById(R.id.btn_eliminar_todas);
-        btnEliminarTodas.setOnClickListener(view -> eliminarTodasLasTareas(adapter));
+        btnEliminarTodas.setOnClickListener(v -> eliminarTodasLasTareas());
 
-        // 🔹 **Solución para el botón "Volver"**
         Button btnVolver = findViewById(R.id.btn_volver);
-        btnVolver.setOnClickListener(v -> finish()); // 🔥 Ahora el botón cerrará la actividad correctamente
+        btnVolver.setOnClickListener(v -> finish());
     }
 
-    // 🔥 Método para cargar tareas desde SharedPreferences
-    private List<Tarea> cargarTareas() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String json = prefs.getString(KEY_TAREAS, "");
+    // 🔥 Método para cargar tareas desde la base de datos
+    private void cargarTareas() {
+        AsyncTask.execute(() -> {
+            listaTareas = tareaDAO.obtenerTodasLasTareas();
+            runOnUiThread(() -> {
+                adapter = new TareasAdapter(this, listaTareas);
+                RecyclerView recyclerView = findViewById(R.id.recycler_view_tareas);
+                recyclerView.setAdapter(adapter);
+            });
+        });
+    }
 
-        Log.d(TAG, "JSON cargado desde SharedPreferences: " + json);
-
-        if (!json.isEmpty()) {
-            try {
-                Type type = new TypeToken<ArrayList<Tarea>>() {}.getType();
-                List<Tarea> tareas = new Gson().fromJson(json, type);
-                Log.d(TAG, "Número de tareas cargadas: " + tareas.size());
-                return tareas;
-            } catch (Exception e) {
-                Log.e(TAG, "Error al cargar tareas", e);
+    // 🔥 Método para eliminar todas las tareas
+    private void eliminarTodasLasTareas() {
+        AsyncTask.execute(() -> {
+            for (Tarea tarea : listaTareas) {
+                tareaDAO.eliminarTarea(tarea);
             }
-        }
-        return new ArrayList<>();
+            runOnUiThread(() -> {
+                listaTareas.clear();
+                adapter.notifyDataSetChanged();
+                Toast.makeText(this, "Todas las tareas eliminadas", Toast.LENGTH_SHORT).show();
+            });
+        });
     }
 
-    // 🔥 Método para eliminar todas las tareas y actualizar la UI
-    private void eliminarTodasLasTareas(TareasAdapter adapter) {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.apply();
-
-        listaTareas.clear();
-        adapter.notifyItemRangeRemoved(0, listaTareas.size()); // 🔥 Optimización
-        Toast.makeText(this, "Todas las tareas han sido eliminadas", Toast.LENGTH_SHORT).show();
-    }
-
+    // 🔥 Método para eliminar una tarea específica
     public void eliminarTarea(int position) {
         if (position >= 0 && position < listaTareas.size()) {
-            listaTareas.remove(position);
-            adapter.notifyItemRemoved(position); // 🔹 Ahora 'adapter' está declarado correctamente
-
-            // 🔥 Guardar la lista actualizada en SharedPreferences
-            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            String json = new Gson().toJson(listaTareas);
-            editor.putString(KEY_TAREAS, json);
-            editor.apply();
-
-            Toast.makeText(this, "Tarea eliminada", Toast.LENGTH_SHORT).show();
+            Tarea tareaAEliminar = listaTareas.get(position);
+            AsyncTask.execute(() -> {
+                tareaDAO.eliminarTarea(tareaAEliminar);
+                runOnUiThread(() -> {
+                    listaTareas.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position, listaTareas.size());
+                    Toast.makeText(this, "Tarea eliminada", Toast.LENGTH_SHORT).show();
+                });
+            });
         }
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -1,13 +1,11 @@
 package com.example.gestordetareas.vista;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,24 +18,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.gestordetareas.R;
+import com.example.gestordetareas.dao.TareaDAO;
 import com.example.gestordetareas.modelo.Tarea;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
     private EditText etTarea, etDescripcion, etFecha;
     private ImageView ivImagen;
     private Uri imageUri;
-    private int tareaId;
+    private int tareaId = -1;
 
-    private static final String PREFS_NAME = "MisTareas";
-    private static final String KEY_TAREAS = "lista_tareas";
+    private TareaDAO tareaDAO;
 
     // Lanzador para abrir la galería y seleccionar una imagen
     ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
@@ -60,13 +53,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Obtener los datos pasados por el Intent (crear o actualizar tarea)
-        Intent intent = getIntent();
-        String titulo = intent.getStringExtra("TITULO");
-        String descripcion = intent.getStringExtra("DESCRIPCION");
-        String fecha = intent.getStringExtra("FECHA");
-        String imagenUriString = intent.getStringExtra("IMAGEN_URI");
-        tareaId = intent.getIntExtra("TAREA_ID", -1);
+        // Obtener instancia de Room Database
+        tareaDAO = AppDatabase.getInstance(this).tareaDAO();
 
         // Referencias a vistas
         etTarea = findViewById(R.id.et_tarea);
@@ -77,38 +65,40 @@ public class AgregarTareaActivity extends AppCompatActivity {
         Button btnElegirImagen = findViewById(R.id.btn_elegir_imagen);
         Button btnVolver = findViewById(R.id.btn_volver);
 
-        // Si estamos editando una tarea, prellenamos los datos
-        if (tareaId != -1) {
-            etTarea.setText(titulo);
-            etDescripcion.setText(descripcion);
-            etFecha.setText(fecha);
+        // Cargar datos si estamos editando una tarea
+        Intent intent = getIntent();
+        if (intent.hasExtra("TAREA_ID")) {
+            tareaId = intent.getIntExtra("TAREA_ID", -1);
+            etTarea.setText(intent.getStringExtra("TITULO"));
+            etDescripcion.setText(intent.getStringExtra("DESCRIPCION"));
+            etFecha.setText(intent.getStringExtra("FECHA"));
+            String imagenUriString = intent.getStringExtra("IMAGEN_URI");
             if (imagenUriString != null && !imagenUriString.isEmpty()) {
                 imageUri = Uri.parse(imagenUriString);
                 ivImagen.setImageURI(imageUri);
             }
         }
 
+        // Configurar eventos de botones
         btnElegirImagen.setOnClickListener(v -> elegirImagen());
         btnGuardar.setOnClickListener(v -> {
             if (tareaId != -1) {
-                actualizarTarea(tareaId);
-                setResult(RESULT_OK); // Notificar que hubo cambios
+                actualizarTarea();
             } else {
-                guardarTarea();
+                guardarNuevaTarea();
             }
-            finish(); // Cerrar actividad después de guardar
+            finish();
         });
 
-        btnVolver.setOnClickListener(v -> finish()); // Botón volver
+        btnVolver.setOnClickListener(v -> finish());
         etFecha.setOnClickListener(v -> mostrarDatePickerDialog());
     }
 
     /**
      * Método para manejar la acción del botón de retroceso en la Toolbar.
-     * Cierra la actividad si el usuario presiona el botón de volver.
      */
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull android.view.MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -117,87 +107,49 @@ public class AgregarTareaActivity extends AppCompatActivity {
     }
 
     /**
-     * Método para actualizar una tarea existente en la lista.
-     * @param tareaId ID de la tarea que se va a actualizar.
+     * 🔥 Guarda una nueva tarea en la base de datos.
      */
-    private void actualizarTarea(int tareaId) {
+    private void guardarNuevaTarea() {
+        String titulo = etTarea.getText().toString().trim();
+        String descripcion = etDescripcion.getText().toString().trim();
+        String fecha = etFecha.getText().toString().trim();
+
+        if (titulo.isEmpty() || descripcion.isEmpty()) {
+            Toast.makeText(this, "⚠️ Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Tarea tarea = new Tarea(titulo, descripcion, fecha, imageUri != null ? imageUri.toString() : "");
+
+        AsyncTask.execute(() -> tareaDAO.insertarTarea(tarea));
+
+        Toast.makeText(this, "✅ Tarea guardada", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * ✏️ Actualiza una tarea existente en la base de datos.
+     */
+    private void actualizarTarea() {
         String nuevoTitulo = etTarea.getText().toString().trim();
         String nuevaDescripcion = etDescripcion.getText().toString().trim();
         String nuevaFecha = etFecha.getText().toString().trim();
 
         if (nuevoTitulo.isEmpty() || nuevaDescripcion.isEmpty()) {
-            Toast.makeText(this, getString(R.string.tarea_vacia_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "⚠️ Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Tarea tarea = new Tarea(nuevoTitulo, nuevaDescripcion, nuevaFecha, imageUri, tareaId);
+        Tarea tareaActualizada = new Tarea(nuevoTitulo, nuevaDescripcion, nuevaFecha,
+                imageUri != null ? imageUri.toString() : "");
+        tareaActualizada.setId(tareaId); // Mantener el mismo ID
 
-        List<Tarea> tareas = cargarTareas();
-        for (int i = 0; i < tareas.size(); i++) {
-            if (tareas.get(i).getId() == tareaId) {
-                tareas.set(i, tarea);
-                break;
-            }
-        }
+        AsyncTask.execute(() -> tareaDAO.actualizarTarea(tareaActualizada));
 
-        guardarListaTareas(tareas);
-        Toast.makeText(this, getString(R.string.tarea_actualizada), Toast.LENGTH_SHORT).show();
-        finish();
+        Toast.makeText(this, "✅ Tarea actualizada", Toast.LENGTH_SHORT).show();
     }
 
     /**
-     * Método para guardar una nueva tarea en la lista.
-     */
-    private void guardarTarea() {
-        String nuevoTitulo = etTarea.getText().toString().trim();
-        String nuevaDescripcion = etDescripcion.getText().toString().trim();
-        String fechaSeleccionada = etFecha.getText().toString().trim();
-
-        if (nuevoTitulo.isEmpty() || nuevaDescripcion.isEmpty()) {
-            Toast.makeText(this, getString(R.string.tarea_vacia_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Tarea tarea = new Tarea(nuevoTitulo, nuevaDescripcion, fechaSeleccionada, imageUri);
-
-        List<Tarea> tareas = cargarTareas();
-        tareas.add(tarea);
-
-        guardarListaTareas(tareas);
-        Toast.makeText(this, getString(R.string.tarea_guardada), Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
-
-    // Carga la lista de tareas almacenadas en SharedPreferences
-    private List<Tarea> cargarTareas() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String json = prefs.getString(KEY_TAREAS, "");
-
-        if (!json.isEmpty()) {
-            try {
-                Type type = new TypeToken<ArrayList<Tarea>>() {}.getType();
-                return new Gson().fromJson(json, type);
-            } catch (Exception e) {
-                android.util.Log.e("CargarTareas", "Error al cargar tareas", e);
-            }
-        }
-        return new ArrayList<>();
-    }
-
-
-    // Guarda la lista de tareas en SharedPreferences
-    private void guardarListaTareas(List<Tarea> tareas) {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        String json = new Gson().toJson(tareas);
-        editor.putString(KEY_TAREAS, json);
-        editor.apply();
-    }
-
-
-    /**
-     * Método para mostrar un DatePickerDialog que permite seleccionar una fecha.
+     * 📅 Muestra un `DatePickerDialog` para seleccionar la fecha.
      */
     private void mostrarDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
@@ -215,7 +167,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     }
 
     /**
-     * Método para abrir la galería de imágenes y seleccionar una imagen para la tarea.
+     * 🖼 Abre la galería para elegir una imagen.
      */
     private void elegirImagen() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
