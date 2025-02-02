@@ -10,7 +10,7 @@ import com.tareas.pendientes.R;
 
 public class ConfiguracionActivity extends AppCompatActivity {
 
-    private Button btnVolver, btnAcercaDe, btnCambiarTema, btnEditarUsuario, btnCerrarSesion;
+    private Button btnAcercaDe, btnCambiarTema, btnEditarUsuario, btnCerrarSesion, btnVolver;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -20,22 +20,32 @@ public class ConfiguracionActivity extends AppCompatActivity {
 
         inicializarUI();
 
-        btnVolver.setOnClickListener(v -> finish()); // Cierra la actividad actual
         btnAcercaDe.setOnClickListener(v -> startActivity(new Intent(this, AcercaDeActivity.class)));
         btnCambiarTema.setOnClickListener(v -> cambiarTema());
-        btnEditarUsuario.setOnClickListener(v -> startActivity(new Intent(this, EditarUsuarioActivity.class)));
+
+        // 🛠 Verificar si EditarUsuarioActivity está en el Manifest
+        btnEditarUsuario.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(this, EditarUsuarioActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
+        btnVolver.setOnClickListener(v -> finish());
 
         actualizarTextoBotonTema();
     }
 
     private void inicializarUI() {
-        btnVolver = findViewById(R.id.btnVolver);
         btnAcercaDe = findViewById(R.id.btnAcercaDe);
         btnCambiarTema = findViewById(R.id.btnCambiarTema);
         btnEditarUsuario = findViewById(R.id.btnEditarUsuario);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
-        sharedPreferences = getSharedPreferences("Preferencias", MODE_PRIVATE);
+        btnVolver = findViewById(R.id.btnVolver);
+        sharedPreferences = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
     }
 
     private void cambiarTema() {
@@ -52,9 +62,6 @@ public class ConfiguracionActivity extends AppCompatActivity {
 
         editor.apply();
         actualizarTextoBotonTema();
-
-        // 🔄 Reiniciar la actividad para aplicar cambios inmediatamente
-        recreate();
     }
 
     private void actualizarTextoBotonTema() {
@@ -64,11 +71,12 @@ public class ConfiguracionActivity extends AppCompatActivity {
 
     private void cerrarSesion() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear().apply();
+        editor.clear().apply(); // 🔥 Eliminar TODA la sesión correctamente
 
+        // 🔄 Redirigir al login y limpiar la pila de actividades
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish();
+        finish(); // 🚫 Evita que el usuario pueda volver atrás
     }
 }

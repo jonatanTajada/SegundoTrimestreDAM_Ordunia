@@ -103,6 +103,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_TAREAS, null, values);
     }
 
+    public boolean actualizarUsuario(int userId, String nuevoNombre, String nuevoEmail) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOMBRE, nuevoNombre);
+        values.put(COLUMN_EMAIL, nuevoEmail);
+
+        int filasActualizadas = db.update(TABLE_USUARIOS, values, COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(userId)});
+
+        return filasActualizadas > 0;
+    }
+
+
     public Cursor obtenerTareasPorUsuario(int usuarioId) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_TAREAS + " WHERE " + COLUMN_USUARIO_ID_FK + " = ?", new String[]{String.valueOf(usuarioId)});

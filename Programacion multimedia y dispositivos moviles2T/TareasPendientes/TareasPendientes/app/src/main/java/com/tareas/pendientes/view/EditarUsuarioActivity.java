@@ -1,11 +1,14 @@
 package com.tareas.pendientes.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.tareas.pendientes.MainActivity;
 import com.tareas.pendientes.R;
 import com.tareas.pendientes.controller.DatabaseHelper;
 
@@ -57,8 +60,25 @@ public class EditarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        // Aquí iría la lógica para actualizar el usuario en la BD
-        Toast.makeText(this, getString(R.string.tarea_actualizada), Toast.LENGTH_SHORT).show();
-        finish();
+        boolean actualizado = dbHelper.actualizarUsuario(userId, nuevoNombre, nuevoEmail);
+
+        if (actualizado) {
+            // ✅ Actualizamos el correo en la sesión
+            SharedPreferences sharedPreferences = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("userEmail", nuevoEmail);
+            editor.apply();
+
+            Toast.makeText(this, getString(R.string.usuario_actualizado), Toast.LENGTH_SHORT).show();
+
+            // 🔄 Redirigir a MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, getString(R.string.error_actualizar), Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

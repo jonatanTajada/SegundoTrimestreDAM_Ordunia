@@ -67,6 +67,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         }
 
         // 👁 Ver detalles
+        // 👁 Ver detalles
         holder.btnVerDetalles.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetalleTareaActivity.class);
             intent.putExtra("ID_TAREA", tarea.getId());
@@ -74,8 +75,10 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             intent.putExtra("FECHA", tarea.getFecha());
             intent.putExtra("DESCRIPCION", tarea.getDescripcion());
             intent.putExtra("IMAGEN", tarea.getImagen());
+
             context.startActivity(intent);
         });
+
 
         // ✏️ Editar tarea
         // ✏️ Editar tarea (Solución Alternativa)

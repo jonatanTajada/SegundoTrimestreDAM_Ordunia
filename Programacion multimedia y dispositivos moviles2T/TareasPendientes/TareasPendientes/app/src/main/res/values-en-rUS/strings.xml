@@ -131,6 +131,9 @@
     <string name="modo_claro">🌞 Light Mode</string>
     <string name="modo_oscuro">🌙 Dark Mode</string>
 
+    <string name="usuario_actualizado">User updated successfully</string>
+
+    <string name="cerrar_app">Close Application</string>
 
 
 </resources>

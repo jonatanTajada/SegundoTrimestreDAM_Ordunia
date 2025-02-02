@@ -57,21 +57,45 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Cursor cursor = dbHelper.obtenerUsuarioPorEmail(email);
-        if (cursor != null && cursor.moveToFirst()) {
-            String passwordAlmacenada = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
-            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USUARIO_ID));
-            cursor.close();
 
-            if (Encriptador.verificarPassword(password, passwordAlmacenada)) {
-                guardarSesion(userId);
-                irAlMain();
+        if (cursor != null && cursor.moveToFirst()) {
+            int colPassword = cursor.getColumnIndex(DatabaseHelper.COLUMN_PASSWORD);
+            int colUserId = cursor.getColumnIndex(DatabaseHelper.COLUMN_USUARIO_ID);
+
+            if (colPassword != -1 && colUserId != -1) {
+                String passwordAlmacenada = cursor.getString(colPassword);
+                int userId = cursor.getInt(colUserId);
+
+                if (Encriptador.verificarPassword(password, passwordAlmacenada)) {
+                    guardarSesion(userId, email); // 🛠 Guardamos email actualizado en sesión
+                    mostrarMensaje(getString(R.string.login_exitoso));
+
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    mostrarMensaje(getString(R.string.error_password));
+                }
             } else {
-                mostrarMensaje(getString(R.string.error_password));
+                mostrarMensaje(getString(R.string.error_usuario_no_encontrado));
             }
         } else {
             mostrarMensaje(getString(R.string.error_usuario_no_encontrado));
         }
+
+        if (cursor != null) cursor.close();
     }
+
+    private void guardarSesion(int userId, String email) {
+        SharedPreferences sharedPreferences = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("userId", userId);
+        editor.putString("userEmail", email);
+        editor.apply();
+    }
+
+
 
     private void guardarSesion(int userId) {
         SharedPreferences.Editor editor = sharedPreferences.edit();

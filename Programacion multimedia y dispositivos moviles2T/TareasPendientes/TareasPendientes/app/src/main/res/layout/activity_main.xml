@@ -44,7 +44,19 @@
             android:text="@string/configuracion"
             android:backgroundTint="@color/primary_variant"
             android:textColor="@color/button_text"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- 🔴 NUEVO BOTÓN PARA CERRAR LA APP -->
+        <Button
+            android:id="@+id/btnCerrarApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cerrar_app"
+            android:backgroundTint="@color/error"
+            android:textColor="@color/button_text"
+            android:padding="12dp"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 
     <!-- FOOTER -->
