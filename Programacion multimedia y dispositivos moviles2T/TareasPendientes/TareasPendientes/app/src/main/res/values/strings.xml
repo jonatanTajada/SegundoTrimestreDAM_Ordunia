@@ -125,6 +125,14 @@
     <string name="eliminar_todas">🗑 Eliminar todas</string>
 
 
+    <string name="confirmar_eliminar">Eliminar Tarea</string>
+    <string name="mensaje_confirmar_eliminar">¿Seguro que deseas eliminar esta tarea?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+
+
+    <string name="modo_claro">🌞 Modo Claro</string>
+    <string name="modo_oscuro">🌙 Modo Oscuro</string>
 
 
 

@@ -25,16 +25,35 @@
             android:paddingBottom="10dp"/>
     </LinearLayout>
 
-    <!-- Botón ahora está más arriba -->
-    <Button
-        android:id="@+id/btnEliminarTodas"
+    <!-- Botones de acción -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/eliminar_todas"
-        android:backgroundTint="@color/error"
-        android:textColor="@color/button_text"
-        android:padding="12dp"
-        android:layout_margin="10dp"/>
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- Botón Eliminar Todas -->
+        <Button
+            android:id="@+id/btnEliminarTodas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/eliminar_todas"
+            android:backgroundTint="@color/error"
+            android:textColor="@color/button_text"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Botón Volver -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/volver"
+            android:backgroundTint="@color/gray"
+            android:textColor="@color/button_text"
+            android:padding="12dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
     <!-- FOOTER -->
     <include layout="@layout/footer"/>

@@ -41,5 +41,7 @@
         <!-- ℹ️ INFORMACIÓN -->
         <activity android:name=".view.AcercaDeActivity"/>
 
+
+
     </application>
 </manifest>

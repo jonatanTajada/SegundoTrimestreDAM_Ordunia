@@ -10,7 +10,7 @@ import com.tareas.pendientes.R;
 
 public class ConfiguracionActivity extends AppCompatActivity {
 
-    private Button btnAcercaDe, btnCambiarTema, btnEditarUsuario, btnCerrarSesion;
+    private Button btnVolver, btnAcercaDe, btnCambiarTema, btnEditarUsuario, btnCerrarSesion;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -20,6 +20,7 @@ public class ConfiguracionActivity extends AppCompatActivity {
 
         inicializarUI();
 
+        btnVolver.setOnClickListener(v -> finish()); // Cierra la actividad actual
         btnAcercaDe.setOnClickListener(v -> startActivity(new Intent(this, AcercaDeActivity.class)));
         btnCambiarTema.setOnClickListener(v -> cambiarTema());
         btnEditarUsuario.setOnClickListener(v -> startActivity(new Intent(this, EditarUsuarioActivity.class)));
@@ -29,6 +30,7 @@ public class ConfiguracionActivity extends AppCompatActivity {
     }
 
     private void inicializarUI() {
+        btnVolver = findViewById(R.id.btnVolver);
         btnAcercaDe = findViewById(R.id.btnAcercaDe);
         btnCambiarTema = findViewById(R.id.btnCambiarTema);
         btnEditarUsuario = findViewById(R.id.btnEditarUsuario);
@@ -50,11 +52,14 @@ public class ConfiguracionActivity extends AppCompatActivity {
 
         editor.apply();
         actualizarTextoBotonTema();
+
+        // 🔄 Reiniciar la actividad para aplicar cambios inmediatamente
+        recreate();
     }
 
     private void actualizarTextoBotonTema() {
         boolean modoOscuro = sharedPreferences.getBoolean("modoOscuro", false);
-        btnCambiarTema.setText(modoOscuro ? "🌞 Modo Claro" : "🌙 Modo Oscuro");
+        btnCambiarTema.setText(modoOscuro ? getString(R.string.modo_claro) : getString(R.string.modo_oscuro));
     }
 
     private void cerrarSesion() {

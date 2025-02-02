@@ -4,22 +4,33 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.tareas.pendientes.R;
 import com.tareas.pendientes.controller.DatabaseHelper;
 
-
 public class EditarTareaActivity extends AppCompatActivity {
 
-    private EditText etTituloEditar, etFechaEditar, etDescripcionEditar;
+    private TextView etTituloEditar, etFechaEditar, etDescripcionEditar; // Cambié EditText por TextView donde corresponde
     private ImageView ivImagenEditar;
     private Button btnGuardarEdicion, btnSeleccionarImagen, btnVolver;
     private DatabaseHelper dbHelper;
     private int tareaId;
     private Uri imageUri;
+
+    private final ActivityResultLauncher<Intent> imagePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    imageUri = result.getData().getData();
+                    ivImagenEditar.setImageURI(imageUri);
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +39,7 @@ public class EditarTareaActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
+        // Inicializar UI
         etTituloEditar = findViewById(R.id.etTituloEditar);
         etFechaEditar = findViewById(R.id.etFechaEditar);
         etDescripcionEditar = findViewById(R.id.etDescripcionEditar);
@@ -55,22 +67,13 @@ public class EditarTareaActivity extends AppCompatActivity {
 
     private void abrirSelectorImagen() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            ivImagenEditar.setImageURI(imageUri);
-        }
+        imagePickerLauncher.launch(intent);
     }
 
     private void guardarEdicion() {
-        String tituloNuevo = etTituloEditar.getText().toString();
-        String fechaNueva = etFechaEditar.getText().toString();
-        String descripcionNueva = etDescripcionEditar.getText().toString();
+        String tituloNuevo = etTituloEditar.getText().toString().trim();
+        String fechaNueva = etFechaEditar.getText().toString().trim();
+        String descripcionNueva = etDescripcionEditar.getText().toString().trim();
         String imagenPath = (imageUri != null) ? imageUri.toString() : null;
 
         if (tituloNuevo.isEmpty() || fechaNueva.isEmpty() || descripcionNueva.isEmpty()) {
@@ -83,8 +86,8 @@ public class EditarTareaActivity extends AppCompatActivity {
         if (actualizado) {
             Toast.makeText(this, getString(R.string.tarea_actualizada), Toast.LENGTH_SHORT).show();
 
-            // Redirigir a MainActivity después de la edición
-            Intent intent = new Intent(EditarTareaActivity.this, com.tareas.pendientes.MainActivity.class);
+            // Redirigir correctamente a la lista de tareas en lugar de MainActivity
+            Intent intent = new Intent(EditarTareaActivity.this, TareasActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
@@ -92,5 +95,4 @@ public class EditarTareaActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.error_actualizar), Toast.LENGTH_SHORT).show();
         }
     }
-
 }

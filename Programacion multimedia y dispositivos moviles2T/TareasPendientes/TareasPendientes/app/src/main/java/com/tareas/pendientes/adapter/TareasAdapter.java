@@ -3,19 +3,23 @@ package com.tareas.pendientes.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.tareas.pendientes.R;
+import com.tareas.pendientes.controller.DatabaseHelper;
 import com.tareas.pendientes.model.Tarea;
 import com.tareas.pendientes.view.DetalleTareaActivity;
 import com.tareas.pendientes.view.EditarTareaActivity;
+
 import java.util.List;
 
 public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewHolder> {
@@ -23,6 +27,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
     private final Context context;
     private final List<Tarea> listaTareas;
     private final OnItemClickListener listener;
+    private final DatabaseHelper dbHelper; // ✅ DECLARAMOS dbHelper
 
     public interface OnItemClickListener {
         void onEditarClick(Tarea tarea);
@@ -34,6 +39,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         this.context = context;
         this.listaTareas = listaTareas;
         this.listener = listener;
+        this.dbHelper = new DatabaseHelper(context); // ✅ INICIALIZAMOS dbHelper
     }
 
     @NonNull
@@ -60,7 +66,6 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             holder.btnCompletada.setText(context.getString(R.string.completar));
         }
 
-
         // 👁 Ver detalles
         holder.btnVerDetalles.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetalleTareaActivity.class);
@@ -73,16 +78,37 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         });
 
         // ✏️ Editar tarea
-        holder.btnEditar.setOnClickListener(v -> listener.onEditarClick(tarea));
+        // ✏️ Editar tarea (Solución Alternativa)
+        holder.btnEditar.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditarTareaActivity.class);
+            intent.putExtra("ID_TAREA", tarea.getId());
+            intent.putExtra("TITULO", tarea.getTitulo());
+            intent.putExtra("FECHA", tarea.getFecha());
+            intent.putExtra("DESCRIPCION", tarea.getDescripcion());
+            intent.putExtra("IMAGEN", tarea.getImagen());
+            context.startActivity(intent);
+        });
 
-        // 🗑 Eliminar tarea
-        holder.btnEliminar.setOnClickListener(v -> listener.onEliminarClick(tarea));
+
+
+        // 🗑 Eliminar tarea (con confirmación)
+        holder.btnEliminar.setOnClickListener(v -> {
+            new AlertDialog.Builder(context)
+                    .setTitle(context.getString(R.string.confirmar_eliminar))
+                    .setMessage(context.getString(R.string.mensaje_confirmar_eliminar))
+                    .setPositiveButton(context.getString(R.string.si), (dialog, which) -> {
+                        listener.onEliminarClick(tarea);
+                    })
+                    .setNegativeButton(context.getString(R.string.no), null)
+                    .show();
+        });
 
         // ✅/🔄 Marcar como completada o pendiente
         holder.btnCompletada.setOnClickListener(v -> {
-            tarea.setCompletada(!tarea.isCompletada()); // Cambia el estado
-            listener.onMarcarCompletada(tarea);
-            notifyItemChanged(position); // 🔄 ACTUALIZA SOLO ESTE ÍTEM
+            tarea.setCompletada(!tarea.isCompletada());
+            dbHelper.actualizarEstadoTarea(tarea.getId(), tarea.isCompletada()); // ✅ AHORA FUNCIONA
+
+            notifyItemChanged(holder.getAdapterPosition());
         });
     }
 
