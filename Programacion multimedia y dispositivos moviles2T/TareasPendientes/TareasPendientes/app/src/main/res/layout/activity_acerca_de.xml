@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- CABECERO -->
+    <include layout="@layout/header"/>
+
+    <!-- Contenido -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/card_background"
+            android:elevation="4dp"
+            android:layout_margin="10dp">
+
+            <!-- Título -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/acerca_de"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:gravity="center"
+                android:paddingBottom="10dp"/>
+
+            <!-- Presentación de la empresa -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/acerca_de_empresa"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:paddingBottom="10dp"/>
+
+            <!-- Explicación de la app -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/acerca_de_detalles"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingExtra="6sp"/>
+
+            <!-- Versión de la App -->
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:paddingBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTÓN VOLVER -->
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volver"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/button_text"
+        android:padding="12dp"
+        android:layout_margin="16dp"/>
+
+    <!-- FOOTER -->
+    <include layout="@layout/footer"/>
+</LinearLayout>

@@ -7,10 +7,15 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.tareas.pendientes.model.Tarea;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "tareas_pendientes.db";
-    private static final int DATABASE_VERSION = 2; // Aumentado para aplicar cambios en onUpgrade
+    private static final int DATABASE_VERSION = 2;
 
     // Tabla Usuarios
     public static final String TABLE_USUARIOS = "usuarios";
@@ -26,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TITULO = "titulo";
     public static final String COLUMN_DESCRIPCION = "descripcion";
     public static final String COLUMN_FECHA = "fecha";
-    public static final String COLUMN_IMAGEN = "imagen"; // Se mantiene correctamente
+    public static final String COLUMN_IMAGEN = "imagen";
     public static final String COLUMN_COMPLETADA = "completada";
 
     public DatabaseHelper(Context context) {
@@ -35,7 +40,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Crear tabla de Usuarios
         String createUsuariosTable = "CREATE TABLE " + TABLE_USUARIOS + " (" +
                 COLUMN_USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOMBRE + " TEXT NOT NULL, " +
@@ -43,7 +47,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PASSWORD + " TEXT NOT NULL" +
                 ");";
 
-        // Crear tabla de Tareas
         String createTareasTable = "CREATE TABLE " + TABLE_TAREAS + " (" +
                 COLUMN_TAREA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USUARIO_ID_FK + " INTEGER NOT NULL, " +
@@ -61,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) { // Verifica si la versión es anterior para agregar la columna de imagen
+        if (oldVersion < 2) {
             try {
                 db.execSQL("ALTER TABLE " + TABLE_TAREAS + " ADD COLUMN " + COLUMN_IMAGEN + " TEXT;");
             } catch (SQLException e) {
@@ -72,18 +75,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 📌 MÉTODOS PARA USUARIOS
 
-    // Insertar un usuario
     public long insertarUsuario(String nombre, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOMBRE, nombre);
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_PASSWORD, password);
-
         return db.insert(TABLE_USUARIOS, null, values);
     }
 
-    // Obtener un usuario por email
     public Cursor obtenerUsuarioPorEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_USUARIOS + " WHERE " + COLUMN_EMAIL + " = ?", new String[]{email});
@@ -91,7 +91,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 📌 MÉTODOS PARA TAREAS
 
-    // Insertar una tarea
     public long insertarTarea(int usuarioId, String titulo, String descripcion, String fecha, String imagenPath, boolean completada) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -101,17 +100,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FECHA, fecha);
         values.put(COLUMN_IMAGEN, imagenPath);
         values.put(COLUMN_COMPLETADA, completada ? 1 : 0);
-
         return db.insert(TABLE_TAREAS, null, values);
     }
 
-    // Obtener todas las tareas de un usuario
     public Cursor obtenerTareasPorUsuario(int usuarioId) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_TAREAS + " WHERE " + COLUMN_USUARIO_ID_FK + " = ?", new String[]{String.valueOf(usuarioId)});
     }
 
-    // Editar una tarea
+    // 📌 Obtener todas las tareas (CORREGIDO)
+    public List<Tarea> obtenerTareas() {
+        List<Tarea> listaTareas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TAREAS + " ORDER BY " + COLUMN_FECHA + " ASC", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Tarea tarea = new Tarea(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TAREA_ID)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USUARIO_ID_FK)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITULO)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPCION)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FECHA)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGEN)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_COMPLETADA)) == 1
+                );
+                listaTareas.add(tarea);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return listaTareas;
+    }
+
     public boolean actualizarTarea(int tareaId, String nuevoTitulo, String nuevaFecha, String nuevaDescripcion, String nuevaImagen) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -124,15 +146,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return filasActualizadas > 0;
     }
 
-    // Eliminar una tarea
+    public void actualizarEstadoTarea(int tareaId, boolean completada) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMPLETADA, completada ? 1 : 0);
+
+        db.update(TABLE_TAREAS, values, COLUMN_TAREA_ID + " = ?", new String[]{String.valueOf(tareaId)});
+    }
+
+
+
     public void eliminarTarea(int tareaId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TAREAS, COLUMN_TAREA_ID + " = ?", new String[]{String.valueOf(tareaId)});
     }
 
-    // Eliminar todas las tareas de un usuario
-    public void eliminarTodasLasTareas(int usuarioId) {
+    public void eliminarTodasLasTareas() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TAREAS, COLUMN_USUARIO_ID_FK + " = ?", new String[]{String.valueOf(usuarioId)});
+        db.delete(TABLE_TAREAS, null, null);
     }
+
+
 }

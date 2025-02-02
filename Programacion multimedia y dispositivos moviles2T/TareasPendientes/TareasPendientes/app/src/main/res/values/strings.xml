@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Tareas Pendientes</string>
+
     <!-- Login -->
     <string name="login_title">Iniciar Sesión</string>
     <string name="hint_email">Correo Electrónico</string>
@@ -15,53 +17,45 @@
     <string name="btn_back_to_login">Volver al Login</string>
 
     <!-- Mensajes -->
-    <string name="error_empty_fields">Todos los campos son obligatorios</string>
-    <string name="error_wrong_password">Contraseña incorrecta</string>
-    <string name="error_user_not_found">Usuario no encontrado</string>
-    <string name="success_register">Registro exitoso. Inicia sesión</string>
-
-
-
+    <string name="error_campos_obligatorios">Todos los campos son obligatorios</string>
+    <string name="error_email_invalido">Correo electrónico no válido</string>
+    <string name="error_email_existente">Este correo ya está registrado.</string>
+    <string name="error_usuario_no_encontrado">Usuario no encontrado</string>
+    <string name="error_password">Contraseña incorrecta</string>
+    <string name="error_registro">Error al registrar usuario</string>
+    <string name="login_exitoso">Inicio de sesión exitoso</string>
+    <string name="registro_exitoso">Registro exitoso. Inicia sesión</string>
 
     <string name="footer_text">© 2024 Tareas Pendientes - Todos los derechos reservados</string>
 
+    <!-- Headers -->
     <string name="header_default">Bienvenido</string>
     <string name="header_register">Registro</string>
     <string name="header_tasks">Mis Tareas</string>
     <string name="header_settings">Configuración</string>
-    <string name="back_button">←</string> <!-- Flecha para el botón de volver -->
+    <string name="back_button">Volver</string>
 
+    <!-- MainActivity (Index) -->
+    <string name="ver_tareas">📋 Ver Tareas</string>
+    <string name="crear_tarea">✏️ Crear Nueva Tarea</string>
+    <string name="configuracion">⚙️ Configuración</string>
 
+    <!-- Configuración -->
+    <string name="acerca_de">ℹ️ Acerca de la App</string>
+    <string name="cambiar_tema">🌙 Cambiar Tema</string>
+    <string name="editar_usuario">✏️ Editar Usuario</string>
+    <string name="cerrar_sesion">🚪 Cerrar Sesión</string>
 
-    <string name="error_campos_obligatorios">Todos los campos son obligatorios</string>
-    <string name="error_email_invalido">Correo electronico no valido</string>
-    <string name="error_usuario_no_encontrado">Usuario no encontrado</string>
-    <string name="error_password">Contraseña incorrecta</string> <!-- Aquí cambiamos la clave -->
-    <string name="error_registro">Error al registrar usuario</string>
-    <string name="login_exitoso">Inicio de sesion exitoso</string>
-    <string name="registro_exitoso">Registro exitoso. Inicia sesion</string>
+    <!-- Acerca de -->
+    <string name="acerca_de_texto">Esta app te ayuda a gestionar tus tareas de manera eficiente.</string>
 
+    <!-- Editar Usuario -->
+    <string name="editar_usuario_titulo">Editar Usuario</string>
+    <string name="guardar_cambios">💾 Guardar Cambios</string>
 
-        <!-- MainActivity (Index) -->
-        <string name="ver_tareas">📋 Ver Tareas</string>
-        <string name="crear_tarea">✏️ Crear Nueva Tarea</string>
-        <string name="configuracion">⚙️ Configuración</string>
+    <string name="volver">🔙 Volver</string>
 
-        <!-- ConfiguracionActivity -->
-        <string name="acerca_de">ℹ️ Acerca de la App</string>
-        <string name="cambiar_tema">🌙 Cambiar Tema</string>
-        <string name="editar_usuario">✏️ Editar Usuario</string>
-        <string name="cerrar_sesion">🚪 Cerrar Sesión</string>
-
-        <!-- Acerca de -->
-        <string name="acerca_de_texto">Esta app te ayuda a gestionar tus tareas de manera eficiente.</string>
-
-        <!-- Editar Usuario -->
-        <string name="editar_usuario_titulo">Editar Usuario</string>
-        <string name="guardar_cambios">💾 Guardar Cambios</string>
-
-        <string name="volver">🔙 Volver</string>
-
+    <!-- Tareas -->
     <string name="titulo_tarea">Título de la Tarea</string>
     <string name="fecha_tarea">Fecha</string>
     <string name="ver_detalles">🔍 Ver Detalles</string>
@@ -70,24 +64,74 @@
 
     <string name="fecha">Fecha:</string>
 
+    <string name="completar">✅ Completar</string>
+    <string name="marcar_pendiente">🔄 Marcar Pendiente</string>
 
-    <string name="hint_titulo">Editar título</string>
-    <string name="hint_fecha">Seleccionar nueva fecha</string>
-    <string name="guardar">💾 Guardar Cambios</string>
-    <string name="error_actualizar">Error al actualizar la tarea</string>
+    <string name="todas_tareas_eliminadas">Todas las tareas han sido eliminadas.</string>
+    <string name="no_hay_tareas">No hay tareas para eliminar.</string>
+    <string name="tarea_eliminada">Tarea eliminada correctamente.</string>
+
     <string name="tarea_actualizada">Tarea actualizada con éxito</string>
+    <string name="error_actualizar">Error al actualizar la tarea</string>
 
-    <string name="hint_descripcion">Escribe una descripción</string>
-    <string name="seleccionar_imagen">📷 Seleccionar Imagen</string>
-    <string name="descripcion_imagen_editar">Imagen seleccionada para la tarea</string>
+    <string name="version_app">Versión: %s</string>
 
-    <string name="descripcion_imagen_detalle">Imagen de la tarea</string>
+    <string name="hint_nombre">Introduce tu nombre</string>
 
-    <string name="detalle_tarea_titulo">Detalles de la Tarea</string>
-    <string name="detalle_tarea_fecha">Fecha:</string>
-    <string name="detalle_tarea_descripcion">Descripción:</string>
+    <string name="fecha_placeholder">%02d-%02d-%04d</string>
 
-    <string name="titulo">Título:</string>
+
+    <string name="acerca_de_empresa">
+    Tareas Pendientes es una aplicación desarrollada con la misión de hacer tu vida más organizada y productiva.
+    Nuestra plataforma está diseñada para ayudar a estudiantes, profesionales y cualquier persona que necesite
+    gestionar sus actividades diarias de manera eficiente. Creemos en la simplicidad y la eficacia, por eso hemos
+    creado una herramienta fácil de usar, intuitiva y con características poderosas.
+</string>
+
+    <string name="acerca_de_detalles">
+    Con Tareas Pendientes puedes:
+    - ✏️ Crear, editar y eliminar tareas fácilmente.
+    - 📅 Organizar tus actividades con fechas personalizadas.
+    - 📸 Adjuntar imágenes para recordar detalles importantes.
+    - ✅ Marcar tareas como completadas y llevar un mejor control.
+    - 🌓 Activar modo oscuro para una mejor experiencia visual.
+
+    Nuestra aplicación es ligera, rápida y completamente gratuita. No importa si eres estudiante, trabajador o simplemente
+    alguien que busca mejorar su organización diaria, Tareas Pendientes está aquí para ayudarte.
+</string>
+
+
+
+        <!-- Crear Tarea -->
+        <string name="hint_titulo">Introduce el título de la tarea</string>
+        <string name="hint_fecha">Selecciona una fecha</string>
+        <string name="hint_descripcion">Añade una descripción</string>
+        <string name="descripcion_imagen_editar">Imagen seleccionada para la tarea</string>
+        <string name="seleccionar_imagen">📷 Seleccionar Imagen</string>
+        <string name="guardar">💾 Guardar</string>
+
+
+    <string name="label_imagen">📷 Imagen seleccionada:</string>
+
+
+        <string name="detalle_tarea_titulo">Detalles de la Tarea</string>
+        <string name="descripcion_imagen_detalle">Imagen de la tarea</string>
+        <string name="titulo">Título:</string>
+        <string name="detalle_tarea_fecha">Fecha:</string>
+        <string name="detalle_tarea_descripcion">Descripción:</string>
+
+
+
+    <string name="eliminar_todas">🗑 Eliminar todas</string>
+
+
+
+
+
+
+
+
+
 
 
 

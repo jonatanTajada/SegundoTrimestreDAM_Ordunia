@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tareas.pendientes.R;
 import com.tareas.pendientes.controller.DatabaseHelper;
 
+
 public class EditarTareaActivity extends AppCompatActivity {
 
     private EditText etTituloEditar, etFechaEditar, etDescripcionEditar;
@@ -83,7 +84,7 @@ public class EditarTareaActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.tarea_actualizada), Toast.LENGTH_SHORT).show();
 
             // Redirigir a MainActivity después de la edición
-            Intent intent = new Intent(EditarTareaActivity.this, com.tareas.pendientes.view.MainActivity.class);
+            Intent intent = new Intent(EditarTareaActivity.this, com.tareas.pendientes.MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

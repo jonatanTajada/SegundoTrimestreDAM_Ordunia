@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-
-
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,15 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TareasPendientes"
         tools:targetApi="31">
+
+        <!-- 🚀 PANTALLA INICIAL: LOGIN -->
         <activity
-            android:name=".MainActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- 🌍 REGISTRO DE USUARIOS -->
+        <activity android:name=".view.RegistroActivity"/>
+
+        <!-- 🏠 MENÚ PRINCIPAL -->
+        <activity android:name=".MainActivity"/>
+
+        <!-- 📋 GESTIÓN DE TAREAS -->
+        <activity android:name=".view.TareasActivity"/>
+        <activity android:name=".view.CrearTareaActivity"/>
+        <activity android:name=".view.EditarTareaActivity"/>
+        <activity android:name=".view.DetalleTareaActivity"/>
+
+        <!-- ⚙️ CONFIGURACIÓN -->
+        <activity android:name=".view.ConfiguracionActivity"/>
+
+        <!-- ℹ️ INFORMACIÓN -->
+        <activity android:name=".view.AcercaDeActivity"/>
+
+    </application>
 </manifest>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Pending Tasks</string>
+
     <!-- Login -->
     <string name="login_title">Login</string>
     <string name="hint_email">Email Address</string>
@@ -8,85 +10,120 @@
     <string name="btn_login">Login</string>
     <string name="btn_register">Create Account</string>
 
-    <!-- Registro -->
+    <!-- Register -->
     <string name="register_title">Sign Up</string>
     <string name="hint_name">Full Name</string>
     <string name="btn_register_action">Register</string>
     <string name="btn_back_to_login">Back to Login</string>
 
     <!-- Messages -->
-    <string name="error_empty_fields">All fields are required</string>
-    <string name="error_wrong_password">Incorrect password</string>
-    <string name="error_user_not_found">User not found</string>
-    <string name="success_register">Registration successful. Please log in</string>
-
-    <string name="footer_text">© 2024 Pending Tasks - All rights reserved</string>
-
-    <string name="header_default">Welcome</string>
-    <string name="header_register">Register</string>
-    <string name="header_tasks">My Tasks</string>
-    <string name="header_settings">Settings</string>
-    <string name="back_button">←</string>
-
-
     <string name="error_campos_obligatorios">All fields are required</string>
     <string name="error_email_invalido">Invalid email address</string>
+    <string name="error_email_existente">This email is already registered.</string>
     <string name="error_usuario_no_encontrado">User not found</string>
-    <string name="error_password">Incorrect password</string> <!-- Aquí también lo cambiamos -->
+    <string name="error_password">Incorrect password</string>
     <string name="error_registro">Error registering user</string>
     <string name="login_exitoso">Login successful</string>
     <string name="registro_exitoso">Successful registration. Please log in</string>
 
+    <string name="footer_text">© 2024 Pending Tasks - All rights reserved</string>
+
+    <!-- Headers -->
+    <string name="header_default">Welcome</string>
+    <string name="header_register">Register</string>
+    <string name="header_tasks">My Tasks</string>
+    <string name="header_settings">Settings</string>
+    <string name="back_button">Back</string>
+
+    <!-- MainActivity (Index) -->
+    <string name="ver_tareas">📋 View Tasks</string>
+    <string name="crear_tarea">✏️ Create New Task</string>
+    <string name="configuracion">⚙️ Settings</string>
+
+    <!-- Configuración -->
+    <string name="acerca_de">ℹ️ About the App</string>
+    <string name="cambiar_tema">🌙 Change Theme</string>
+    <string name="editar_usuario">✏️ Edit User</string>
+    <string name="cerrar_sesion">🚪 Log Out</string>
+
+    <!-- About -->
+    <string name="acerca_de_texto">This app helps you manage your tasks efficiently.</string>
+
+    <!-- Edit User -->
+    <string name="editar_usuario_titulo">Edit User</string>
+    <string name="guardar_cambios">💾 Save Changes</string>
+
+    <string name="volver">🔙 Back</string>
+
+    <!-- Tasks -->
+    <string name="titulo_tarea">Task Title</string>
+    <string name="fecha_tarea">Date</string>
+    <string name="ver_detalles">🔍 View Details</string>
+    <string name="editar">✏️ Edit</string>
+    <string name="eliminar">🗑 Delete</string>
+
+    <string name="fecha">Date:</string>
+
+    <string name="completar">✅ Complete</string>
+    <string name="marcar_pendiente">🔄 Mark as Pending</string>
+
+    <string name="todas_tareas_eliminadas">All tasks have been deleted.</string>
+    <string name="no_hay_tareas">There are no tasks to delete.</string>
+    <string name="tarea_eliminada">Task successfully deleted.</string>
+
+    <string name="tarea_actualizada">Task updated successfully</string>
+    <string name="error_actualizar">Error updating task</string>
+
+    <string name="version_app">Version: %s</string>
+
+    <string name="hint_nombre">Enter your name</string>
+
+    <string name="fecha_placeholder">%02d-%02d-%04d</string>
+
+    <string name="acerca_de_empresa">
+    Pending Tasks is an application developed with the mission of making your life more organized and productive.
+    Our platform is designed to help students, professionals, and anyone who needs to efficiently manage
+    their daily activities. We believe in simplicity and efficiency, which is why we have created
+    an easy-to-use, intuitive tool with powerful features.
+</string>
+
+    <string name="acerca_de_detalles">
+    With Pending Tasks you can:
+    - ✏️ Create, edit, and delete tasks easily.
+    - 📅 Organize your activities with custom dates.
+    - 📸 Attach images to remember important details.
+    - ✅ Mark tasks as completed and keep better control.
+    - 🌓 Enable dark mode for a better visual experience.
+
+    Our application is lightweight, fast, and completely free. Whether you\'re a student, worker, or just
+    someone looking to improve daily organization, Pending Tasks is here to help you.
+</string>
 
 
-        <!-- MainActivity (Index) -->
-        <string name="ver_tareas">📋 View Tasks</string>
-        <string name="crear_tarea">✏️ Create New Task</string>
-        <string name="configuracion">⚙️ Settings</string>
 
-        <!-- ConfiguracionActivity -->
-        <string name="acerca_de">ℹ️ About the App</string>
-        <string name="cambiar_tema">🌙 Change Theme</string>
-        <string name="editar_usuario">✏️ Edit User</string>
-        <string name="cerrar_sesion">🚪 Log Out</string>
-
-        <!-- About -->
-        <string name="acerca_de_texto">This app helps you manage your tasks efficiently.</string>
-
-        <!-- Edit User -->
-        <string name="editar_usuario_titulo">Edit User</string>
-        <string name="guardar_cambios">💾 Save Changes</string>
-        <string name="volver">🔙 Back</string>
-
-        <string name="titulo_tarea">Task Title</string>
-        <string name="fecha_tarea">Date</string>
-        <string name="ver_detalles">🔍 View Details</string>
-        <string name="editar">✏️ Edit</string>
-        <string name="eliminar">🗑 Delete</string>
+        <!-- Create Task -->
+        <string name="hint_titulo">Enter the task title</string>
+        <string name="hint_fecha">Select a date</string>
+        <string name="hint_descripcion">Add a description</string>
+        <string name="descripcion_imagen_editar">Selected image for the task</string>
+        <string name="seleccionar_imagen">📷 Select Image</string>
+        <string name="guardar">💾 Save</string>
 
 
-        <string name="fecha">Date:</string>
-
-        <string name="hint_titulo">Edit title</string>
-        <string name="hint_fecha">Select new date</string>
-        <string name="guardar">💾 Save Changes</string>
-        <string name="error_actualizar">Error updating task</string>
-        <string name="tarea_actualizada">Task updated successfully</string>
-
-    <string name="hint_descripcion">Enter a description</string>
-    <string name="seleccionar_imagen">📷 Select Image</string>
+    <string name="label_imagen">📷 Selected Image:</string>
 
 
-    <string name="descripcion_imagen_editar">Selected image for the task</string>
-
-    <string name="descripcion_imagen_detalle">Task image</string>
 
     <string name="detalle_tarea_titulo">Task Details</string>
+    <string name="descripcion_imagen_detalle">Task image</string>
+    <string name="titulo">Title:</string>
     <string name="detalle_tarea_fecha">Date:</string>
     <string name="detalle_tarea_descripcion">Description:</string>
 
+    <string name="eliminar_todas">🗑 Delete all</string>
 
-    <string name="titulo">Title:</string>
+
+
 
 
 

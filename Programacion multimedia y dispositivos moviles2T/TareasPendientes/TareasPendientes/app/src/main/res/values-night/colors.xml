@@ -26,4 +26,15 @@
     <color name="card_background">#2C2C2C</color> <!-- Color gris oscuro para tarjetas en modo oscuro -->
 
 
+
+    <color name="green">#4CAF50</color>  <!-- ✅ Verde (Completado) -->
+    <color name="red">#CF6679</color>  <!-- ❌ Rojo (Error) -->
+    <color name="black">#000000</color>  <!-- ⚫ Negro -->
+    <color name="white">#FFFFFF</color>
+
+
+
+
+
+
 </resources>

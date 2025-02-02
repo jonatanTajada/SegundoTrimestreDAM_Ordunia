@@ -1,80 +1,80 @@
 package com.tareas.pendientes.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Tarea {
-    private int id;
-    private int usuarioId; // Identificador del usuario dueño de la tarea
+    private final int id;
+
+    private int usuarioId;
     private String titulo;
     private String descripcion;
-    private String fecha; // Fecha de la tarea en formato String (ej. "2024-02-01")
-    private String imagenPath; // Ruta de la imagen en el dispositivo
+    private String fecha;
+    private String imagen;
     private boolean completada;
 
-    // Constructor vacío
-    public Tarea() {
-    }
-
-    // Constructor con parámetros
-    public Tarea(int id, int usuarioId, String titulo, String descripcion, String fecha, String imagenPath, boolean completada) {
+    // Constructor
+    public Tarea(int id, int usuarioId, String titulo, String descripcion, String fecha, String imagen, boolean completada) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.imagenPath = imagenPath;
+        this.fecha = (fecha != null && !fecha.isEmpty()) ? fecha : obtenerFechaActual();
+        this.imagen = imagen;
         this.completada = completada;
     }
 
-    // Getters y Setters
-    public int getId() {
-        return id;
+    // Método para obtener la fecha actual del sistema en formato "dd-MM-yyyy"
+    private String obtenerFechaActual() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
-    public void setId(int id) {
-        this.id = id;
+    // Getters
+    public int getId() {
+        return id;
     }
 
     public int getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
     public String getTitulo() {
         return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getImagenPath() {
-        return imagenPath;
-    }
-
-    public void setImagenPath(String imagenPath) {
-        this.imagenPath = imagenPath;
+    public String getImagen() {
+        return imagen;
     }
 
     public boolean isCompletada() {
         return completada;
+    }
+
+    // Setters
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = (fecha != null && !fecha.isEmpty()) ? fecha : obtenerFechaActual(); // También en setter
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public void setCompletada(boolean completada) {

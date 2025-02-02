@@ -1,6 +1,7 @@
 package com.tareas.pendientes.view;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -23,16 +24,11 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        dbHelper = new DatabaseHelper(this);
         inicializarUI();
 
         btnRegistrar.setOnClickListener(v -> registrarUsuario());
-
-        btnVolverLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        });
+        btnVolverLogin.setOnClickListener(v -> irALogin());
     }
 
     private void inicializarUI() {
@@ -41,7 +37,6 @@ public class RegistroActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnVolverLogin = findViewById(R.id.btnVolverLogin);
-        dbHelper = new DatabaseHelper(this);
     }
 
     private void registrarUsuario() {
@@ -59,21 +54,34 @@ public class RegistroActivity extends AppCompatActivity {
             return;
         }
 
-        // Encriptar la contraseña antes de guardarla
-        String passwordEncriptada = Encriptador.encriptar(password);
+        if (usuarioExiste(email)) {
+            mostrarMensaje(getString(R.string.error_email_existente));
+            return;
+        }
 
+        String passwordEncriptada = Encriptador.encriptar(password);
         long resultado = dbHelper.insertarUsuario(nombre, email, passwordEncriptada);
 
         if (resultado != -1) {
             mostrarMensaje(getString(R.string.registro_exitoso));
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+            irALogin();
         } else {
             mostrarMensaje(getString(R.string.error_registro));
         }
+    }
+
+    private boolean usuarioExiste(String email) {
+        Cursor cursor = dbHelper.obtenerUsuarioPorEmail(email);
+        boolean existe = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) cursor.close();
+        return existe;
+    }
+
+    private void irALogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void mostrarMensaje(String mensaje) {

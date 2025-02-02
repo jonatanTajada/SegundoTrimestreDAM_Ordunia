@@ -20,21 +20,24 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin, btnRegistro;
     private DatabaseHelper dbHelper;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        dbHelper = new DatabaseHelper(this);
+        sharedPreferences = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+
+        // ✔️ Si ya está logueado, lo mandamos a MainActivity
+        if (sharedPreferences.getBoolean("logueado", false)) {
+            irAlMain();
+        }
+
         inicializarUI();
-
         btnLogin.setOnClickListener(v -> validarUsuario());
-
-        btnRegistro.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
-            startActivity(intent);
-            finish(); // Cerramos Login para que no pueda volver atrás después de registrarse
-        });
+        btnRegistro.setOnClickListener(v -> irARegistro());
     }
 
     private void inicializarUI() {
@@ -42,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistro = findViewById(R.id.btnRegistro);
-        dbHelper = new DatabaseHelper(this);
     }
 
     private void validarUsuario() {
@@ -55,41 +57,38 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Cursor cursor = dbHelper.obtenerUsuarioPorEmail(email);
-
         if (cursor != null && cursor.moveToFirst()) {
-            int colPassword = cursor.getColumnIndex(DatabaseHelper.COLUMN_PASSWORD);
-            int colUserId = cursor.getColumnIndex(DatabaseHelper.COLUMN_USUARIO_ID);
+            String passwordAlmacenada = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USUARIO_ID));
+            cursor.close();
 
-            if (colPassword != -1 && colUserId != -1) {
-                String passwordAlmacenada = cursor.getString(colPassword);
-                int userId = cursor.getInt(colUserId);
-
-                if (Encriptador.verificarPassword(password, passwordAlmacenada)) {
-                    guardarSesion(userId);
-                    mostrarMensaje(getString(R.string.login_exitoso));
-
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    mostrarMensaje(getString(R.string.error_password));
-                }
+            if (Encriptador.verificarPassword(password, passwordAlmacenada)) {
+                guardarSesion(userId);
+                irAlMain();
             } else {
-                mostrarMensaje(getString(R.string.error_usuario_no_encontrado));
+                mostrarMensaje(getString(R.string.error_password));
             }
         } else {
             mostrarMensaje(getString(R.string.error_usuario_no_encontrado));
         }
-
-        if (cursor != null) cursor.close();
     }
 
     private void guardarSesion(int userId) {
-        SharedPreferences sharedPreferences = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("userId", userId);
+        editor.putBoolean("logueado", true);
         editor.apply();
+    }
+
+    private void irAlMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void irARegistro() {
+        startActivity(new Intent(this, RegistroActivity.class));
+        finish();
     }
 
     private void mostrarMensaje(String mensaje) {

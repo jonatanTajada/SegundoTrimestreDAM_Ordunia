@@ -1,9 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TareasPendientes" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Tema Claro -->
+    <style name="Theme.TareasPendientes" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_theme</item>
     </style>
-
-    <style name="Theme.TareasPendientes" parent="Base.Theme.TareasPendientes" />
 </resources>

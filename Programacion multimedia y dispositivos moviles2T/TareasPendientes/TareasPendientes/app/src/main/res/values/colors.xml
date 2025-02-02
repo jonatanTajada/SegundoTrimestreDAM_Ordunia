@@ -26,4 +26,10 @@
 
     <color name="card_background">#F5F5F5</color> <!-- Color gris claro para las tarjetas -->
 
+    <color name="green">#4CAF50</color>  <!-- Verde -->
+    <color name="black">#000000</color>  <!-- Negro -->
+    <color name="red">#CF6679</color>  <!-- ❌ Rojo (Error) -->
+
+    <color name="white">#FFFFFF</color>
+
 </resources>

@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TareasPendientes" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <!-- Tema Oscuro -->
+    <style name="Theme.TareasPendientes" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_theme</item>
     </style>
 </resources>

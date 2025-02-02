@@ -16,24 +16,25 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- RecyclerView para mostrar la lista de tareas -->
+        <!-- RecyclerView ocupa todo el espacio disponible -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerTareas"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingBottom="10dp"/>
-
-        <!-- Botón para eliminar todas las tareas -->
-        <Button
-            android:id="@+id/btnEliminarTodas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/eliminar_todas"
-            android:backgroundTint="@color/error"
-            android:textColor="@color/button_text"
-            android:padding="12dp"/>
     </LinearLayout>
+
+    <!-- Botón ahora está más arriba -->
+    <Button
+        android:id="@+id/btnEliminarTodas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/eliminar_todas"
+        android:backgroundTint="@color/error"
+        android:textColor="@color/button_text"
+        android:padding="12dp"
+        android:layout_margin="10dp"/>
 
     <!-- FOOTER -->
     <include layout="@layout/footer"/>
