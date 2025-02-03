@@ -1,0 +1,81 @@
+/* =======================
+   🔹 Estilos de Login y Registro
+======================= */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f4f4f4;
+}
+
+/* =======================
+   🔹 Contenedores VBox
+======================= */
+.vbox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 30px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);
+}
+
+/* =======================
+   🔹 Etiquetas y Títulos
+======================= */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.label[style*="font-size: 20px"] {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+/* =======================
+   🔹 Campos de Texto
+======================= */
+.text-field, .password-field {
+    -fx-pref-width: 250px;
+    -fx-padding: 8px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 10, 0, 0, 2);
+}
+
+/* =======================
+   🔹 Botones
+======================= */
+.button {
+    -fx-pref-width: 250px;
+    -fx-padding: 10px;
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #1c6ea4;
+}
+
+/* =======================
+   🔹 Enlaces (Hyperlink)
+======================= */
+.hyperlink {
+    -fx-text-fill: #3498db;
+    -fx-font-size: 12px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #2980b9;
+    -fx-underline: true;
+}

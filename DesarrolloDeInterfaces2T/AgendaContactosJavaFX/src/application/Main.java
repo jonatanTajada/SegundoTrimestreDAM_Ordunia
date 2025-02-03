@@ -10,13 +10,15 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		
 	    try {
-	        Parent root = FXMLLoader.load(getClass().getResource("/vista/Principal.fxml"));
-	        Scene scene = new Scene(root);
-	        scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-	        primaryStage.setTitle("Gestor de Contactos");
+	        Parent root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
+	        Scene scene = new Scene(root, 450, 500); // ⬅ Tamaño más grande
+	        
+	        scene.getStylesheets().add(getClass().getResource("/application/applicationUsuario.css").toExternalForm());
+	        
+	        primaryStage.setTitle("Login - Gestor de Contactos");
 	        primaryStage.setScene(scene);
+	        primaryStage.setResizable(false); // ⬅ Evita que se expanda descontroladamente
 	        primaryStage.show();
 	    } catch (Exception e) {
 	        e.printStackTrace();

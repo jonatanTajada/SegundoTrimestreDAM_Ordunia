@@ -58,30 +58,38 @@ public class PrincipalControlador {
     @FXML
     private TextField txtBuscar;
 
-
     private ContactoService contactoService;
     private ObservableList<Contacto> listaContactos;
-
 
     public PrincipalControlador() {
         this.contactoService = new ContactoService();
     }
 
     @FXML
-    public void initialize() {
-        //configurar columnas de la tabla
+    private void initialize() {
+        // Configurar columnas de la tabla
         colNombre.setCellValueFactory(celda -> celda.getValue().nombreProperty());
         colTelefono.setCellValueFactory(celda -> celda.getValue().telefonoProperty());
         colCorreo.setCellValueFactory(celda -> celda.getValue().correoProperty());
 
-        //cargar contactos en la tabla
+        // Cargar contactos en la tabla
         cargarContactos();
 
-        //configurar evento seleccionado en la tabla
+        // Configurar evento seleccionado en la tabla
         tablaContactos.setOnMouseClicked(this::mostrarDetallesContacto);
-       // tablaContactos.setOnMouseClicked(event -> this.mostrarDetallesContacto(event));
 
+        // Esperar hasta que la ventana esté completamente cargada antes de acceder a la escena
+        tablaContactos.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) { // Solo si la escena ya está disponible
+                newScene.widthProperty().addListener((obsWidth, oldWidth, newWidth) -> {
+                    double nuevoTamaño = newWidth.doubleValue() * 0.1; // 10% del ancho de la ventana
+                    imagenPerfil.setFitWidth(nuevoTamaño);
+                    imagenPerfil.setFitHeight(nuevoTamaño);
+                });
+            }
+        });
     }
+
 
     private void cargarContactos() {
         // Obtener contactos desde el servicio
@@ -112,20 +120,16 @@ public class PrincipalControlador {
     @FXML
     private void añadirContacto() {
         try {
-            // Cargar el archivo FXML del formulario
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AñadirContacto.fxml"));
             Parent root = loader.load();
 
-            // Crear un nuevo escenario (ventana)
             Stage stage = new Stage();
             stage.setTitle("Añadir Contacto");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Bloquear la ventana principal mientras está abierta
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
-            // Actualizar la tabla después de cerrar el formulario
             cargarContactos();
-
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error al abrir el formulario: " + e.getMessage());
@@ -133,11 +137,9 @@ public class PrincipalControlador {
         }
     }
 
-
     @FXML
     private void editarContacto() {
         try {
-            // Obtener el contacto seleccionado
             Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
             if (contactoSeleccionado == null) {
@@ -146,24 +148,19 @@ public class PrincipalControlador {
                 return;
             }
 
-            // Cargar el archivo FXML del formulario de editar contacto
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarContacto.fxml"));
             Parent root = loader.load();
 
-            // Obtener el controlador y pasar el contacto seleccionado
             EditarContactoControlador controlador = loader.getController();
             controlador.setContacto(contactoSeleccionado);
 
-            // Crear un nuevo escenario (ventana)
             Stage stage = new Stage();
             stage.setTitle("Editar Contacto");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Bloquear la ventana principal mientras esta está abierta
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
-            // Actualizar la tabla después de editar el contacto
             cargarContactos();
-
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error al abrir el formulario: " + e.getMessage());
@@ -183,34 +180,52 @@ public class PrincipalControlador {
             alert.showAndWait();
         }
     }
-    
- 
 
     @FXML
     private void buscarContacto() {
         String filtro = txtBuscar.getText().toLowerCase();
 
-        // Filtrar contactos por nombre
         ObservableList<Contacto> contactosFiltrados = FXCollections.observableArrayList(
             listaContactos.stream()
                 .filter(contacto -> contacto.getNombre().toLowerCase().contains(filtro))
                 .toList()
         );
 
-        // Actualizar la tabla con los resultados filtrados
         tablaContactos.setItems(contactosFiltrados);
 
-        // Mostrar mensaje si no hay resultados
         if (contactosFiltrados.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se encontraron contactos que coincidan con la búsqueda.");
             alert.showAndWait();
         }
     }
-    
+
     @FXML
     private void mostrarTodosContactos() {
-        tablaContactos.setItems(listaContactos); // Restaura la lista completa
+        tablaContactos.setItems(listaContactos);
     }
 
+    /**
+     * Asegura que la pantalla principal use su propio CSS**
+     */
+    @FXML
+    private void abrirPantallaPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
 
+            // Aplicar el CSS específico de la pantalla principal
+            scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+
+            Stage stage = new Stage();
+            stage.setTitle("Gestor de Contactos");
+            stage.setScene(scene);
+            stage.show();
+
+            // Cerrar la ventana de login
+            ((Stage) txtBuscar.getScene().getWindow()).close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

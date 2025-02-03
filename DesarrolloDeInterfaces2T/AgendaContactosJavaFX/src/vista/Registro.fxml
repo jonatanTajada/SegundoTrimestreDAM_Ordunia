@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.RegistroControlador">
+    
+    <Label text="Registro de Usuario" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    
+    <TextField fx:id="txtCorreo" promptText="Correo electrónico" />
+    <PasswordField fx:id="txtPassword" promptText="Contraseña" />
+    <PasswordField fx:id="txtConfirmarPassword" promptText="Confirmar contraseña" />
+
+    <Button text="Registrarse" onAction="#registrarUsuario" style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+    
+    <Label text="¿Ya tienes cuenta?" />
+    <Hyperlink text="Inicia sesión aquí" onAction="#abrirLogin" />
+
+</VBox>
