@@ -10,3 +10,9 @@ CREATE TABLE contactos (
     imagen VARCHAR(255),
     sitioWeb VARCHAR(255)
 );
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
