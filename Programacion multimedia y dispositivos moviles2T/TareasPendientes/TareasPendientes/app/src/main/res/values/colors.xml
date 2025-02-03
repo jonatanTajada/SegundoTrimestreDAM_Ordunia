@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Colores principales -->
     <color name="primary">#6200EE</color>
     <color name="primary_variant">#3700B3</color>
     <color name="secondary">#03DAC5</color>
 
-    <!-- Fondo y texto -->
-    <color name="background">#FFFFFF</color> <!-- ✅ Fondo blanco para Modo Claro -->
-    <color name="text_primary">#000000</color> <!-- ✅ Texto negro para contraste -->
+    <!-- Colores de fondo y texto -->
+    <color name="background">#FFFFFF</color> <!-- Fondo blanco para Modo Claro -->
+    <color name="text_primary">#000000</color> <!-- Texto negro para contraste -->
     <color name="text_secondary">#757575</color>
     <color name="header_text">#FFFFFF</color> <!-- Texto blanco en el header -->
-
 
     <!-- Header y Footer -->
     <color name="header_background">#1E1E1E</color> <!-- Gris oscuro para header -->
@@ -20,19 +20,18 @@
     <color name="button_background">#6200EE</color>
     <color name="button_text">#FFFFFF</color>
 
-    <!-- Errores y éxito -->
-    <color name="error">#B00020</color>
-    <color name="success">#4CAF50</color>
+    <!-- Estados (Error / Éxito) -->
+    <color name="error">#B00020</color> <!-- Rojo para errores -->
+    <color name="success">#4CAF50</color> <!-- Verde para éxito -->
 
+    <!-- Otros colores de interfaz -->
     <color name="card_background">#F5F5F5</color> <!-- Color gris claro para las tarjetas -->
 
+    <!--  Colores generales -->
     <color name="green">#4CAF50</color>  <!-- Verde -->
     <color name="black">#000000</color>  <!-- Negro -->
-    <color name="red">#CF6679</color>  <!-- ❌ Rojo (Error) -->
-
-    <color name="white">#FFFFFF</color>
-
-    <color name="gray">#808080</color>  <!-- Color gris estándar -->
-
+    <color name="red">#CF6679</color>  <!-- Rojo -->
+    <color name="white">#FFFFFF</color>  <!-- Blanco -->
+    <color name="gray">#808080</color>  <!-- Gris estándar -->
 
 </resources>

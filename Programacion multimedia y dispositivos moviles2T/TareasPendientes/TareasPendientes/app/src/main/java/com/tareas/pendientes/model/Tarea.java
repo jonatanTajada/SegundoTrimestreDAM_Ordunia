@@ -70,7 +70,7 @@ public class Tarea {
     }
 
     public void setFecha(String fecha) {
-        this.fecha = (fecha != null && !fecha.isEmpty()) ? fecha : obtenerFechaActual(); // También en setter
+        this.fecha = (fecha != null && !fecha.isEmpty()) ? fecha : obtenerFechaActual();
     }
 
     public void setImagen(String imagen) {

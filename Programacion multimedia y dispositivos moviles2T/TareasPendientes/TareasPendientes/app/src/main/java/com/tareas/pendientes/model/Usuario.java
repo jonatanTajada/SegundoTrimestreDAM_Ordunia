@@ -53,7 +53,4 @@ public class Usuario {
         this.passwordEncriptada = Encriptador.encriptar(password);
     }
 
-    public boolean verificarPassword(String passwordIngresada) {
-        return Encriptador.verificarPassword(passwordIngresada, this.passwordEncriptada);
-    }
 }

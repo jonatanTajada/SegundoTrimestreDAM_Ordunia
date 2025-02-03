@@ -28,6 +28,7 @@ public class CrearTareaActivity extends AppCompatActivity {
     private final DatabaseHelper dbHelper = new DatabaseHelper(this);
     private Uri imageUri;
 
+    //  Lanzador para seleccionar una imagen desde la galería
     private final ActivityResultLauncher<Intent> seleccionarImagenLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -42,13 +43,16 @@ public class CrearTareaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_tarea);
 
+        //  Inicializar los elementos de la UI
         inicializarUI();
 
+        //  Configurar eventos de los botones
         btnSeleccionarFecha.setOnClickListener(v -> abrirSelectorFecha());
         btnSeleccionarImagen.setOnClickListener(v -> abrirGaleria());
         btnGuardar.setOnClickListener(v -> guardarTarea());
     }
 
+    //  Método para inicializar los elementos de la UI
     private void inicializarUI() {
         etTitulo = findViewById(R.id.etTitulo);
         etDescripcion = findViewById(R.id.etDescripcion);
@@ -59,6 +63,7 @@ public class CrearTareaActivity extends AppCompatActivity {
         btnGuardar = findViewById(R.id.btnGuardar);
     }
 
+    //  Método para abrir el selector de fecha
     private void abrirSelectorFecha() {
         // Obtener la fecha actual
         final Calendar calendar = Calendar.getInstance();
@@ -71,38 +76,38 @@ public class CrearTareaActivity extends AppCompatActivity {
             tvFecha.setText(getString(R.string.fecha_placeholder, day, month + 1, year));
         }
 
-        // Abrir el DatePickerDialog
+        // Abrir el DatePickerDialog para seleccionar fecha
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) ->
                         tvFecha.setText(getString(R.string.fecha_placeholder, selectedDay, selectedMonth + 1, selectedYear)),
                 year, month, day);
 
-
         dialog.show();
     }
 
-
-
+    // Método para abrir la galería y seleccionar una imagen
     private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         seleccionarImagenLauncher.launch(intent);
     }
 
+    //  Método para guardar una nueva tarea en la base de datos
     private void guardarTarea() {
         String titulo = etTitulo.getText().toString().trim();
         String descripcion = etDescripcion.getText().toString().trim();
         String fecha = tvFecha.getText().toString().trim();
         String imagen = (imageUri != null) ? imageUri.toString() : null;
 
+        // Validar que los campos requeridos no estén vacíos
         if (titulo.isEmpty() || fecha.isEmpty()) {
             Toast.makeText(this, getString(R.string.error_campos_obligatorios), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int userId = 1; // TODO: Obtener usuario real desde sesión
+        int userId = 1; //  Obtener usuario real desde sesión
         dbHelper.insertarTarea(userId, titulo, descripcion, fecha, imagen, false);
 
         Toast.makeText(this, getString(R.string.tarea_actualizada), Toast.LENGTH_SHORT).show();
-        finish();
+        finish(); // Cierra la actividad y vuelve atrás
     }
 }

@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Colores principales -->
     <color name="primary">#BB86FC</color>
     <color name="primary_variant">#3700B3</color>
     <color name="secondary">#03DAC5</color>
 
-    <!-- Fondo y texto -->
-    <color name="background">#121212</color> <!-- ✅ Fondo negro para Modo Oscuro -->
-    <color name="text_primary">#FFFFFF</color> <!-- ✅ Texto blanco para contraste -->
+    <!-- Colores de fondo y texto -->
+    <color name="background">#121212</color> <!-- Fondo negro para Modo Oscuro -->
+    <color name="text_primary">#FFFFFF</color> <!-- Texto blanco para contraste -->
     <color name="text_secondary">#B3B3B3</color>
 
     <!-- Header y Footer -->
-    <color name="header_background">#1E1E1E</color>
+    <color name="header_background">#1E1E1E</color> <!-- Fondo oscuro para header -->
     <color name="footer_background">#333333</color> <!-- Fondo más oscuro para mejor contraste -->
-
-    <!-- Botones -->
-    <color name="button_background">#BB86FC</color>
-    <color name="button_text">#000000</color>
-
-    <!-- Errores y éxito -->
-    <color name="error">#CF6679</color>
-    <color name="success">#81C784</color>
     <color name="header_text">#FFFFFF</color> <!-- También blanco en Modo Oscuro -->
 
+    <!-- Botones -->
+    <color name="button_background">#BB86FC</color> <!-- Color principal en modo oscuro -->
+    <color name="button_text">#000000</color> <!-- Texto negro en botones -->
+
+    <!-- Estados (Error / Éxito) -->
+    <color name="error">#CF6679</color> <!-- Rojo para errores -->
+    <color name="success">#81C784</color> <!-- Verde para éxito -->
+
+    <!--  Otros colores de interfaz -->
     <color name="card_background">#2C2C2C</color> <!-- Color gris oscuro para tarjetas en modo oscuro -->
 
-
-
-    <color name="green">#4CAF50</color>  <!-- ✅ Verde (Completado) -->
-    <color name="red">#CF6679</color>  <!-- ❌ Rojo (Error) -->
-    <color name="black">#000000</color>  <!-- ⚫ Negro -->
-    <color name="white">#FFFFFF</color>
-
-
+    <!-- Colores generales -->
+    <color name="green">#4CAF50</color>  <!-- Verde (Completado) -->
+    <color name="red">#CF6679</color>  <!-- Rojo (Error) -->
+    <color name="black">#000000</color>  <!-- Negro -->
+    <color name="white">#FFFFFF</color>  <!-- Blanco -->
     <color name="gray">#505050</color>  <!-- Gris más oscuro para modo oscuro -->
-
-
-
 
 </resources>

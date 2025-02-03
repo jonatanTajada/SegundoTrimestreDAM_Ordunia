@@ -17,14 +17,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "tareas_pendientes.db";
     private static final int DATABASE_VERSION = 2;
 
-    // Tabla Usuarios
+    // Definición de la tabla Usuarios
     public static final String TABLE_USUARIOS = "usuarios";
     public static final String COLUMN_USUARIO_ID = "id";
     public static final String COLUMN_NOMBRE = "nombre";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
 
-    // Tabla Tareas
+    // Definición de la tabla Tareas
     public static final String TABLE_TAREAS = "tareas";
     public static final String COLUMN_TAREA_ID = "id";
     public static final String COLUMN_USUARIO_ID_FK = "usuario_id";
@@ -34,10 +34,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IMAGEN = "imagen";
     public static final String COLUMN_COMPLETADA = "completada";
 
+    // Constructor de la base de datos
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Método para crear las tablas de la base de datos
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createUsuariosTable = "CREATE TABLE " + TABLE_USUARIOS + " (" +
@@ -62,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTareasTable);
     }
 
+    // Método para actualizar la estructura de la base de datos
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
@@ -73,8 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // 📌 MÉTODOS PARA USUARIOS
+    // ***MÉTODOS PARA USUARIOS***
 
+    // Método para insertar un nuevo usuario en la base de datos
     public long insertarUsuario(String nombre, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -84,13 +88,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_USUARIOS, null, values);
     }
 
+    // Método para obtener un usuario por su correo electrónico
     public Cursor obtenerUsuarioPorEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_USUARIOS + " WHERE " + COLUMN_EMAIL + " = ?", new String[]{email});
     }
 
-    // 📌 MÉTODOS PARA TAREAS
+    // Método para obtener un usuario por su ID
+    public Cursor obtenerUsuarioPorId(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_USUARIOS + " WHERE " + COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(userId)});
+    }
 
+    // Método para actualizar los datos de un usuario
+    public boolean actualizarUsuario(int userId, String nuevoNombre, String nuevoEmail) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOMBRE, nuevoNombre);
+        values.put(COLUMN_EMAIL, nuevoEmail);
+
+        int filasActualizadas = db.update(TABLE_USUARIOS, values, COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(userId)});
+        return filasActualizadas > 0;
+    }
+
+    // ***MÉTODOS PARA TAREAS***
+
+    // Método para insertar una nueva tarea en la base de datos
     public long insertarTarea(int usuarioId, String titulo, String descripcion, String fecha, String imagenPath, boolean completada) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -103,24 +126,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_TAREAS, null, values);
     }
 
-    public boolean actualizarUsuario(int userId, String nuevoNombre, String nuevoEmail) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NOMBRE, nuevoNombre);
-        values.put(COLUMN_EMAIL, nuevoEmail);
-
-        int filasActualizadas = db.update(TABLE_USUARIOS, values, COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(userId)});
-
-        return filasActualizadas > 0;
-    }
-
-
+    // Método para obtener todas las tareas de un usuario específico
     public Cursor obtenerTareasPorUsuario(int usuarioId) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_TAREAS + " WHERE " + COLUMN_USUARIO_ID_FK + " = ?", new String[]{String.valueOf(usuarioId)});
     }
 
-    // 📌 Obtener todas las tareas (CORREGIDO)
+    // Método para obtener todas las tareas almacenadas en la base de datos
     public List<Tarea> obtenerTareas() {
         List<Tarea> listaTareas = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -146,6 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listaTareas;
     }
 
+    // Método para actualizar los datos de una tarea específica
     public boolean actualizarTarea(int tareaId, String nuevoTitulo, String nuevaFecha, String nuevaDescripcion, String nuevaImagen) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -158,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return filasActualizadas > 0;
     }
 
+    // Método para actualizar el estado de una tarea (completada o pendiente)
     public void actualizarEstadoTarea(int tareaId, boolean completada) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -166,17 +180,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_TAREAS, values, COLUMN_TAREA_ID + " = ?", new String[]{String.valueOf(tareaId)});
     }
 
-
-
+    // Método para eliminar una tarea específica
     public void eliminarTarea(int tareaId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TAREAS, COLUMN_TAREA_ID + " = ?", new String[]{String.valueOf(tareaId)});
     }
 
+    // Método para eliminar todas las tareas almacenadas en la base de datos
     public void eliminarTodasLasTareas() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TAREAS, null, null);
     }
-
-
 }

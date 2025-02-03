@@ -19,7 +19,7 @@ public class TareasActivity extends AppCompatActivity implements TareasAdapter.O
     private RecyclerView recyclerTareas;
     private TareasAdapter tareasAdapter;
     private DatabaseHelper dbHelper;
-    private Button btnEliminarTodas, btnVolver;  // ✅ Se agregó btnVolver
+    private Button btnEliminarTodas, btnVolver;
     private List<Tarea> listaTareas = new ArrayList<>();
 
     @Override
@@ -27,11 +27,13 @@ public class TareasActivity extends AppCompatActivity implements TareasAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tareas);
 
-        inicializarUI(); // ✅ Método de inicialización
+        // Inicializar elementos de la UI
+        inicializarUI();
 
-        cargarTareas(); // ✅ Cargar tareas desde la BD
+        // Cargar la lista de tareas desde la base de datos
+        cargarTareas();
 
-        // 🗑 Botón para eliminar todas las tareas
+        // Configurar el botón para eliminar todas las tareas
         btnEliminarTodas.setOnClickListener(v -> {
             if (!listaTareas.isEmpty()) {
                 dbHelper.eliminarTodasLasTareas();
@@ -42,25 +44,28 @@ public class TareasActivity extends AppCompatActivity implements TareasAdapter.O
             }
         });
 
-        // 🔙 Botón para volver atrás
+        // Configurar el botón para volver atrás
         btnVolver.setOnClickListener(v -> finish());
     }
 
+    // Método para inicializar la interfaz de usuario
     private void inicializarUI() {
         dbHelper = new DatabaseHelper(this);
         recyclerTareas = findViewById(R.id.recyclerTareas);
         btnEliminarTodas = findViewById(R.id.btnEliminarTodas);
-        btnVolver = findViewById(R.id.btnVolver);  // ✅ Se inicializó correctamente
+        btnVolver = findViewById(R.id.btnVolver);
 
         recyclerTareas.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    // Método para cargar las tareas desde la base de datos y actualizar la lista
     private void cargarTareas() {
         listaTareas = dbHelper.obtenerTareas();
         tareasAdapter = new TareasAdapter(this, listaTareas, this);
         recyclerTareas.setAdapter(tareasAdapter);
     }
 
+    //  Método para editar una tarea
     @Override
     public void onEditarClick(Tarea tarea) {
         Intent intent = new Intent(this, EditarTareaActivity.class);
@@ -72,7 +77,7 @@ public class TareasActivity extends AppCompatActivity implements TareasAdapter.O
         startActivity(intent);
     }
 
-
+    // Método para eliminar una tarea específica
     @Override
     public void onEliminarClick(Tarea tarea) {
         dbHelper.eliminarTarea(tarea.getId());
@@ -80,6 +85,7 @@ public class TareasActivity extends AppCompatActivity implements TareasAdapter.O
         Toast.makeText(this, getString(R.string.tarea_eliminada), Toast.LENGTH_SHORT).show();
     }
 
+    // Método para marcar una tarea como completada o pendiente
     @Override
     public void onMarcarCompletada(Tarea tarea) {
         dbHelper.actualizarEstadoTarea(tarea.getId(), !tarea.isCompletada());

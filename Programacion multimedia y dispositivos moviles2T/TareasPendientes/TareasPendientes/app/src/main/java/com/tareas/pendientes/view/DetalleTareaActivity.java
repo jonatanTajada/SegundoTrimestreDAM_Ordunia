@@ -20,28 +20,38 @@ public class DetalleTareaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_tarea);
 
-        // Asegúrate de que los IDs coincidan con los del XML
+        // Inicializar elementos de la UI
+        inicializarUI();
+
+        //  Obtener datos de la tarea desde el Intent
+        cargarDatosTarea();
+
+        // Configurar el botón Volver
+        btnVolver.setOnClickListener(v -> finish());
+    }
+
+    // Método para inicializar los elementos de la UI
+    private void inicializarUI() {
         tvTitulo = findViewById(R.id.tvTitulo);
         tvFecha = findViewById(R.id.tvFecha);
         tvDescripcion = findViewById(R.id.tvDescripcion);
         ivImagenDetalle = findViewById(R.id.ivImagenDetalle);
         btnVolver = findViewById(R.id.btnVolver);
+    }
 
-        // Obtener datos de la tarea desde el Intent
+    // Método para cargar los datos de la tarea recibidos desde el Intent
+    private void cargarDatosTarea() {
         Intent intent = getIntent();
         tvTitulo.setText(intent.getStringExtra("TITULO"));
         tvFecha.setText(intent.getStringExtra("FECHA"));
         tvDescripcion.setText(intent.getStringExtra("DESCRIPCION"));
 
-        // Cargar la imagen si existe
+        //  Cargar la imagen si existe, de lo contrario, mostrar imagen por defecto
         String imagenUri = intent.getStringExtra("IMAGEN");
         if (imagenUri != null && !imagenUri.isEmpty()) {
             ivImagenDetalle.setImageURI(Uri.parse(imagenUri));
         } else {
-            ivImagenDetalle.setImageResource(R.drawable.ic_placeholder); // Imagen por defecto
+            ivImagenDetalle.setImageResource(R.drawable.ic_placeholder);
         }
-
-        // Botón Volver
-        btnVolver.setOnClickListener(v -> finish());
     }
 }

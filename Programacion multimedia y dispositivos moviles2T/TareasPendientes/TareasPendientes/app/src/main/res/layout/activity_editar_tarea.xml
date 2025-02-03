@@ -43,7 +43,7 @@
             android:backgroundTint="@color/primary_variant"
             android:padding="12dp"
             android:minHeight="50dp"
-            android:focusable="false"
+            android:focusable="true"
             android:clickable="true"
             android:layout_marginHorizontal="20dp"
             android:autofillHints="date"/>

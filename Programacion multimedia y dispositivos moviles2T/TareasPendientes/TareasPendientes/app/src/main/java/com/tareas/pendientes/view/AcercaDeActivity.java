@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.tareas.pendientes.R;
-import com.tareas.pendientes.BuildConfig; // ✅ Importación correcta
+import com.tareas.pendientes.BuildConfig;
 
 public class AcercaDeActivity extends AppCompatActivity {
 
@@ -17,16 +17,18 @@ public class AcercaDeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acerca_de);
 
+        // Inicializar elementos de la UI
         inicializarUI();
 
-        // Mostrar versión de la app
+        // Mostrar la versión de la aplicación
         String versionName = BuildConfig.VERSION_NAME;
         tvVersion.setText(getString(R.string.version_app, versionName));
 
-        // Botón para volver
+        // Configurar el botón para volver atrás
         btnVolver.setOnClickListener(v -> finish());
     }
 
+    // Método para inicializar los elementos de la interfaz
     private void inicializarUI() {
         tvVersion = findViewById(R.id.tvVersion);
         btnVolver = findViewById(R.id.btnVolver);

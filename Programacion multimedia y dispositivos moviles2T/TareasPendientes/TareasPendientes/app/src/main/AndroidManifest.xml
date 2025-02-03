@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TareasPendientes">
 
-        <!-- ✅ LoginActivity con android:exported="true" -->
+        <!-- LoginActivity con android:exported="true" -->
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 🚨 Otras actividades NO tienen intent-filter, por lo que deben tener exported="false" -->
+        <!-- Otras actividades -->
         <activity android:name=".view.RegistroActivity" android:exported="false"/>
         <activity android:name=".MainActivity" android:exported="false"/>
         <activity android:name=".view.TareasActivity" android:exported="false"/>

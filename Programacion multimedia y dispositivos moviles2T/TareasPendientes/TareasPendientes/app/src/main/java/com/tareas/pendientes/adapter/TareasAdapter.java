@@ -27,21 +27,24 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
     private final Context context;
     private final List<Tarea> listaTareas;
     private final OnItemClickListener listener;
-    private final DatabaseHelper dbHelper; // ✅ DECLARAMOS dbHelper
+    private final DatabaseHelper dbHelper; // ✅ Base de datos para actualizar tareas
 
+    // Interfaz para manejar eventos de los botones
     public interface OnItemClickListener {
         void onEditarClick(Tarea tarea);
         void onEliminarClick(Tarea tarea);
         void onMarcarCompletada(Tarea tarea);
     }
 
+    // Constructor del adaptador
     public TareasAdapter(Context context, List<Tarea> listaTareas, OnItemClickListener listener) {
         this.context = context;
         this.listaTareas = listaTareas;
         this.listener = listener;
-        this.dbHelper = new DatabaseHelper(context); // ✅ INICIALIZAMOS dbHelper
+        this.dbHelper = new DatabaseHelper(context);
     }
 
+    // Método para inflar el layout de cada elemento de la lista
     @NonNull
     @Override
     public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,13 +52,14 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         return new TareaViewHolder(view);
     }
 
+    // Método para asignar valores a los elementos de la vista
     @Override
     public void onBindViewHolder(@NonNull TareaViewHolder holder, int position) {
         Tarea tarea = listaTareas.get(position);
         holder.tvTitulo.setText(tarea.getTitulo());
         holder.tvFecha.setText(tarea.getFecha());
 
-        // 🎨 CAMBIO VISUAL SEGÚN ESTADO
+        //  Cambia la apariencia si la tarea está completada
         if (tarea.isCompletada()) {
             holder.tvTitulo.setPaintFlags(holder.tvTitulo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.tvTitulo.setTextColor(ContextCompat.getColor(context, R.color.green));
@@ -66,8 +70,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             holder.btnCompletada.setText(context.getString(R.string.completar));
         }
 
-        // 👁 Ver detalles
-        // 👁 Ver detalles
+        //  Abrir pantalla de detalles de la tarea
         holder.btnVerDetalles.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetalleTareaActivity.class);
             intent.putExtra("ID_TAREA", tarea.getId());
@@ -75,13 +78,10 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             intent.putExtra("FECHA", tarea.getFecha());
             intent.putExtra("DESCRIPCION", tarea.getDescripcion());
             intent.putExtra("IMAGEN", tarea.getImagen());
-
             context.startActivity(intent);
         });
 
-
-        // ✏️ Editar tarea
-        // ✏️ Editar tarea (Solución Alternativa)
+        //  Abrir pantalla de edición de la tarea
         holder.btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarTareaActivity.class);
             intent.putExtra("ID_TAREA", tarea.getId());
@@ -92,9 +92,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             context.startActivity(intent);
         });
 
-
-
-        // 🗑 Eliminar tarea (con confirmación)
+        // Mostrar cuadro de diálogo para confirmar eliminación
         holder.btnEliminar.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
                     .setTitle(context.getString(R.string.confirmar_eliminar))
@@ -106,20 +104,22 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
                     .show();
         });
 
-        // ✅/🔄 Marcar como completada o pendiente
+        //  Alternar entre tarea completada o pendiente
         holder.btnCompletada.setOnClickListener(v -> {
             tarea.setCompletada(!tarea.isCompletada());
-            dbHelper.actualizarEstadoTarea(tarea.getId(), tarea.isCompletada()); // ✅ AHORA FUNCIONA
+            dbHelper.actualizarEstadoTarea(tarea.getId(), tarea.isCompletada());
 
-            notifyItemChanged(holder.getAdapterPosition());
+            notifyItemChanged(holder.getAdapterPosition()); // Actualiza el estado en la interfaz
         });
     }
 
+    // Método para obtener el número total de tareas
     @Override
     public int getItemCount() {
         return listaTareas.size();
     }
 
+    // Clase interna para gestionar los elementos de la vista
     public static class TareaViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitulo, tvFecha;
         Button btnVerDetalles, btnEditar, btnEliminar, btnCompletada;

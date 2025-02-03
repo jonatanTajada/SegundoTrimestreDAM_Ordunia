@@ -18,12 +18,13 @@ public class ConfiguracionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion);
 
+        // Inicializar elementos de la interfaz
         inicializarUI();
 
+        // Configurar eventos de los botones
         btnAcercaDe.setOnClickListener(v -> startActivity(new Intent(this, AcercaDeActivity.class)));
         btnCambiarTema.setOnClickListener(v -> cambiarTema());
 
-        // 🛠 Verificar si EditarUsuarioActivity está en el Manifest
         btnEditarUsuario.setOnClickListener(v -> {
             try {
                 Intent intent = new Intent(this, EditarUsuarioActivity.class);
@@ -36,9 +37,11 @@ public class ConfiguracionActivity extends AppCompatActivity {
         btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
         btnVolver.setOnClickListener(v -> finish());
 
+        // Actualizar el texto del botón según el tema actual
         actualizarTextoBotonTema();
     }
 
+    // Método para inicializar los elementos de la interfaz
     private void inicializarUI() {
         btnAcercaDe = findViewById(R.id.btnAcercaDe);
         btnCambiarTema = findViewById(R.id.btnCambiarTema);
@@ -48,6 +51,7 @@ public class ConfiguracionActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
     }
 
+    // Método para cambiar entre modo claro y oscuro
     private void cambiarTema() {
         boolean modoOscuro = sharedPreferences.getBoolean("modoOscuro", false);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -64,19 +68,21 @@ public class ConfiguracionActivity extends AppCompatActivity {
         actualizarTextoBotonTema();
     }
 
+    // Método para actualizar el texto del botón de cambio de tema
     private void actualizarTextoBotonTema() {
         boolean modoOscuro = sharedPreferences.getBoolean("modoOscuro", false);
         btnCambiarTema.setText(modoOscuro ? getString(R.string.modo_claro) : getString(R.string.modo_oscuro));
     }
 
+    // Método para cerrar sesión y redirigir al login
     private void cerrarSesion() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear().apply(); // 🔥 Eliminar TODA la sesión correctamente
+        editor.clear().apply();
 
-        // 🔄 Redirigir al login y limpiar la pila de actividades
+        // Redirigir al login y limpiar la pila de actividades
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish(); // 🚫 Evita que el usuario pueda volver atrás
+        finish();
     }
 }
