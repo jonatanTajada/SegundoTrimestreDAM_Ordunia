@@ -2,17 +2,10 @@ package controlador;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import modelo.Contacto;
-import modelo.service.ContactoService;
+import modelo.service.ContactoServiceImpl;
 import utilities.GestorArchivos;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 public class AñadirContactoControlador {
 
@@ -31,10 +24,10 @@ public class AñadirContactoControlador {
     @FXML
     private TextField txtRutaImagen;
 
-    private ContactoService contactoService;
+    private final ContactoServiceImpl contactoService;
 
     public AñadirContactoControlador() {
-        this.contactoService = new ContactoService();
+        this.contactoService = new ContactoServiceImpl();
     }
 
     @FXML
@@ -44,7 +37,6 @@ public class AñadirContactoControlador {
             txtRutaImagen.setText(rutaImagen);
         }
     }
-
 
     @FXML
     private void guardarContacto() {
@@ -62,26 +54,33 @@ public class AñadirContactoControlador {
 
             // Crear un nuevo contacto
             Contacto nuevoContacto = new Contacto(0, nombre, correo, telefono, imagen, sitioWeb);
-            contactoService.crearContacto(nuevoContacto);
+            
+            // Intentar guardar
+            boolean guardado = contactoService.crearContacto(nuevoContacto);
+            
+            if (guardado) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Contacto añadido con éxito.");
+                cancelar();
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "No se pudo guardar el contacto. Puede que el teléfono o correo ya existan.");
+            }
 
-            // Mostrar mensaje de éxito
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Contacto añadido con éxito.");
-            alert.showAndWait();
-
-            // Cerrar la ventana
-            cancelar();
-
+        } catch (IllegalArgumentException e) {
+            mostrarAlerta(Alert.AlertType.WARNING, e.getMessage());
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage());
-            alert.showAndWait();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error inesperado: " + e.getMessage());
         }
     }
 
 
     @FXML
     private void cancelar() {
-        // Cerrar la ventana actual
         Stage stage = (Stage) txtNombre.getScene().getWindow();
         stage.close();
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+        Alert alert = new Alert(tipo, mensaje);
+        alert.showAndWait();
     }
 }

@@ -1,21 +1,29 @@
 package controlador;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Contacto;
-import modelo.service.ContactoService;
-
-import java.util.List;
+import modelo.service.ContactoServiceImpl;
 
 public class PrincipalControlador {
 
@@ -57,12 +65,19 @@ public class PrincipalControlador {
 
 	@FXML
 	private TextField txtBuscar;
+	
+	@FXML
+	private Button btnBorrarTodos;
 
-	private ContactoService contactoService;
+	@FXML
+	private Label lblUsuarioSinFoto;
+
+	
+	private ContactoServiceImpl contactoService;
 	private ObservableList<Contacto> listaContactos;
 
 	public PrincipalControlador() {
-		this.contactoService = new ContactoService();
+		this.contactoService = new ContactoServiceImpl();
 	}
 
 	@FXML
@@ -96,27 +111,55 @@ public class PrincipalControlador {
 	    Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
 	    if (contactoSeleccionado != null) {
+	        // 🔹 Nombre SIEMPRE en negro
 	        lblNombre.setText("Nombre: " + contactoSeleccionado.getNombre());
-	        lblTelefono.setText("Teléfono: " + contactoSeleccionado.getTelefono());
-	        lblCorreo.setText("Correo: " + contactoSeleccionado.getCorreo());
-	        lblSitioWeb.setText("Sitio Web: " + contactoSeleccionado.getSitioWeb());
+	        lblNombre.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
 
-	        String rutaImagen = contactoSeleccionado.getImagen();
-
-	        if (rutaImagen == null || rutaImagen.isEmpty()) {
-	            // Ocultar la imagen y mostrar el mensaje en rojo y negrita
-	            imagenPerfil.setVisible(false);
-	            lblNombre.setText("Usuario sin foto");
-	            lblNombre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: red;");
+	        // 🔹 Control de la imagen y el mensaje de "Usuario sin foto"
+	        if (contactoSeleccionado.getImagen() == null || contactoSeleccionado.getImagen().isEmpty()) {
+	            imagenPerfil.setVisible(false); // Ocultar la imagen
+	            imagenPerfil.setManaged(false); // Evitar que ocupe espacio
+	            lblUsuarioSinFoto.setVisible(true); // ✅ Mostrar mensaje de "Usuario sin foto"
 	        } else {
-	            // Mostrar la imagen y ocultar el mensaje
-	            imagenPerfil.setImage(new Image("file:" + rutaImagen));
+	            imagenPerfil.setImage(new Image("file:" + contactoSeleccionado.getImagen()));
 	            imagenPerfil.setVisible(true);
-	            lblNombre.setText("Nombre: " + contactoSeleccionado.getNombre());
-	            lblNombre.setStyle(""); // Eliminar estilos previos si se ha asignado imagen
+	            imagenPerfil.setManaged(true);
+	            lblUsuarioSinFoto.setVisible(false); // ✅ Ocultar el mensaje si hay foto
 	        }
+
+	        // 🔹 Teléfono y correo en negro
+	        lblTelefono.setText("Teléfono: " + contactoSeleccionado.getTelefono());
+	        lblTelefono.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
+
+	        lblCorreo.setText("Correo: " + contactoSeleccionado.getCorreo());
+	        lblCorreo.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
+
+	        // 🔹 Si no hay sitio web, mostrar "Usuario sin sitio web" en rojo
+	        if (contactoSeleccionado.getSitioWeb() == null || contactoSeleccionado.getSitioWeb().isEmpty()) {
+	            lblSitioWeb.setText("Usuario sin sitio web");
+	            lblSitioWeb.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: red;");
+	        } else {
+	            lblSitioWeb.setText("Sitio Web: " + contactoSeleccionado.getSitioWeb());
+	            lblSitioWeb.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
+	        }
+
+	        // 🔹 Alinear los textos a la izquierda
+	        lblNombre.setAlignment(Pos.BASELINE_LEFT);
+	        lblTelefono.setAlignment(Pos.BASELINE_LEFT);
+	        lblCorreo.setAlignment(Pos.BASELINE_LEFT);
+	        lblSitioWeb.setAlignment(Pos.BASELINE_LEFT);
+	        imagenPerfil.setStyle("-fx-padding: 5 0 0 0;");
+
+	        // 🔹 Asegurar que los contenedores de los labels estén alineados a la izquierda
+	        ((VBox) lblNombre.getParent()).setAlignment(Pos.TOP_LEFT);
 	    }
 	}
+
+
+
+
+
+
 
 
 
@@ -223,5 +266,24 @@ public class PrincipalControlador {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void borrarTodosContactos() {
+	    // Mostrar una alerta de confirmación
+	    Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION, 
+	        "¿Estás seguro de que quieres borrar todos los contactos?", 
+	        ButtonType.YES, ButtonType.NO);
+	    confirmacion.setTitle("Confirmar eliminación");
+	    confirmacion.setHeaderText(null);
+
+	    // Esperar la respuesta del usuario
+	    confirmacion.showAndWait().ifPresent(response -> {
+	        if (response == ButtonType.YES) {
+	            // Llamar al servicio para eliminar todos los contactos
+	            contactoService.eliminarTodosContactos();
+	            listaContactos.clear(); // Vaciar la tabla
+	        }
+	    });
 	}
 }

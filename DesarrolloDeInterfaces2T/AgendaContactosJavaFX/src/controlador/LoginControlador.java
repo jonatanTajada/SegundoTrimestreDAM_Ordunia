@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import modelo.Usuario;
-import modelo.service.UsuarioService;
+import modelo.service.UsuarioServiceImpl;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 
@@ -14,7 +14,7 @@ public class LoginControlador {
     @FXML private TextField txtCorreo;
     @FXML private PasswordField txtPassword;
 
-    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 
     @FXML
     private void iniciarSesion() {

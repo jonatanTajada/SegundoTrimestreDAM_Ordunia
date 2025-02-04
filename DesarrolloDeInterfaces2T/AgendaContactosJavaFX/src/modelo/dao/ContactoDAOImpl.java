@@ -131,6 +131,18 @@ public class ContactoDAOImpl implements ContactoDAO {
 
 	}
 
+	
+	public void eliminarTodos() {
+	    String sql = "DELETE FROM contactos";
+
+	    try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				 PreparedStatement ps = conexion.prepareStatement(sql)) {
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	@Override
 	public void eliminarContacto(int id) {
 

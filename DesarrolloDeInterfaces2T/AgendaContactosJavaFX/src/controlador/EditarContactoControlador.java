@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import modelo.Contacto;
-import modelo.service.ContactoService;
+import modelo.service.ContactoServiceImpl;
 import utilities.GestorArchivos;
 
 import java.io.File;
@@ -32,10 +32,10 @@ public class EditarContactoControlador {
     private TextField txtRutaImagen;
 
     private Contacto contactoSeleccionado;
-    private ContactoService contactoService;
+    private ContactoServiceImpl contactoService;
 
     public EditarContactoControlador() {
-        this.contactoService = new ContactoService();
+        this.contactoService = new ContactoServiceImpl();
     }
 
     public void setContacto(Contacto contacto) {

@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelo.service.UsuarioService;
+import modelo.service.UsuarioServiceImpl;
 
 public class RegistroControlador {
 
@@ -16,7 +16,7 @@ public class RegistroControlador {
     @FXML private PasswordField txtPassword;
     @FXML private PasswordField txtConfirmarPassword;
 
-    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 
     @FXML
     private void registrarUsuario() {
