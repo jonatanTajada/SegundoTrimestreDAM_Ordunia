@@ -6,78 +6,92 @@
 <?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-	fx:controller="controlador.PrincipalControlador">
-	<!-- Encabezado con búsqueda -->
-	<top>
-		<VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-			<Label text="Agenda de Contactos"
-				style="-fx-font-size: 24px; -fx-font-weight: bold;"
-				alignment="CENTER" />
-			<HBox spacing="10" alignment="CENTER">
-				<TextField fx:id="txtBuscar"
-					promptText="Buscar contacto..." />
-				<Button text="Buscar" onAction="#buscarContacto" />
-			</HBox>
-		</VBox>
-	</top>
+    fx:controller="controlador.PrincipalControlador">
 
-	<!-- Contenedor principal con la tabla y los detalles -->
-	<center>
-		<HBox spacing="20">
-			<!-- Contenedor de la tabla con padding a la izquierda -->
-			<VBox style="-fx-padding: 0 0 0 10;" HBox.hgrow="ALWAYS">
-				<TableView fx:id="tablaContactos" VBox.vgrow="ALWAYS">
-					<columns>
-						<TableColumn fx:id="colNombre" text="Nombre"
-							prefWidth="150" />
-						<TableColumn fx:id="colTelefono" text="Teléfono"
-							prefWidth="120" />
-						<TableColumn fx:id="colCorreo" text="Correo"
-							prefWidth="200" />
-					</columns>
-				</TableView>
-			</VBox>
+    <!-- Encabezado con búsqueda -->
+    <top>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Label text="Agenda de Contactos"
+                style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Buscar contacto:" />
+                <TextField fx:id="txtBuscar"
+                    promptText="Buscar contacto..." />
+                <Button text="Buscar" onAction="#buscarContacto" />
+            </HBox>
+        </VBox>
+    </top>
 
-			<!-- Área de detalles -->
-			<VBox spacing="15" alignment="CENTER"
-				style="-fx-padding: 20; -fx-pref-width: 400;" HBox.hgrow="ALWAYS">
-				<Label text="Detalles del Contacto"
-					style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+    <!-- Contenedor principal con la tabla y los detalles -->
+    <center>
+        <HBox spacing="20">
+            <!-- Contenedor de la tabla -->
+            <VBox style="-fx-padding: 0 0 0 10;" HBox.hgrow="ALWAYS">
+                <TableView fx:id="tablaContactos" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colNombre" text="Nombre"
+                            prefWidth="150" />
+                        <TableColumn fx:id="colTelefono" text="Teléfono"
+                            prefWidth="120" />
+                        <TableColumn fx:id="colCorreo" text="Correo"
+                            prefWidth="200" />
+                        <TableColumn fx:id="colLocalidad" text="Localidad"
+                            prefWidth="100" />
+                    </columns>
+                </TableView>
+            </VBox>
 
-				<!-- Contenedor para la imagen -->
-				<StackPane>
-					<ImageView fx:id="imagenPerfil" preserveRatio="true" />
-					<Label fx:id="lblUsuarioSinFoto" text="Usuario sin foto"
-						style="-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: red;"
-						visible="false" />
+            <!-- Área de detalles -->
+            <VBox spacing="15" alignment="CENTER"
+                style="-fx-padding: 20; -fx-pref-width: 400;" HBox.hgrow="ALWAYS">
+                <Label text="Detalles del Contacto"
+                    style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 
-				</StackPane>
+                <!-- Contenedor para la imagen -->
+                <StackPane>
+                    <ImageView fx:id="imagenPerfil" preserveRatio="true" fitWidth="120" fitHeight="120" />
+                    <Label fx:id="lblUsuarioSinFoto" text="Usuario sin foto"
+                        style="-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: red;"
+                        visible="false" />
+                </StackPane>
 
-				<Label fx:id="lblNombre" text="Nombre: "
-					style="-fx-font-size: 16px;" />
-				<Label fx:id="lblTelefono" text="Teléfono: "
-					style="-fx-font-size: 16px;" />
-				<Label fx:id="lblCorreo" text="Correo: "
-					style="-fx-font-size: 16px;" />
-				<Label fx:id="lblSitioWeb" text="Sitio Web: "
-					style="-fx-font-size: 16px;" />
-			</VBox>
-		</HBox>
-	</center>
+                <Label fx:id="lblNombre" text="Nombre: "
+                    style="-fx-font-size: 16px;" />
+                <Label fx:id="lblTelefono" text="Teléfono: "
+                    style="-fx-font-size: 16px;" />
+                <Label fx:id="lblCorreo" text="Correo: "
+                    style="-fx-font-size: 16px;" />
+                <Label fx:id="lblSitioWeb" text="Sitio Web: "
+                    style="-fx-font-size: 16px;" />
+                <Label fx:id="lblLocalidad" text="Localidad: "
+                    style="-fx-font-size: 16px;" />
+            </VBox>
+        </HBox>
+    </center>
 
-	<!-- Botones en la parte inferior -->
-	<bottom>
-		<HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-			<Button fx:id="btnAñadir" text="Añadir Contacto"
-				onAction="#añadirContacto" />
-			<Button fx:id="btnEditar" text="Editar Contacto"
-				onAction="#editarContacto" />
-			<Button fx:id="btnEliminar" text="Eliminar Contacto"
-				onAction="#eliminarContacto" />
-			<Button text="Mostrar Todos" onAction="#mostrarTodosContactos" />
-			<Button fx:id="btnBorrarTodos" text="Borrar Todos"
-				onAction="#borrarTodosContactos" />
+    <!-- Botones en la parte inferior -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+        
+            <Button fx:id="btnAnadir" text="Añadir Contacto"
+                onAction="#anadirContacto" />
+                
+            <Button fx:id="btnEditar" text="Editar Contacto"
+                onAction="#editarContacto" />
 
-		</HBox>
-	</bottom>
+            <Button fx:id="btnEliminar" text="Eliminar Contacto"
+                onAction="#eliminarContacto" />
+                
+            <Button text="Mostrar Todos" onAction="#mostrarTodosContactos" />
+            
+            <Button fx:id="btnBorrarTodos" text="Borrar Todos"
+                onAction="#borrarTodosContactos" />
+                
+            <Button fx:id="btnEstadisticas" text="Estadísticas"
+                onAction="#mostrarEstadisticas" />
+                
+            <Button fx:id="btnMostrarFormulario" text="Nuevo Contacto" onAction="#mostrarFormulario"/>
+                
+        </HBox>
+    </bottom>
 </BorderPane>

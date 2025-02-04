@@ -10,5 +10,6 @@ public interface ContactoDAO {
 	List<Contacto> obtenerContactos();
 	void actualizarContacto(Contacto contacto);
 	void eliminarContacto(int id);
+	void eliminarTodos();
 
 }

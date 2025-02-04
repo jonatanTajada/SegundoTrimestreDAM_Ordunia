@@ -31,9 +31,13 @@
         <Label text="Sitio Web:" GridPane.rowIndex="3" />
         <TextField fx:id="txtSitioWeb" GridPane.rowIndex="3" GridPane.columnIndex="1" />
 
+        <!-- Localidad (NUEVO) -->
+        <Label text="Localidad:" GridPane.rowIndex="4" />
+        <ComboBox fx:id="cmbLocalidad" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
         <!-- Imagen -->
-        <Label text="Imagen:" GridPane.rowIndex="4" />
-        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1">
+        <Label text="Imagen:" GridPane.rowIndex="5" />
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1">
             <TextField fx:id="txtRutaImagen" promptText="Ruta de la imagen" />
             <Button text="Seleccionar" onAction="#seleccionarImagen" />
         </HBox>

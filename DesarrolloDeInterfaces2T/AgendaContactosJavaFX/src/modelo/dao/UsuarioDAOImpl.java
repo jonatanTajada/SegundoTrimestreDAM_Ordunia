@@ -26,6 +26,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return false;
         }
     }
+    
+    
 
     @Override
     public Usuario autenticarUsuario(String correo, String password) {
@@ -46,4 +48,32 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         return null;
     }
+
+    @Override
+    public Usuario buscarPorCorreo(String correo) {
+        String sql = "SELECT id, correo, password FROM usuarios WHERE correo = ?";
+        
+        Usuario usuario = null;
+
+        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setString(1, correo);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    usuario = new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("correo"),
+                        rs.getString("password")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error al buscar usuario por correo: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+
 }

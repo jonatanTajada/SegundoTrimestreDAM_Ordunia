@@ -1,12 +1,14 @@
 package controlador;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,9 +22,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Contacto;
+import modelo.dao.ContactoDAO;
+import modelo.dao.ContactoDAOImpl;
 import modelo.service.ContactoServiceImpl;
 
 public class PrincipalControlador {
@@ -65,14 +70,51 @@ public class PrincipalControlador {
 
 	@FXML
 	private TextField txtBuscar;
-	
+
 	@FXML
 	private Button btnBorrarTodos;
 
 	@FXML
 	private Label lblUsuarioSinFoto;
 
+	@FXML
+	private Label lblLocalidad;
+
+	@FXML
+	private Button btnEstadisticas;
+
+	private final ContactoDAO contactoDAO = new ContactoDAOImpl();
+
+	@FXML
+	private TextField txtCorreo;
+
+	@FXML
+	private TextField txtLocalidad;
+
+	@FXML
+	private TextField txtNombre;
+
+	@FXML
+	private TextField txtTelefono;
+
+	@FXML
+	private VBox formularioNuevoContacto;
+
+	@FXML
+	private Button btnMostrarFormulario;
+	@FXML
+	private Button btnAnadir;
 	
+	@FXML
+	private TextField txtImagen;
+	
+
+	
+
+
+	@FXML
+	private TableColumn<Contacto, String> colLocalidad;
+
 	private ContactoServiceImpl contactoService;
 	private ObservableList<Contacto> listaContactos;
 
@@ -82,76 +124,127 @@ public class PrincipalControlador {
 
 	@FXML
 	private void initialize() {
-		colNombre.setCellValueFactory(celda -> celda.getValue().nombreProperty());
-		colTelefono.setCellValueFactory(celda -> celda.getValue().telefonoProperty());
-		colCorreo.setCellValueFactory(celda -> celda.getValue().correoProperty());
+	    System.out.println("Inicializando PrincipalControlador...");
 
-		cargarContactos();
-		tablaContactos.setOnMouseClicked(this::mostrarDetallesContacto);
+	    // 📌 Configurar columnas de la tabla
+	    colNombre.setCellValueFactory(celda -> celda.getValue().nombreProperty());
+	    colTelefono.setCellValueFactory(celda -> celda.getValue().telefonoProperty());
+	    colCorreo.setCellValueFactory(celda -> celda.getValue().correoProperty());
+	    colLocalidad.setCellValueFactory(celda -> celda.getValue().localidadProperty());
 
-		tablaContactos.sceneProperty().addListener((obs, oldScene, newScene) -> {
-			if (newScene != null) {
-				newScene.widthProperty().addListener((obsWidth, oldWidth, newWidth) -> {
-					double nuevoTamaño = newWidth.doubleValue() * 0.1;
-					imagenPerfil.setFitWidth(nuevoTamaño);
-					imagenPerfil.setFitHeight(nuevoTamaño);
-				});
-			}
-		});
+	    // 📌 Evento para mostrar detalles cuando se hace clic en un contacto
+	    tablaContactos.setOnMouseClicked(event -> mostrarDetallesContacto(event));
+
+	    // 📌 Cargar datos en la tabla
+	    cargarContactos();
 	}
 
-	private void cargarContactos() {
-		List<Contacto> contactos = contactoService.obtenerContactos();
-		listaContactos = FXCollections.observableArrayList(contactos);
-		tablaContactos.setItems(listaContactos);
+
+
+
+	public void cargarContactos() {
+	    List<Contacto> lista = contactoService.obtenerContactos();
+
+	    // 🔥 Importante: Crear una nueva lista observable para que la tabla se refresque
+	    tablaContactos.setItems(FXCollections.observableArrayList(lista));
 	}
+
 
 	@FXML
 	private void mostrarDetallesContacto(MouseEvent event) {
 	    Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
 	    if (contactoSeleccionado != null) {
-	        // 🔹 Nombre SIEMPRE en negro
+	        System.out.println("📌 Mostrando detalles del contacto ID: " + contactoSeleccionado.getId());
+
 	        lblNombre.setText("Nombre: " + contactoSeleccionado.getNombre());
-	        lblNombre.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
-
-	        // 🔹 Control de la imagen y el mensaje de "Usuario sin foto"
-	        if (contactoSeleccionado.getImagen() == null || contactoSeleccionado.getImagen().isEmpty()) {
-	            imagenPerfil.setVisible(false); // Ocultar la imagen
-	            imagenPerfil.setManaged(false); // Evitar que ocupe espacio
-	            lblUsuarioSinFoto.setVisible(true); // ✅ Mostrar mensaje de "Usuario sin foto"
-	        } else {
-	            imagenPerfil.setImage(new Image("file:" + contactoSeleccionado.getImagen()));
-	            imagenPerfil.setVisible(true);
-	            imagenPerfil.setManaged(true);
-	            lblUsuarioSinFoto.setVisible(false); // ✅ Ocultar el mensaje si hay foto
-	        }
-
-	        // 🔹 Teléfono y correo en negro
 	        lblTelefono.setText("Teléfono: " + contactoSeleccionado.getTelefono());
-	        lblTelefono.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
-
 	        lblCorreo.setText("Correo: " + contactoSeleccionado.getCorreo());
-	        lblCorreo.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
 
-	        // 🔹 Si no hay sitio web, mostrar "Usuario sin sitio web" en rojo
-	        if (contactoSeleccionado.getSitioWeb() == null || contactoSeleccionado.getSitioWeb().isEmpty()) {
-	            lblSitioWeb.setText("Usuario sin sitio web");
-	            lblSitioWeb.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: red;");
-	        } else {
-	            lblSitioWeb.setText("Sitio Web: " + contactoSeleccionado.getSitioWeb());
-	            lblSitioWeb.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: black;");
+	        // ✅ Manejo seguro de la localidad
+	        String localidad = contactoSeleccionado.getLocalidad();
+	        if (localidad == null || localidad.trim().isEmpty() || localidad.equalsIgnoreCase("NULL")) {
+	            localidad = "Desconocida";
 	        }
+	        lblLocalidad.setText("Localidad: " + localidad);
 
-	        // 🔹 Alinear los textos a la izquierda
-	        lblNombre.setAlignment(Pos.BASELINE_LEFT);
-	        lblTelefono.setAlignment(Pos.BASELINE_LEFT);
-	        lblCorreo.setAlignment(Pos.BASELINE_LEFT);
-	        lblSitioWeb.setAlignment(Pos.BASELINE_LEFT);
-	        imagenPerfil.setStyle("-fx-padding: 5 0 0 0;");
+	        // ✅ Imagen de perfil
+	        String rutaImagen = contactoSeleccionado.getImagen();
+	        if (rutaImagen == null || rutaImagen.isEmpty()) {
+	            imagenPerfil.setVisible(false);
+	            imagenPerfil.setManaged(false);
+	            lblUsuarioSinFoto.setVisible(true);
+	        } else {
+	            File archivoImagen = new File(rutaImagen);
+	            if (archivoImagen.exists() && !archivoImagen.isDirectory()) {
+	                imagenPerfil.setImage(new Image(archivoImagen.toURI().toString()));
+	                imagenPerfil.setVisible(true);
+	                imagenPerfil.setManaged(true);
+	                lblUsuarioSinFoto.setVisible(false);
+	            } else {
+	                imagenPerfil.setVisible(false);
+	                imagenPerfil.setManaged(false);
+	                lblUsuarioSinFoto.setVisible(true);
+	            }
+	        }
+	    } else {
+	        System.out.println("⚠ No se ha seleccionado ningún contacto.");
+	    }
+	}
 
-	        // 🔹 Asegurar que los contenedores de los labels estén alineados a la izquierda
-	        ((VBox) lblNombre.getParent()).setAlignment(Pos.TOP_LEFT);
+
+	
+	@FXML
+	private void anadirContacto() {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AnadirContacto.fxml"));
+	        Parent root = loader.load();
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Añadir Contacto");
+	        stage.setScene(new Scene(root));
+	        stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal hasta cerrar esta
+	        stage.showAndWait();
+
+	        // Después de cerrar la ventana, recargar los contactos
+	        cargarContactos();
+	    } catch (IOException e) {
+	        System.err.println("❌ Error al abrir el formulario de añadir contacto: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+
+	@FXML
+	private void editarContacto() {
+	    Contacto seleccionado = tablaContactos.getSelectionModel().getSelectedItem();
+
+	    if (seleccionado == null) {
+	        System.err.println("⚠ Debes seleccionar un contacto para editar.");
+	        return;
+	    }
+
+	    System.out.println("📝 Editando contacto ID: " + seleccionado.getId());
+
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarContacto.fxml"));
+	        Parent root = loader.load();
+
+	        // Obtener el controlador y pasar el contacto seleccionado
+	        EditarContactoControlador controlador = loader.getController();
+	        controlador.setContacto(seleccionado);
+	        controlador.setPrincipalControlador(this);  // ✅ Pasa referencia de `PrincipalControlador`
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Editar Contacto");
+	        stage.setScene(new Scene(root));
+	        stage.initModality(Modality.APPLICATION_MODAL);
+	        stage.showAndWait();
+
+	        actualizarTabla();  // 🔄 Refrescar la tabla después de cerrar la ventana
+
+	    } catch (IOException e) {
+	        System.err.println("❌ Error al abrir el formulario de edición: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	}
 
@@ -160,67 +253,36 @@ public class PrincipalControlador {
 
 
 
-
-
-
-	@FXML
-	private void añadirContacto() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AñadirContacto.fxml"));
-			Parent root = loader.load();
-
-			Stage stage = new Stage();
-			stage.setTitle("Añadir Contacto");
-			stage.setScene(new Scene(root));
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.showAndWait();
-
-			cargarContactos();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Alert alert = new Alert(Alert.AlertType.ERROR, "Error al abrir el formulario: " + e.getMessage());
-			alert.showAndWait();
-		}
+	/**
+	 * Método auxiliar para guardar los cambios en la edición.
+	 */
+	public void guardarCambios(Contacto contacto) {
+	    contactoService.actualizarContacto(contacto);
+	    actualizarTabla(); // ✅ Refrescar tabla correctamente
 	}
 
-	@FXML
-	private void editarContacto() {
-		try {
-			Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
-			if (contactoSeleccionado == null) {
-				Alert alerta = new Alert(Alert.AlertType.WARNING, "Por favor, selecciona un contacto para editar.");
-				alerta.showAndWait();
-				return;
-			}
 
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarContacto.fxml"));
-			Parent root = loader.load();
 
-			EditarContactoControlador controlador = loader.getController();
-			controlador.setContacto(contactoSeleccionado);
-
-			Stage stage = new Stage();
-			stage.setTitle("Editar Contacto");
-			stage.setScene(new Scene(root));
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.showAndWait();
-
-			cargarContactos();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Alert alert = new Alert(Alert.AlertType.ERROR, "Error al abrir el formulario: " + e.getMessage());
-			alert.showAndWait();
-		}
-	}
 
 	@FXML
 	private void eliminarContacto() {
 		Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
 		if (contactoSeleccionado != null) {
-			contactoService.eliminarContacto(contactoSeleccionado.getId());
-			listaContactos.remove(contactoSeleccionado);
+			// Confirmación antes de eliminar
+			Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION,
+					"¿Estás seguro de que quieres eliminar este contacto?", ButtonType.YES, ButtonType.NO);
+			confirmacion.setTitle("Confirmar eliminación");
+			confirmacion.setHeaderText("Se eliminará el contacto: " + contactoSeleccionado.getNombre());
+
+			confirmacion.showAndWait().ifPresent(response -> {
+				if (response == ButtonType.YES) {
+					contactoService.eliminarContacto(contactoSeleccionado.getId());
+					listaContactos.remove(contactoSeleccionado);
+				}
+			});
+
 		} else {
 			Alert alert = new Alert(Alert.AlertType.WARNING, "Por favor, selecciona un contacto para eliminar.");
 			alert.showAndWait();
@@ -229,61 +291,190 @@ public class PrincipalControlador {
 
 	@FXML
 	private void buscarContacto() {
-		String filtro = txtBuscar.getText().toLowerCase();
+	    String filtro = txtBuscar.getText().toLowerCase();
 
-		ObservableList<Contacto> contactosFiltrados = FXCollections.observableArrayList(listaContactos.stream()
-				.filter(contacto -> contacto.getNombre().toLowerCase().contains(filtro)).toList());
+	    if (listaContactos == null) { // 🚀 Asegurar que no sea null
+	        System.err.println("⚠ listaContactos es NULL, recargando contactos...");
+	        listaContactos = FXCollections.observableArrayList(contactoService.obtenerContactos());
+	    }
 
-		tablaContactos.setItems(contactosFiltrados);
+	    // 🚀 Filtrar contactos basándose en nombre o localidad
+	    ObservableList<Contacto> contactosFiltrados = FXCollections.observableArrayList(
+	            listaContactos.stream()
+	                    .filter(contacto -> contacto.getNombre().toLowerCase().contains(filtro)
+	                            || contacto.getLocalidad().toLowerCase().contains(filtro))
+	                    .toList()
+	    );
 
-		if (contactosFiltrados.isEmpty()) {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION,
-					"No se encontraron contactos que coincidan con la búsqueda.");
-			alert.showAndWait();
-		}
+	    // ✅ Refrescar la tabla con los contactos filtrados
+	    tablaContactos.setItems(contactosFiltrados);
+
+	    if (contactosFiltrados.isEmpty()) {
+	        System.out.println("⚠ No se encontraron contactos con el filtro: " + filtro);
+	        Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se encontraron contactos que coincidan con la búsqueda.");
+	        alert.showAndWait();
+	    }
+
+	    // 🚀 Limpiar el campo de búsqueda después de ejecutar la acción
+	    txtBuscar.clear();
 	}
+
+
 
 	@FXML
 	private void mostrarTodosContactos() {
+		listaContactos = FXCollections.observableArrayList(contactoService.obtenerContactos()); // 🔹 Recargar desde la
+																								// BD
 		tablaContactos.setItems(listaContactos);
 	}
 
 	@FXML
 	private void abrirPantallaPrincipal() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
-			Parent root = loader.load();
-			Scene scene = new Scene(root);
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root, 800, 600); // 📌 Ajustamos el tamaño
 
-			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+	        // 📌 Aplicar el CSS global
+	        String cssPath = "/application/application.css";
+	        if (getClass().getResource(cssPath) != null) {
+	            scene.getStylesheets().clear(); // Limpiar estilos previos para evitar conflictos
+	            scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+	        } else {
+	            System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+	        }
 
-			Stage stage = new Stage();
-			stage.setTitle("Gestor de Contactos");
-			stage.setScene(scene);
-			stage.show();
+	        Stage stage = new Stage();
+	        stage.setTitle("Gestor de Contactos");
+	        stage.setScene(scene);
+	        stage.setMinWidth(800);
+	        stage.setMinHeight(600);
+	        stage.show();
 
-			((Stage) txtBuscar.getScene().getWindow()).close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        // 📌 Cerrar la ventana actual (Login o Registro)
+	        Stage actualStage = (Stage) txtBuscar.getScene().getWindow();
+	        if (actualStage != null) {
+	            actualStage.close();
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+	                "Error al abrir la pantalla principal: " + e.getMessage());
+	        errorAlert.showAndWait();
+	    }
 	}
-	
+
+
 	@FXML
 	private void borrarTodosContactos() {
-	    // Mostrar una alerta de confirmación
-	    Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION, 
-	        "¿Estás seguro de que quieres borrar todos los contactos?", 
-	        ButtonType.YES, ButtonType.NO);
-	    confirmacion.setTitle("Confirmar eliminación");
-	    confirmacion.setHeaderText(null);
+		// Mostrar una alerta de confirmación
+		Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION,
+				"¿Estás seguro de que quieres borrar todos los contactos?", ButtonType.YES, ButtonType.NO);
+		confirmacion.setTitle("Confirmar eliminación");
+		confirmacion.setHeaderText(null);
 
-	    // Esperar la respuesta del usuario
-	    confirmacion.showAndWait().ifPresent(response -> {
-	        if (response == ButtonType.YES) {
-	            // Llamar al servicio para eliminar todos los contactos
-	            contactoService.eliminarTodosContactos();
-	            listaContactos.clear(); // Vaciar la tabla
-	        }
-	    });
+		// Esperar la respuesta del usuario
+		confirmacion.showAndWait().ifPresent(response -> {
+			if (response == ButtonType.YES) {
+				try {
+					// Llamar al servicio para eliminar todos los contactos
+					contactoService.eliminarTodosContactos();
+					listaContactos.clear(); // Vaciar la tabla
+
+					// ✅ Actualizar la tabla para reflejar los cambios
+					tablaContactos.refresh();
+
+					// ✅ Mostrar mensaje de éxito
+					Alert exito = new Alert(Alert.AlertType.INFORMATION, "Todos los contactos han sido eliminados.");
+					exito.setTitle("Eliminación exitosa");
+					exito.setHeaderText(null);
+					exito.showAndWait();
+
+				} catch (Exception e) {
+					// ✅ Manejo de errores si ocurre un problema con la eliminación
+					Alert error = new Alert(Alert.AlertType.ERROR,
+							"Error al eliminar los contactos: " + e.getMessage());
+					error.setTitle("Error");
+					error.setHeaderText("No se pudieron eliminar los contactos.");
+					error.showAndWait();
+				}
+			}
+		});
 	}
+
+	@FXML
+	private void mostrarEstadisticas() {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Estadisticas.fxml"));
+	        Parent root = loader.load();
+
+	        // ✅ Obtener el controlador y refrescar los datos antes de abrir la ventana
+	        EstadisticasControlador controlador = loader.getController();
+	        controlador.refrescarEstadisticas(); 
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Estadísticas de Contactos");
+	        stage.setScene(new Scene(root, 600, 400));
+	        stage.show();
+	    } catch (Exception e) {
+	        System.err.println("❌ Error al abrir la ventana de estadísticas: " + e.getMessage());
+	        Alert errorAlert = new Alert(Alert.AlertType.ERROR, "Error al abrir la ventana de estadísticas.");
+	        errorAlert.showAndWait();
+	    }
+	}
+
+
+	 @FXML
+	    private void mostrarFormulario() {
+	        boolean estadoActual = formularioNuevoContacto.isVisible();
+	        formularioNuevoContacto.setVisible(!estadoActual);
+	        formularioNuevoContacto.setManaged(!estadoActual);
+
+	        btnMostrarFormulario.setText(estadoActual ? "Nuevo Contacto" : "Cerrar Formulario");
+	    }
+	 
+	 @FXML
+	 private void seleccionarImagen() {
+	     FileChooser fileChooser = new FileChooser();
+	     fileChooser.setTitle("Seleccionar Imagen");
+
+	     // Filtro para solo permitir imágenes
+	     fileChooser.getExtensionFilters().addAll(
+	         new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
+	     );
+
+	     File archivoSeleccionado = fileChooser.showOpenDialog(txtImagen.getScene().getWindow()); // Usar la ventana actual
+	     
+	     if (archivoSeleccionado != null) {
+	         // Mostrar la ruta en el campo txtImagen
+	         txtImagen.setText(archivoSeleccionado.toURI().toString());
+
+	         // Cargar la imagen en el ImageView
+	         imagenPerfil.setImage(new Image(archivoSeleccionado.toURI().toString()));
+	     }
+	 }
+
+	 
+	 /**
+	  * 🔄 Recargar la tabla de contactos con los datos actualizados desde la base de datos.
+	  */
+	 /**
+	  * 🔄 Recargar la tabla de contactos con los datos actualizados desde la base de datos.
+	  */
+	 public void actualizarTabla() {
+	     System.out.println("🔄 Recargando la tabla de contactos...");
+
+	     // Obtener los contactos actualizados desde la base de datos
+	     List<Contacto> contactosActualizados = contactoService.obtenerContactos();
+
+	     // Limpiar la tabla y actualizar con los nuevos datos
+	     tablaContactos.getItems().setAll(contactosActualizados); // 🔹 Mejora en rendimiento
+	     tablaContactos.refresh();  // ✅ Forzar actualización visual
+
+	     System.out.println("✅ Tabla actualizada con éxito.");
+	 }
+
+
+
 }

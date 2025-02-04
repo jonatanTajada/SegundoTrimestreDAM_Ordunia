@@ -79,4 +79,38 @@ public class RegistroControlador {
         Alert alert = new Alert(tipo, mensaje);
         alert.showAndWait();
     }
+    
+    @FXML
+    private void volverAlLogin() {
+        try {
+            // Cargar la ventana de Login
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 600, 400);
+
+            // 📌 Aplicar el CSS global
+            String cssPath = "/application/application.css";
+            if (getClass().getResource(cssPath) != null) {
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+            } else {
+                System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+            }
+
+            Stage stage = new Stage();
+            stage.setTitle("Gestor de Contactos - Login");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+            // 📌 Cierra la ventana de Registro
+            Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
+            ventanaRegistro.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error al volver al Login.");
+        }
+    }
+
 }

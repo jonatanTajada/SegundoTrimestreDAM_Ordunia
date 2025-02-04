@@ -25,4 +25,5 @@
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="com.chat.utilities.EstiloUI"/>
     <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
+    <fullyQualifiedTypeName name="modelo.service.ContactoService"/>
 </qualifiedTypeNameHistroy>

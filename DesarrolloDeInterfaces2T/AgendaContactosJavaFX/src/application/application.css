@@ -1,18 +1,21 @@
-/* Fondo de la aplicación */
-
+/* =======================
+   🔹 Fondo General de la Aplicación
+======================= */
 .root {
     -fx-background-color: linear-gradient(to right, #1565C0, #42A5F5);
     -fx-padding: 15px;
+    -fx-font-family: "Arial";
 }
 
-/* Estilo del encabezado */
+/* =======================
+   🔹 Encabezado y Títulos
+======================= */
 .label {
     -fx-text-fill: white;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
 
-/* Título principal */
 #titulo {
     -fx-font-size: 26px;
     -fx-text-fill: #FFFFFF;
@@ -21,15 +24,57 @@
     -fx-padding: 10px 0;
 }
 
-/* Contenedor de la tabla y los detalles */
-#mainContainer {
+/* =======================
+   🔹 Contenedor General
+======================= */
+.vbox {
     -fx-background-color: white;
+    -fx-padding: 30px;
     -fx-border-radius: 10px;
-    -fx-padding: 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 4);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);
 }
 
-/* Estilo de la tabla */
+/* =======================
+   🔹 Campos de Entrada (Login, Registro, Contactos)
+======================= */
+.text-field, .password-field {
+    -fx-pref-width: 250px;
+    -fx-padding: 8px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 10, 0, 0, 2);
+}
+
+/* =======================
+   🔹 Botones
+======================= */
+.button {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #0D47A1;
+}
+
+.button:pressed {
+    -fx-background-color: #64B5F6;
+}
+
+/* =======================
+   🔹 Tabla de Contactos
+======================= */
 .table-view {
     -fx-background-color: white;
     -fx-border-radius: 10px;
@@ -48,7 +93,6 @@
     -fx-font-weight: bold;
 }
 
-/* Filas de la tabla */
 .table-row-cell {
     -fx-background-color: white;
     -fx-text-fill: #333;
@@ -68,34 +112,19 @@
     -fx-text-fill: white;
 }
 
-/* Contenedor de detalles */
-#detalleContainer {
-    -fx-background-color: #E3F2FD;
+/* =======================
+   🔹 Formulario de Contacto
+======================= */
+#formularioNuevoContacto {
+    -fx-background-color: white;
     -fx-border-radius: 10px;
     -fx-padding: 15px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
 }
 
-/* Estilo de los botones */
-.button {
-    -fx-background-color: #1976D2;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 5px;
-    -fx-padding: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
-}
-
-.button:hover {
-    -fx-background-color: #0D47A1;
-}
-
-.button:pressed {
-    -fx-background-color: #64B5F6;
-}
-
-/* Estilo de la barra de búsqueda */
+/* =======================
+   🔹 Buscador
+======================= */
 .text-field {
     -fx-background-color: white;
     -fx-border-color: #1565C0;
@@ -104,9 +133,24 @@
     -fx-padding: 5px;
 }
 
-/* Imagen de perfil */
+/* =======================
+   🔹 Imagen de Perfil
+======================= */
 #imagenPerfil {
     -fx-border-radius: 10px;
     -fx-border-color: #1976D2;
     -fx-padding: 5px;
+}
+
+/* =======================
+   🔹 Estilos de Login y Registro
+======================= */
+.hyperlink {
+    -fx-text-fill: #3498db;
+    -fx-font-size: 12px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #2980b9;
+    -fx-underline: true;
 }

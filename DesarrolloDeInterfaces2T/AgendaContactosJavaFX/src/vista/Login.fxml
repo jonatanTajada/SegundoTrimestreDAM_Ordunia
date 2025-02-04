@@ -3,8 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.LoginControlador">
-    
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" 
+	xmlns:fx="http://javafx.com/fxml" 
+	fx:controller="controlador.LoginControlador">
+
     <Label text="Iniciar Sesión" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
     
     <TextField fx:id="txtCorreo" promptText="Correo electrónico" />
@@ -14,5 +16,5 @@
     
     <Label text="¿No tienes cuenta?" />
     <Hyperlink text="Regístrate aquí" onAction="#abrirRegistro" />
-
 </VBox>
+

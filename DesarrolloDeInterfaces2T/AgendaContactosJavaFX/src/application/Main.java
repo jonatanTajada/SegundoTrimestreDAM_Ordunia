@@ -8,32 +8,46 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Stage primaryStage;
+
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
+        primaryStage = stage;
+        cambiarVentana("/vista/Login.fxml", "Gestor de Contactos - Login", 600, 400, false);
+    }
+
+    /**
+     * 📌 Cambia entre Login, Registro y Principal reutilizando la misma ventana.
+     */
+    public static void cambiarVentana(String fxmlPath, String titulo, int width, int height, boolean resizable) {
         try {
-            // Cargar la vista de Login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
             Parent root = loader.load();
+            Scene scene = new Scene(root, width, height);
             
-            // Crear la escena
-            Scene scene = new Scene(root, 450, 500); // ⬅ Tamaño ajustado para mejor visualización
+            aplicarCSS(scene);
 
-            // Aplicar estilos específicos para el Login
-            String cssPath = "/application/applicationUsuario.css";
-            if (getClass().getResource(cssPath) != null) {
-                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-            } else {
-                System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
-            }
-
-            primaryStage.setTitle("Login - Gestor de Contactos");
+            primaryStage.setTitle(titulo);
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false); // ⬅ Mantiene el tamaño fijo en Login
+            primaryStage.setResizable(resizable);
             primaryStage.show();
-
         } catch (Exception e) {
-            System.err.println("❌ Error al cargar la ventana de Login: " + e.getMessage());
             e.printStackTrace();
+            System.err.println("❌ Error al cargar la ventana: " + fxmlPath);
+        }
+    }
+
+    /**
+     * 📌 Aplica el CSS global a todas las pantallas.
+     */
+    public static void aplicarCSS(Scene scene) {
+        String cssPath = "/application/application.css";
+
+        if (Main.class.getResource(cssPath) != null) {
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(Main.class.getResource(cssPath).toExternalForm());
+        } else {
+            System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
         }
     }
 

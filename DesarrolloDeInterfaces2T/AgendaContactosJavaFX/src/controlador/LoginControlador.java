@@ -1,91 +1,99 @@
 package controlador;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import modelo.Usuario;
-import modelo.service.UsuarioServiceImpl;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import modelo.service.UsuarioServiceImpl;
 
 public class LoginControlador {
 
-    @FXML private TextField txtCorreo;
-    @FXML private PasswordField txtPassword;
+	@FXML
+	private TextField txtCorreo;  // ✅ Mantén solo txtCorreo (coincide con el FXML)
 
-    private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
+	@FXML
+	private PasswordField txtPassword;  // ✅ Mantén solo txtPassword (coincide con el FXML)
 
-    @FXML
-    private void iniciarSesion() {
-        String correo = txtCorreo.getText();
-        String password = txtPassword.getText();
+	private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 
-        Usuario usuario = usuarioService.autenticarUsuario(correo, password);
-        if (usuario != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Inicio de sesión exitoso.");
-            alert.showAndWait();
-            abrirPantallaPrincipal();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Credenciales incorrectas.");
-            alert.showAndWait();
-        }
-    }
+	@FXML
+	private void iniciarSesion() {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root, 800, 600);
 
-    @FXML
-    private void abrirRegistro() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 450, 500); // ⬅ Tamaño ajustado
+	        // ✅ Aplicar el CSS azul a la escena
+	        aplicarCSS(scene);
 
-            Stage stage = new Stage();
-            stage.setTitle("Registro de Usuario");
-            stage.setScene(scene);
-            stage.setResizable(false); // ⬅ Evita que se expanda de forma descontrolada
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	        Stage stage = new Stage();
+	        stage.setTitle("Gestor de Contactos");
+	        stage.setScene(scene);
+	        stage.show();
 
-    private void abrirPantallaPrincipal() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
+	        // Cerrar la ventana de login
+	        Stage actualStage = (Stage) txtCorreo.getScene().getWindow();
+	        actualStage.close();
 
-            Stage stage = new Stage();
-            stage.setTitle("Gestor de Contactos");
-            stage.setScene(scene);
-            stage.show();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        Alert alert = new Alert(Alert.AlertType.ERROR, "Error al abrir la agenda: " + e.getMessage());
+	        alert.showAndWait();
+	    }
+	}
 
-            // Cerrar la ventana de login
-            ((Stage) txtCorreo.getScene().getWindow()).close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * 🔹 Nuevo Método: `abrirLogin()`
-     * Se encarga de abrir la ventana de Login con un tamaño adecuado
-     * y evita que se pueda redimensionar.
-     */
-    @FXML
-    private void abrirLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 450, 500); // ⬅ Tamaño ajustado
+	@FXML
+	private void abrirRegistro() {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root, 600, 400);
 
-            Stage stage = new Stage();
-            stage.setTitle("Iniciar Sesión");
-            stage.setScene(scene);
-            stage.setResizable(false); // ⬅ Evita que se expanda de forma descontrolada
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	        // 📌 Aplicar el CSS manualmente
+	        String cssPath = "/application/application.css";
+	        if (getClass().getResource(cssPath) != null) {
+	            scene.getStylesheets().clear();
+	            scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+	        } else {
+	            System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+	        }
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Registro de Usuario");
+	        stage.setScene(scene);
+	        stage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
+	/**
+	 * 📌 Método para validar credenciales de usuario.
+	 */
+	private boolean validarCredenciales() {
+	    String correo = txtCorreo.getText();
+	    String password = txtPassword.getText();
+
+	    // ✅ Verificamos si el usuario existe en la base de datos
+	    return usuarioService.validarUsuario(correo, password);
+	}
+	
+	private void aplicarCSS(Scene scene) {
+	    String cssPath = "/application/application.css";
+	    if (getClass().getResource(cssPath) != null) {
+	        scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+	    } else {
+	        System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+	    }
+	}
+
+
 }
