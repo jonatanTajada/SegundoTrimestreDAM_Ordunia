@@ -25,8 +25,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Contacto;
-import modelo.dao.ContactoDAO;
-import modelo.dao.ContactoDAOImpl;
 import modelo.service.ContactoServiceImpl;
 
 public class PrincipalControlador {

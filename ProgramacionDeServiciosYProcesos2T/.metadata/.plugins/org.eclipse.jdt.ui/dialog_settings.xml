@@ -37,6 +37,7 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
+		<item key="RunnableJar.export.ipwarning" value="false"/>
 	</section>
 	<section name="NewClassWizardPage">
 		<item key="create_constructor" value="false"/>
@@ -78,8 +79,8 @@
 		<item key="height" value="400"/>
 	</section>
 	<section name="JavadocWizardDialog">
-		<item key="DIALOG_X_ORIGIN" value="535"/>
-		<item key="DIALOG_Y_ORIGIN" value="150"/>
+		<item key="DIALOG_X_ORIGIN" value="268"/>
+		<item key="DIALOG_Y_ORIGIN" value="111"/>
 		<item key="DIALOG_WIDTH" value="867"/>
 		<item key="DIALOG_HEIGHT" value="567"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
@@ -101,18 +102,18 @@
 		<item key="nonavbar" value="false"/>
 		<item key="openinbrowser" value="false"/>
 		<item key="source" value="22"/>
-		<item key="antpath" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\ChatMulticast\javadoc.xml"/>
-		<item key="destdir" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\ChatMulticast\doc"/>
+		<item key="antpath" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T\AgendaContactosJavaFX\javadoc.xml"/>
+		<item key="destdir" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T\AgendaContactosJavaFX\doc"/>
 		<section name="projects">
 			<section name="RemoteSystemsTempFiles">
 				<item key="href" value=""/>
 				<item key="destdir" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\RemoteSystemsTempFiles\doc"/>
 				<item key="antpath" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\RemoteSystemsTempFiles\javadoc.xml"/>
 			</section>
-			<section name="ChatMulticast">
-				<item key="href" value="file:/D:/PROGRAMACION/DAM%20ORDUNA%202024_2025/SegundoAnio/workspaceEclipseSegundoAnioOrduna2T/ProgramacionDeServiciosYProcesos2T/ChatMulticast/doc/"/>
-				<item key="destdir" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\ChatMulticast\doc"/>
-				<item key="antpath" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\ChatMulticast\javadoc.xml"/>
+			<section name="AgendaContactosFX">
+				<item key="href" value=""/>
+				<item key="destdir" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T\AgendaContactosJavaFX\doc"/>
+				<item key="antpath" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T\AgendaContactosJavaFX\javadoc.xml"/>
 			</section>
 		</section>
 	</section>
@@ -132,5 +133,27 @@
 		<item key="DIALOG_WIDTH" value="525"/>
 		<item key="DIALOG_HEIGHT" value="538"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="FatJarPackageWizard">
+		<item key="FatJarPackageWizardPage.ANTSCRIPT_SAVE" value="false"/>
+		<item key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION" value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T"/>
+		<item key="FatJarPackageWizardPage.LIBRARY_HANDLING" value="1"/>
+		<item key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME" value="Main (2) - AgendaContactosFX"/>
+		<item key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION" value="C:\Users\Jonathan\Desktop\AgendaFX.jar"/>
+		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\Jonathan\Desktop\AgendaFX.jar"/>
+			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\DesarrolloDeInterfaces2T\AgendaFX.jar"/>
+		</list>
+		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
+			<item value="D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T.xml"/>
+			<item value=".xml"/>
+		</list>
+		<section name="FatJarPackageWizard.dialogBounds">
+			<item key="DIALOG_X_ORIGIN" value="683"/>
+			<item key="DIALOG_Y_ORIGIN" value="191"/>
+			<item key="DIALOG_WIDTH" value="571"/>
+			<item key="DIALOG_HEIGHT" value="550"/>
+			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+		</section>
 	</section>
 </section>

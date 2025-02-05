@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelo.service.UsuarioServiceImpl;
+
 
 /**
  * Controlador para la pantalla de inicio de sesión. Permite validar
@@ -24,7 +24,6 @@ public class LoginControlador {
 	@FXML
 	private PasswordField txtPassword;
 
-	private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 
 	/**
 	 * Inicia sesión verificando las credenciales del usuario. Si son válidas, abre
@@ -84,16 +83,6 @@ public class LoginControlador {
 		}
 	}
 
-	/**
-	 * Valida las credenciales del usuario verificando en la base de datos.
-	 * 
-	 * @return true si las credenciales son correctas, false si son incorrectas.
-	 */
-	private boolean validarCredenciales() {
-		String correo = txtCorreo.getText();
-		String password = txtPassword.getText();
-		return usuarioService.validarUsuario(correo, password);
-	}
 
 	/**
 	 * Aplica la hoja de estilos CSS a la escena.
