@@ -40,11 +40,11 @@
 ======================= */
 .text-field, .password-field {
     -fx-pref-width: 250px;
-    -fx-padding: 8px;
-    -fx-border-color: #bdc3c7;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-pref-height: 35px;
+    -fx-font-size: 14px;
 }
+
+
 
 .text-field:focused, .password-field:focused {
     -fx-border-color: #3498db;
@@ -146,11 +146,15 @@
    🔹 Estilos de Login y Registro
 ======================= */
 .hyperlink {
-    -fx-text-fill: #3498db;
-    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
+
 .hyperlink:hover {
-    -fx-text-fill: #2980b9;
+    -fx-text-fill: #FFA500;
+    -fx-font-weight: bold;
     -fx-underline: true;
+    -fx-cursor: hand;
 }
+

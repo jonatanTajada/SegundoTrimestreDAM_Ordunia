@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -83,7 +82,7 @@ public class PrincipalControlador {
 	@FXML
 	private Button btnEstadisticas;
 
-	private final ContactoDAO contactoDAO = new ContactoDAOImpl();
+	//private final ContactoDAO contactoDAO = new ContactoDAOImpl();
 
 	@FXML
 	private TextField txtCorreo;

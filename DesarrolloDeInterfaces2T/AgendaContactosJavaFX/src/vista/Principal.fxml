@@ -90,7 +90,6 @@
             <Button fx:id="btnEstadisticas" text="Estadísticas"
                 onAction="#mostrarEstadisticas" />
                 
-            <Button fx:id="btnMostrarFormulario" text="Nuevo Contacto" onAction="#mostrarFormulario"/>
                 
         </HBox>
     </bottom>

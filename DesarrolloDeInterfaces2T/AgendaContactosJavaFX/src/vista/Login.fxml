@@ -3,18 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" 
-	xmlns:fx="http://javafx.com/fxml" 
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;"
+	xmlns:fx="http://javafx.com/fxml"
 	fx:controller="controlador.LoginControlador">
 
-    <Label text="Iniciar Sesión" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-    
-    <TextField fx:id="txtCorreo" promptText="Correo electrónico" />
-    <PasswordField fx:id="txtPassword" promptText="Contraseña" />
+	   <Label text="Iniciar Sesión"
+        style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;" />
 
-    <Button text="Iniciar Sesión" onAction="#iniciarSesion" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-    
-    <Label text="¿No tienes cuenta?" />
-    <Hyperlink text="Regístrate aquí" onAction="#abrirRegistro" />
+    <TextField fx:id="txtCorreo" promptText="Correo electrónico"
+    prefWidth="300" maxWidth="300"/>
+<PasswordField fx:id="txtPassword" promptText="Contraseña"
+    prefWidth="300" maxWidth="300"/>
+
+
+
+	<Button text="Iniciar Sesión" onAction="#iniciarSesion"
+		style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+
+	<Label text="¿No tienes cuenta?" />
+	<Hyperlink text="Regístrate aquí" onAction="#abrirRegistro" />
 </VBox>
 

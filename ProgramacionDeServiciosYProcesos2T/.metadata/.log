@@ -10946,3 +10946,193 @@ java.lang.Error: SWT Resource was not properly disposed
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:668)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:605)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1481)
+!SESSION 2025-02-05 07:40:36.140 -----------------------------------------------
+eclipse.buildId=4.34.0.20241128-0756
+java.version=23.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-02-05 07:40:45.594
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-02-05 07:40:50.007
+!MESSAGE Logback config file: D:\PROGRAMACION\DAM ORDUNA 2024_2025\SegundoAnio\workspaceEclipseSegundoAnioOrduna2T\ProgramacionDeServiciosYProcesos2T\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-02-05 07:41:02.400
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Jonathan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui.workbench 4 2 2025-02-05 07:41:02.452
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.ui.workbench".
+!STACK 0
+java.lang.ClassCastException: class org.eclipse.jdt.internal.core.JavaNature cannot be cast to class org.eclipse.jdt.core.IJavaProject (org.eclipse.jdt.internal.core.JavaNature and org.eclipse.jdt.core.IJavaProject are in unnamed module of loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @24206eb5)
+	at org.jboss.tools.quarkus.lsp4e.internal.qute.QuteProjectListener.configureProject(QuteProjectListener.java:101)
+	at org.jboss.tools.quarkus.lsp4e.internal.qute.QuteProjectListener.<init>(QuteProjectListener.java:49)
+	at org.jboss.tools.quarkus.lsp4e.internal.startup.qute.QuteStartup.earlyStartup(QuteStartup.java:24)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:79)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:55)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.ui.internal.Workbench$39.run(Workbench.java:2733)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.ui 4 0 2025-02-05 07:41:02.456
+!MESSAGE Unable to execute early startup code for the org.eclipse.ui.IStartup extension contributed by the 'org.jboss.tools.quarkus.lsp4e' plug-in.
+!STACK 0
+java.lang.ClassCastException: class org.eclipse.jdt.internal.core.JavaNature cannot be cast to class org.eclipse.jdt.core.IJavaProject (org.eclipse.jdt.internal.core.JavaNature and org.eclipse.jdt.core.IJavaProject are in unnamed module of loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @24206eb5)
+	at org.jboss.tools.quarkus.lsp4e.internal.qute.QuteProjectListener.configureProject(QuteProjectListener.java:101)
+	at org.jboss.tools.quarkus.lsp4e.internal.qute.QuteProjectListener.<init>(QuteProjectListener.java:49)
+	at org.jboss.tools.quarkus.lsp4e.internal.startup.qute.QuteStartup.earlyStartup(QuteStartup.java:24)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:79)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:55)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.ui.internal.Workbench$39.run(Workbench.java:2733)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.879
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.880
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.882
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.883
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.893
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 07:54:43.897
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 07:55:44.597
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 07:55:44.950
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 07:55:44.996
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.586
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.593
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.601
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.609
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.613
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.616
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.620
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.623
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.627
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.631
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.634
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.639
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.643
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.651
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.656
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.659
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.668
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.671
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.675
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.679
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.683
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.687
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.691
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.695
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.699
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.703
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.705
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.709
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:05:34.713
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:06:16.867
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:06:16.879
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 08:06:16.885
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.jface 2 0 2025-02-05 08:07:21.036
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-02-05 08:07:21.036
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.jdt.ui.navigate.open.type"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.lsp4e.symbolinworkspace"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)

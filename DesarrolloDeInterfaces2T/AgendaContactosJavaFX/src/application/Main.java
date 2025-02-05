@@ -29,7 +29,7 @@ public class Main extends Application {
 
             primaryStage.setTitle(titulo);
             primaryStage.setScene(scene);
-            primaryStage.setResizable(resizable);
+            primaryStage.setResizable(true);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
