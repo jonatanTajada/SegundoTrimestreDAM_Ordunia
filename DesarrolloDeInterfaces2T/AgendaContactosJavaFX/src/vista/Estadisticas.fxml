@@ -7,28 +7,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
+
+<!-- Contenedor principal de la ventana -->
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-    fx:controller="controlador.EstadisticasControlador">
-    
-    <top>
-        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
-            <Label text="Estadísticas de Contactos"
-                style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-            <Label fx:id="lblTotalContactos" text="Total de Contactos: 0"
-                style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
-        </VBox>
-    </top>
+	fx:controller="controlador.EstadisticasControlador">
 
-    <center>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-            <PieChart fx:id="graficoLocalidades" />
-        </VBox>
-    </center>
+	<!-- Sección superior con el título y la cantidad total de contactos -->
+	<top>
+		<VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+			<Label text="Estadísticas de Contactos"
+				style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+			<Label fx:id="lblTotalContactos" text="Total de Contactos: 0"
+				style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+		</VBox>
+	</top>
 
-    <bottom>
-        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
-            <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrarVentana" />
-        </HBox>
-    </bottom>
+	<!-- Sección central con el gráfico de distribución de contactos por localidad -->
+	<center>
+		<VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+			<PieChart fx:id="graficoLocalidades" />
+		</VBox>
+	</center>
+
+	<!-- Sección inferior con el botón para cerrar la ventana -->
+	<bottom>
+		<HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+			<Button fx:id="btnCerrar" text="Cerrar"
+				onAction="#cerrarVentana" />
+		</HBox>
+	</bottom>
 
 </BorderPane>

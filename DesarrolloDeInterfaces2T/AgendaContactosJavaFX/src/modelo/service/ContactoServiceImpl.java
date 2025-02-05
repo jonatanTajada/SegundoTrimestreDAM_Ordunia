@@ -4,103 +4,148 @@ import java.util.List;
 import modelo.Contacto;
 import modelo.dao.ContactoDAOImpl;
 
+/**
+ * Implementación del servicio para la gestión de contactos. Se encarga de la
+ * validación y comunicación con la capa DAO.
+ */
 public class ContactoServiceImpl implements ContactoService {
 
-    private final ContactoDAOImpl contactoDao;
+	private final ContactoDAOImpl contactoDao;
 
-    public ContactoServiceImpl() {
-        this.contactoDao = new ContactoDAOImpl();
-    }
+	/**
+	 * Constructor que inicializa la capa DAO de contactos.
+	 */
+	public ContactoServiceImpl() {
+		this.contactoDao = new ContactoDAOImpl();
+	}
 
-    // ✅ Método para crear un nuevo contacto con validación
-    public boolean crearContacto(Contacto contacto) {
-        try {
-            if (validarContacto(contacto) && validarUnicidad(contacto)) {
-                contactoDao.crearContacto(contacto);
-                return true;
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println("⚠ Error de validación al crear contacto: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("⚠ Error inesperado al guardar el contacto: " + e.getMessage());
-        }
-        return false;
-    }
+	/**
+	 * Crea un nuevo contacto después de validar los datos.
+	 *
+	 * @param contacto Objeto Contacto con los datos a registrar.
+	 * @return true si el contacto fue creado con éxito, false en caso contrario.
+	 */
+	@Override
+	public boolean crearContacto(Contacto contacto) {
+		try {
+			if (validarContacto(contacto) && validarUnicidad(contacto)) {
+				contactoDao.crearContacto(contacto);
+				return true;
+			}
+		} catch (IllegalArgumentException e) {
+			System.err.println("Error de validación al crear contacto: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error inesperado al guardar el contacto: " + e.getMessage());
+		}
+		return false;
+	}
 
-    // ✅ Método para obtener todos los contactos
-    public List<Contacto> obtenerContactos() {
-        return contactoDao.obtenerContactos();
-    }
+	/**
+	 * Obtiene la lista de todos los contactos almacenados en la base de datos.
+	 *
+	 * @return Lista de objetos Contacto.
+	 */
+	@Override
+	public List<Contacto> obtenerContactos() {
+		return contactoDao.obtenerContactos();
+	}
 
-    public void eliminarTodosContactos() {
-        contactoDao.eliminarTodos();
-    }
+	/**
+	 * Elimina todos los contactos de la base de datos.
+	 */
+	@Override
+	public void eliminarTodosContactos() {
+		contactoDao.eliminarTodos();
+	}
 
-    // ✅ Método para actualizar un contacto con validación
-    public boolean actualizarContacto(Contacto contacto) {
-        try {
-            System.out.println("📌 Intentando actualizar contacto con ID: " + contacto.getId());
+	/**
+	 * Actualiza un contacto existente después de validar sus datos.
+	 *
+	 * @param contacto Objeto Contacto con los datos actualizados.
+	 * @return true si la actualización fue exitosa, false en caso contrario.
+	 */
+	@Override
+	public boolean actualizarContacto(Contacto contacto) {
+		try {
+			System.out.println("Intentando actualizar contacto con ID: " + contacto.getId());
 
-            if (validarContacto(contacto)) {
-                contactoDao.actualizarContacto(contacto);
-                System.out.println("✅ Contacto actualizado con éxito.");
-                return true;
-            } else {
-                System.err.println("❌ No se pudo actualizar el contacto por fallos en la validación.");
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println("⚠ Error de validación al actualizar contacto: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("❌ Error inesperado al actualizar el contacto: " + e.getMessage());
-        }
-        return false;
-    }
+			if (validarContacto(contacto)) {
+				contactoDao.actualizarContacto(contacto);
+				System.out.println("Contacto actualizado con éxito.");
+				return true;
+			} else {
+				System.err.println("No se pudo actualizar el contacto por fallos en la validación.");
+			}
+		} catch (IllegalArgumentException e) {
+			System.err.println("Error de validación al actualizar contacto: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error inesperado al actualizar el contacto: " + e.getMessage());
+		}
+		return false;
+	}
 
-    // ✅ Método para eliminar contacto
-    public void eliminarContacto(int id) {
-        contactoDao.eliminarContacto(id);
-    }
+	/**
+	 * Elimina un contacto específico de la base de datos.
+	 *
+	 * @param id Identificador único del contacto a eliminar.
+	 */
+	@Override
+	public void eliminarContacto(int id) {
+		contactoDao.eliminarContacto(id);
+	}
 
-    // ✅ Método mejorado para validar los datos del contacto antes de guardarlo o actualizarlo
-    private boolean validarContacto(Contacto contacto) {
-        if (contacto.getNombre() == null || contacto.getNombre().isBlank()) {
-            throw new IllegalArgumentException("El nombre del contacto no puede estar vacío.");
-        }
+	/**
+	 * Valida los datos de un contacto antes de guardarlo o actualizarlo.
+	 *
+	 * @param contacto Objeto Contacto a validar.
+	 * @return true si los datos son válidos, de lo contrario lanza una excepción.
+	 * @throws IllegalArgumentException si los datos del contacto no son correctos.
+	 */
+	private boolean validarContacto(Contacto contacto) {
+		if (contacto.getNombre() == null || contacto.getNombre().isBlank()) {
+			throw new IllegalArgumentException("El nombre del contacto no puede estar vacío.");
+		}
 
-        // 🔹 Validar que el correo tiene un formato correcto
-        if (contacto.getCorreo() == null || !contacto.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            throw new IllegalArgumentException("El correo electrónico no es válido: " + contacto.getCorreo());
-        }
+		if (contacto.getCorreo() == null || !contacto.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+			throw new IllegalArgumentException("El correo electrónico no es válido: " + contacto.getCorreo());
+		}
 
-        if (contacto.getTelefono() == null || !contacto.getTelefono().matches("^\\d{9}$")) {
-            throw new IllegalArgumentException("El número de teléfono debe contener exactamente 9 dígitos.");
-        }
+		if (contacto.getTelefono() == null || !contacto.getTelefono().matches("^\\d{9}$")) {
+			throw new IllegalArgumentException("El número de teléfono debe contener exactamente 9 dígitos.");
+		}
 
-        // 🔹 Validar que la localidad no sea nula o vacía
-        if (contacto.getLocalidad() == null || contacto.getLocalidad().isBlank()) {
-            throw new IllegalArgumentException("La localidad es obligatoria.");
-        }
+		if (contacto.getLocalidad() == null || contacto.getLocalidad().isBlank()) {
+			throw new IllegalArgumentException("La localidad es obligatoria.");
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    // ✅ Método optimizado para validar la unicidad de correo y teléfono sin bloquear ediciones
-    private boolean validarUnicidad(Contacto contacto) {
-        List<Contacto> contactosExistentes = contactoDao.obtenerContactos();
+	/**
+	 * Verifica que el correo y el teléfono del contacto no estén ya registrados en
+	 * la base de datos.
+	 *
+	 * @param contacto Objeto Contacto a verificar.
+	 * @return true si los datos son únicos, de lo contrario lanza una excepción.
+	 * @throws IllegalArgumentException si el correo o el teléfono ya están
+	 *                                  registrados.
+	 */
+	private boolean validarUnicidad(Contacto contacto) {
+		List<Contacto> contactosExistentes = contactoDao.obtenerContactos();
 
-        for (Contacto existente : contactosExistentes) {
-            if (existente.getId() != contacto.getId()) { // 🔹 Permitir que se edite el mismo contacto sin error
-                if (existente.getCorreo().equalsIgnoreCase(contacto.getCorreo())) {
-                    throw new IllegalArgumentException("El correo ya está registrado: " + contacto.getCorreo());
-                }
+		for (Contacto existente : contactosExistentes) {
+			if (existente.getId() != contacto.getId()) {
+				if (existente.getCorreo().equalsIgnoreCase(contacto.getCorreo())) {
+					throw new IllegalArgumentException("El correo ya está registrado: " + contacto.getCorreo());
+				}
 
-                if (existente.getTelefono().equals(contacto.getTelefono())) {
-                    throw new IllegalArgumentException(
-                            "El número de teléfono ya está registrado: " + contacto.getTelefono());
-                }
-            }
-        }
+				if (existente.getTelefono().equals(contacto.getTelefono())) {
+					throw new IllegalArgumentException(
+							"El número de teléfono ya está registrado: " + contacto.getTelefono());
+				}
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 }

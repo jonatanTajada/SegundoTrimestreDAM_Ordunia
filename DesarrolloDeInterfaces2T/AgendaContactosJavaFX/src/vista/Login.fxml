@@ -3,24 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- Contenedor principal que organiza los elementos verticalmente -->
 <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;"
 	xmlns:fx="http://javafx.com/fxml"
 	fx:controller="controlador.LoginControlador">
 
-	   <Label text="Iniciar Sesión"
-        style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;" />
+	<!-- Título de la ventana de inicio de sesión -->
+	<Label text="Iniciar Sesión"
+		style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;" />
 
-    <TextField fx:id="txtCorreo" promptText="Correo electrónico"
-    prefWidth="300" maxWidth="300"/>
-<PasswordField fx:id="txtPassword" promptText="Contraseña"
-    prefWidth="300" maxWidth="300"/>
+	<!-- Campo de texto para el correo electrónico -->
+	<TextField fx:id="txtCorreo" promptText="Correo electrónico"
+		prefWidth="300" maxWidth="300" />
+
+	<!-- Campo de contraseña -->
+	<PasswordField fx:id="txtPassword"
+		promptText="Contraseña" prefWidth="300" maxWidth="300" />
 
 
-
+	<!-- Botón para iniciar sesión -->
 	<Button text="Iniciar Sesión" onAction="#iniciarSesion"
 		style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-
+		
+	<!-- Enlace para registrarse si no se tiene cuenta -->
 	<Label text="¿No tienes cuenta?" />
 	<Hyperlink text="Regístrate aquí" onAction="#abrirRegistro" />
+	
 </VBox>
 

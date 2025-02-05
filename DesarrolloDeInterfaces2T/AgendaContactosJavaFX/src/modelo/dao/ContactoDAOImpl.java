@@ -1,182 +1,212 @@
 package modelo.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import modelo.Contacto;
 
+/**
+ * Implementación de la interfaz ContactoDAO utilizando MySQL como base de
+ * datos.
+ */
 public class ContactoDAOImpl implements ContactoDAO {
-    
-    private static final String URL = "jdbc:mysql://localhost:3306/AgendaDB";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234";
 
-    @Override
-    public void crearContacto(Contacto contacto) {
-        if (contacto.getNombre().isEmpty() || contacto.getCorreo().isEmpty() || 
-            contacto.getTelefono().isEmpty() || contacto.getLocalidad() == null || contacto.getLocalidad().isEmpty()) {
-            System.err.println("❌ No se pudo guardar el contacto: datos incompletos.");
-            return;
-        }
+	// Datos de conexión a la base de datos
+	private static final String URL = "jdbc:mysql://localhost:3306/AgendaDB";
+	private static final String USER = "root";
+	private static final String PASSWORD = "1234";
 
-        String sql = "INSERT INTO contactos (nombre, telefono, correo, localidad, imagen, sitioWeb) VALUES (?, ?, ?, ?, ?, ?)";
+	/**
+	 * Inserta un nuevo contacto en la base de datos. Valida que todos los datos
+	 * obligatorios estén completos antes de proceder.
+	 *
+	 * @param contacto Objeto de tipo Contacto con la información a almacenar.
+	 */
+	@Override
+	public void crearContacto(Contacto contacto) {
+		// Validar que los datos no estén vacíos
+		if (contacto.getNombre().isEmpty() || contacto.getCorreo().isEmpty() || contacto.getTelefono().isEmpty()
+				|| contacto.getLocalidad() == null || contacto.getLocalidad().isEmpty()) {
+			System.err.println("No se pudo guardar el contacto: datos incompletos.");
+			return;
+		}
 
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
+		String sql = "INSERT INTO contactos (nombre, telefono, correo, localidad, imagen, sitioWeb) VALUES (?, ?, ?, ?, ?, ?)";
 
-            ps.setString(1, contacto.getNombre());
-            ps.setString(2, contacto.getTelefono());
-            ps.setString(3, contacto.getCorreo());
-            ps.setString(4, contacto.getLocalidad());
-            ps.setString(5, contacto.getImagen() != null ? contacto.getImagen() : "No disponible");
-            ps.setString(6, contacto.getSitioWeb() != null ? contacto.getSitioWeb() : "No especificado");
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            int filasAfectadas = ps.executeUpdate();
+			ps.setString(1, contacto.getNombre());
+			ps.setString(2, contacto.getTelefono());
+			ps.setString(3, contacto.getCorreo());
+			ps.setString(4, contacto.getLocalidad());
+			ps.setString(5, contacto.getImagen() != null ? contacto.getImagen() : "No disponible");
+			ps.setString(6, contacto.getSitioWeb() != null ? contacto.getSitioWeb() : "No especificado");
 
-            if (filasAfectadas > 0) {
-                System.out.println("✅ Contacto añadido correctamente.");
-            } else {
-                System.err.println("❌ No se añadió ningún contacto.");
-            }
+			int filasAfectadas = ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+			if (filasAfectadas > 0) {
+				System.out.println("Contacto añadido correctamente.");
+			} else {
+				System.err.println("No se añadió ningún contacto.");
+			}
 
-    @Override
-    public List<Contacto> obtenerContactos() {
-        String sql = "SELECT id, nombre, telefono, correo, localidad, imagen, sitioWeb FROM contactos";
-        List<Contacto> listaContactos = new ArrayList<>();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+	/**
+	 * Recupera todos los contactos almacenados en la base de datos.
+	 *
+	 * @return Lista de contactos registrados en la base de datos.
+	 */
+	@Override
+	public List<Contacto> obtenerContactos() {
+		String sql = "SELECT id, nombre, telefono, correo, localidad, imagen, sitioWeb FROM contactos";
+		List<Contacto> listaContactos = new ArrayList<>();
 
-            while (rs.next()) {
-                Contacto contacto = new Contacto(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("correo"),
-                        rs.getString("telefono"),
-                        rs.getString("localidad"),
-                        rs.getString("imagen") != null ? rs.getString("imagen") : "No disponible",
-                        rs.getString("sitioWeb") != null ? rs.getString("sitioWeb") : "No especificado"
-                );
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
 
-                listaContactos.add(contacto);
-            }
+			while (rs.next()) {
+				Contacto contacto = new Contacto(rs.getInt("id"), rs.getString("nombre"), rs.getString("correo"),
+						rs.getString("telefono"), rs.getString("localidad"),
+						rs.getString("imagen") != null ? rs.getString("imagen") : "No disponible",
+						rs.getString("sitioWeb") != null ? rs.getString("sitioWeb") : "No especificado");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+				listaContactos.add(contacto);
+			}
 
-        return listaContactos;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public void actualizarContacto(Contacto contacto) {
-        if (contacto.getId() <= 0) {
-            System.err.println("❌ No se puede actualizar: ID no válido.");
-            return;
-        }
+		return listaContactos;
+	}
 
-        if (!existeContacto(contacto.getId())) {
-            System.err.println("❌ No se encontró el contacto con ID: " + contacto.getId());
-            return;
-        }
+	/**
+	 * Actualiza los datos de un contacto existente en la base de datos. Verifica si
+	 * el ID es válido y si el contacto existe antes de actualizarlo.
+	 *
+	 * @param contacto Objeto de tipo Contacto con la información actualizada.
+	 */
+	@Override
+	public void actualizarContacto(Contacto contacto) {
+		// Validar que el ID sea correcto
+		if (contacto.getId() <= 0) {
+			System.err.println("No se puede actualizar: ID no válido.");
+			return;
+		}
 
-        String sql = "UPDATE contactos SET nombre = ?, telefono = ?, correo = ?, localidad = ?, imagen = ?, sitioWeb = ? WHERE id = ?";
+		if (!existeContacto(contacto.getId())) {
+			System.err.println("No se encontró el contacto con ID: " + contacto.getId());
+			return;
+		}
 
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
+		String sql = "UPDATE contactos SET nombre = ?, telefono = ?, correo = ?, localidad = ?, imagen = ?, sitioWeb = ? WHERE id = ?";
 
-            ps.setString(1, contacto.getNombre());
-            ps.setString(2, contacto.getTelefono());
-            ps.setString(3, contacto.getCorreo());
-            ps.setString(4, contacto.getLocalidad());
-            ps.setString(5, contacto.getImagen());
-            ps.setString(6, contacto.getSitioWeb());
-            ps.setInt(7, contacto.getId());
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            int filasActualizadas = ps.executeUpdate();
+			ps.setString(1, contacto.getNombre());
+			ps.setString(2, contacto.getTelefono());
+			ps.setString(3, contacto.getCorreo());
+			ps.setString(4, contacto.getLocalidad());
+			ps.setString(5, contacto.getImagen());
+			ps.setString(6, contacto.getSitioWeb());
+			ps.setInt(7, contacto.getId());
 
-            if (filasActualizadas > 0) {
-                System.out.println("✅ Contacto actualizado correctamente en la BD.");
-            } else {
-                System.err.println("❌ No se actualizó el contacto. Verifica los datos.");
-            }
+			int filasActualizadas = ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+			if (filasActualizadas > 0) {
+				System.out.println("Contacto actualizado correctamente en la BD.");
+			} else {
+				System.err.println("No se actualizó el contacto. Verifica los datos.");
+			}
 
-    private boolean existeContacto(int id) {
-        String sql = "SELECT COUNT(*) FROM contactos WHERE id = ?";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
-            
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+	/**
+	 * Verifica si un contacto existe en la base de datos.
+	 *
+	 * @param id Identificador del contacto.
+	 * @return true si el contacto existe, false en caso contrario.
+	 */
+	private boolean existeContacto(int id) {
+		String sql = "SELECT COUNT(*) FROM contactos WHERE id = ?";
 
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 
-        return false;
-    }
+			if (rs.next()) {
+				return rs.getInt(1) > 0;
+			}
 
-    @Override
-    public void eliminarTodos() {
-        String sql = "DELETE FROM contactos";
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
-            
-            int filasEliminadas = ps.executeUpdate();
-            if (filasEliminadas > 0) {
-                System.out.println("✅ Se han eliminado todos los contactos.");
-            } else {
-                System.out.println("⚠ No hay contactos para eliminar.");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public void eliminarContacto(int id) {
-        if (!existeContacto(id)) {
-            System.err.println("❌ No se encontró el contacto con ID: " + id);
-            return;
-        }
+		return false;
+	}
 
-        String sql = "DELETE FROM contactos WHERE id = ?";
-        
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
-            
-            ps.setInt(1, id);
-            int filasEliminadas = ps.executeUpdate();
-            
-            if (filasEliminadas > 0) {
-                System.out.println("✅ Contacto eliminado correctamente.");
-            } else {
-                System.err.println("❌ No se eliminó el contacto. Verifica el ID.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * Elimina todos los contactos de la base de datos. Si no hay contactos
+	 * almacenados, muestra un mensaje indicándolo.
+	 */
+	@Override
+	public void eliminarTodos() {
+		String sql = "DELETE FROM contactos";
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+			int filasEliminadas = ps.executeUpdate();
+			if (filasEliminadas > 0) {
+				System.out.println("Se han eliminado todos los contactos.");
+			} else {
+				System.out.println("No hay contactos para eliminar.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Elimina un contacto específico de la base de datos según su ID. Si el
+	 * contacto no existe, muestra un mensaje de error.
+	 *
+	 * @param id Identificador del contacto a eliminar.
+	 */
+	@Override
+	public void eliminarContacto(int id) {
+		if (!existeContacto(id)) {
+			System.err.println("No se encontró el contacto con ID: " + id);
+			return;
+		}
+
+		String sql = "DELETE FROM contactos WHERE id = ?";
+
+		try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+			ps.setInt(1, id);
+			int filasEliminadas = ps.executeUpdate();
+
+			if (filasEliminadas > 0) {
+				System.out.println("Contacto eliminado correctamente.");
+			} else {
+				System.err.println("No se eliminó el contacto. Verifica el ID.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

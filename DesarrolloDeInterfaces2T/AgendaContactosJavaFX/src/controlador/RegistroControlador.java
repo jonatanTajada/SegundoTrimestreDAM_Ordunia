@@ -12,105 +12,118 @@ import modelo.service.UsuarioServiceImpl;
 
 public class RegistroControlador {
 
-    @FXML private TextField txtCorreo;
-    @FXML private PasswordField txtPassword;
-    @FXML private PasswordField txtConfirmarPassword;
+	@FXML
+	private TextField txtCorreo;
+	@FXML
+	private PasswordField txtPassword;
+	@FXML
+	private PasswordField txtConfirmarPassword;
 
-    private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
+	private final UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 
-    @FXML
-    private void registrarUsuario() {
-        String correo = txtCorreo.getText();
-        String password = txtPassword.getText();
-        String confirmarPassword = txtConfirmarPassword.getText();
+	/**
+	 * Registra un nuevo usuario validando los datos ingresados. Muestra alertas en
+	 * caso de error o confirmación de registro exitoso.
+	 */
+	@FXML
+	private void registrarUsuario() {
+		String correo = txtCorreo.getText();
+		String password = txtPassword.getText();
+		String confirmarPassword = txtConfirmarPassword.getText();
 
-        if (correo.isBlank() || password.isBlank() || confirmarPassword.isBlank()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Todos los campos son obligatorios.");
-            return;
-        }
+		if (correo.isBlank() || password.isBlank() || confirmarPassword.isBlank()) {
+			mostrarAlerta(Alert.AlertType.WARNING, "Todos los campos son obligatorios.");
+			return;
+		}
 
-        if (!password.equals(confirmarPassword)) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Las contraseñas no coinciden.");
-            return;
-        }
+		if (!password.equals(confirmarPassword)) {
+			mostrarAlerta(Alert.AlertType.WARNING, "Las contraseñas no coinciden.");
+			return;
+		}
 
-        boolean registrado = usuarioService.registrarUsuario(correo, password);
-        if (registrado) {
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Registro exitoso. Ahora puedes iniciar sesión.");
-            
-            // Cierra la ventana de registro sin abrir una nueva de Login
-            Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
-            ventanaRegistro.close();
-        } else {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al registrar. Intenta con otro correo.");
-        }
-    }
+		boolean registrado = usuarioService.registrarUsuario(correo, password);
+		if (registrado) {
+			mostrarAlerta(Alert.AlertType.INFORMATION, "Registro exitoso. Ahora puedes iniciar sesión.");
 
-    @FXML
-    private void abrirLogin() {
-        // Cierra la ventana actual (Registro)
-        Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
-        ventanaRegistro.close();
-    }
+			// Cierra la ventana de registro sin abrir una nueva de Login
+			Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
+			ventanaRegistro.close();
+		} else {
+			mostrarAlerta(Alert.AlertType.ERROR, "Error al registrar. Intenta con otro correo.");
+		}
+	}
 
-    /**
-     * 🔹 Nuevo Método: `abrirRegistro()`
-     * Se encarga de abrir la ventana de registro con un tamaño adecuado
-     * y evita que se pueda redimensionar.
-     */
-    @FXML
-    private void abrirRegistro() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 450, 500); // ⬅ Tamaño ajustado
+	/**
+	 * Cierra la ventana actual y vuelve a la pantalla de login.
+	 */
+	@FXML
+	private void abrirLogin() {
+		Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
+		ventanaRegistro.close();
+	}
 
-            Stage stage = new Stage();
-            stage.setTitle("Registro de Usuario");
-            stage.setScene(scene);
-            stage.setResizable(false); // ⬅ Evita que se expanda de forma descontrolada
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * Abre la ventana de registro con un tamaño adecuado y evita que se pueda
+	 * redimensionar.
+	 */
+	@FXML
+	private void abrirRegistro() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 450, 500);
 
-    private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
-        Alert alert = new Alert(tipo, mensaje);
-        alert.showAndWait();
-    }
-    
-    @FXML
-    private void volverAlLogin() {
-        try {
-            // Cargar la ventana de Login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 600, 400);
+			Stage stage = new Stage();
+			stage.setTitle("Registro de Usuario");
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-            // 📌 Aplicar el CSS global
-            String cssPath = "/application/application.css";
-            if (getClass().getResource(cssPath) != null) {
-                scene.getStylesheets().clear();
-                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-            } else {
-                System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
-            }
+	/**
+	 * Muestra una alerta en pantalla con un mensaje personalizado.
+	 */
+	private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+		Alert alert = new Alert(tipo, mensaje);
+		alert.showAndWait();
+	}
 
-            Stage stage = new Stage();
-            stage.setTitle("Gestor de Contactos - Login");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
+	/**
+	 * Cierra la ventana de registro y abre la pantalla de login. Aplica los estilos
+	 * CSS a la nueva ventana.
+	 */
+	@FXML
+	private void volverAlLogin() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 600, 400);
 
-            // 📌 Cierra la ventana de Registro
-            Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
-            ventanaRegistro.close();
+			// Aplicar el CSS global
+			String cssPath = "/application/application.css";
+			if (getClass().getResource(cssPath) != null) {
+				scene.getStylesheets().clear();
+				scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+			} else {
+				System.err.println("No se encontró el archivo CSS: " + cssPath);
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al volver al Login.");
-        }
-    }
+			Stage stage = new Stage();
+			stage.setTitle("Gestor de Contactos - Login");
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
 
+			// Cierra la ventana de registro
+			Stage ventanaRegistro = (Stage) txtCorreo.getScene().getWindow();
+			ventanaRegistro.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			mostrarAlerta(Alert.AlertType.ERROR, "Error al volver al Login.");
+		}
+	}
 }

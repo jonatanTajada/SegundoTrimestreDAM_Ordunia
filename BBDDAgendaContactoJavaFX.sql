@@ -1,26 +1,4 @@
-/*
-create database AgendaDB;
-USE AgendaDB;
-
-
-CREATE TABLE contactos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    correo VARCHAR(100) NOT NULL UNIQUE,
-    telefono VARCHAR(9) NOT NULL UNIQUE,
-    imagen VARCHAR(255),
-    sitioWeb VARCHAR(255)
-);
-
-CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
-);
-
-
-
-*/
+# BASE DE DATOS - PROYECTO: AGENDA_FX
 
 CREATE DATABASE AgendaDB;
 USE AgendaDB;
@@ -60,9 +38,11 @@ INSERT INTO contactos (nombre, correo, telefono, localidad, imagen, sitioWeb) VA
 ('Natalia Rivas', 'natalia.rivas@email.com', '744556677', 'Burgos', NULL, NULL),
 ('Hugo Ramírez', 'hugo.ramirez@email.com', '755667788', 'Murcia', NULL, 'https://hugoramirez.com');
 
+-- --------------------------
 
-SELECT id, nombre, correo, telefono, localidad FROM contactos;
 SELECT * FROM contactos;
+
+
 
 
 

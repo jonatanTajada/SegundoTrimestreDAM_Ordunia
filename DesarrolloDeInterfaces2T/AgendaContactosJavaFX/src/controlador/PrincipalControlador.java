@@ -82,7 +82,7 @@ public class PrincipalControlador {
 	@FXML
 	private Button btnEstadisticas;
 
-	//private final ContactoDAO contactoDAO = new ContactoDAOImpl();
+	// private final ContactoDAO contactoDAO = new ContactoDAOImpl();
 
 	@FXML
 	private TextField txtCorreo;
@@ -103,167 +103,216 @@ public class PrincipalControlador {
 	private Button btnMostrarFormulario;
 	@FXML
 	private Button btnAnadir;
-	
+
 	@FXML
 	private TextField txtImagen;
-	
-
-	
-
 
 	@FXML
 	private TableColumn<Contacto, String> colLocalidad;
 
 	private ContactoServiceImpl contactoService;
+
 	private ObservableList<Contacto> listaContactos;
 
+	// Constructor
 	public PrincipalControlador() {
 		this.contactoService = new ContactoServiceImpl();
 	}
 
+	/**
+	 * Inicializa el controlador al cargar la ventana. Configura las columnas de la
+	 * tabla y establece el evento de selección de contacto.
+	 */
+//	@FXML
+//	private void initialize() {
+//	    System.out.println("Inicializando PrincipalControlador...");
+//
+//	    // Configurar columnas de la tabla
+//	    colNombre.setCellValueFactory(celda -> celda.getValue().nombreProperty());
+//	    colTelefono.setCellValueFactory(celda -> celda.getValue().telefonoProperty());
+//	    colCorreo.setCellValueFactory(celda -> celda.getValue().correoProperty());
+//	    colLocalidad.setCellValueFactory(celda -> celda.getValue().localidadProperty());
+//
+//	    // Evita la creación de una columna extra y ajusta el tamaño
+//	   // tablaContactos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+//	    tablaContactos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+//
+//
+//	    
+//	    
+//	    // Permite que al hacer clic en un contacto se muestren los detalles correctamente
+//	    tablaContactos.setOnMouseClicked(event -> {
+//	        if (event.getClickCount() > 0) { // Evita registrar eventos innecesarios
+//	            mostrarDetallesContacto(event);
+//	        }
+//	    });
+//
+//	    // Cargar contactos en la tabla
+//	    cargarContactos();
+//	}
+
+	
 	@FXML
 	private void initialize() {
 	    System.out.println("Inicializando PrincipalControlador...");
 
-	    // 📌 Configurar columnas de la tabla
 	    colNombre.setCellValueFactory(celda -> celda.getValue().nombreProperty());
 	    colTelefono.setCellValueFactory(celda -> celda.getValue().telefonoProperty());
 	    colCorreo.setCellValueFactory(celda -> celda.getValue().correoProperty());
 	    colLocalidad.setCellValueFactory(celda -> celda.getValue().localidadProperty());
 
-	    // 📌 Evento para mostrar detalles cuando se hace clic en un contacto
-	    tablaContactos.setOnMouseClicked(event -> mostrarDetallesContacto(event));
+	    // 🔹 Solución: Usar la nueva política de ajuste sin el método obsoleto
+	    tablaContactos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
-	    // 📌 Cargar datos en la tabla
+	    // 🔹 Evento para mostrar detalles del contacto
+	    tablaContactos.setOnMouseClicked(event -> {
+	        if (event.getClickCount() > 0) {
+	            mostrarDetallesContacto(event);
+	        }
+	    });
+
 	    cargarContactos();
 	}
 
+	
 
-
-
+	/**
+	 * Carga la lista de contactos desde la base de datos y la muestra en la tabla.
+	 */
 	public void cargarContactos() {
-	    List<Contacto> lista = contactoService.obtenerContactos();
+		List<Contacto> lista = contactoService.obtenerContactos();
 
-	    // 🔥 Importante: Crear una nueva lista observable para que la tabla se refresque
-	    tablaContactos.setItems(FXCollections.observableArrayList(lista));
+		// Importante: Crear una nueva lista observable para que la tabla se refresque
+		tablaContactos.setItems(FXCollections.observableArrayList(lista));
 	}
 
-
+	/**
+	 * Muestra los detalles del contacto seleccionado en la parte derecha de la
+	 * pantalla.
+	 * 
+	 * @param event Evento de clic en la tabla
+	 */
 	@FXML
 	private void mostrarDetallesContacto(MouseEvent event) {
-	    Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
+		Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
-	    if (contactoSeleccionado != null) {
-	        System.out.println("📌 Mostrando detalles del contacto ID: " + contactoSeleccionado.getId());
+		if (contactoSeleccionado != null) {
+			System.out.println("📌 Mostrando detalles del contacto ID: " + contactoSeleccionado.getId());
 
-	        lblNombre.setText("Nombre: " + contactoSeleccionado.getNombre());
-	        lblTelefono.setText("Teléfono: " + contactoSeleccionado.getTelefono());
-	        lblCorreo.setText("Correo: " + contactoSeleccionado.getCorreo());
+			lblNombre.setText("Nombre: " + contactoSeleccionado.getNombre());
+			lblTelefono.setText("Teléfono: " + contactoSeleccionado.getTelefono());
+			lblCorreo.setText("Correo: " + contactoSeleccionado.getCorreo());
+			
+			// Manejo seguro de la localidad
+			String localidad = contactoSeleccionado.getLocalidad();
+			if (localidad == null || localidad.trim().isEmpty() || localidad.equalsIgnoreCase("NULL")) {
+				localidad = "Desconocida";
+			}
+			lblLocalidad.setText("Localidad: " + localidad);
 
-	        // ✅ Manejo seguro de la localidad
-	        String localidad = contactoSeleccionado.getLocalidad();
-	        if (localidad == null || localidad.trim().isEmpty() || localidad.equalsIgnoreCase("NULL")) {
-	            localidad = "Desconocida";
-	        }
-	        lblLocalidad.setText("Localidad: " + localidad);
-
-	        // ✅ Imagen de perfil
-	        String rutaImagen = contactoSeleccionado.getImagen();
-	        if (rutaImagen == null || rutaImagen.isEmpty()) {
-	            imagenPerfil.setVisible(false);
-	            imagenPerfil.setManaged(false);
-	            lblUsuarioSinFoto.setVisible(true);
-	        } else {
-	            File archivoImagen = new File(rutaImagen);
-	            if (archivoImagen.exists() && !archivoImagen.isDirectory()) {
-	                imagenPerfil.setImage(new Image(archivoImagen.toURI().toString()));
-	                imagenPerfil.setVisible(true);
-	                imagenPerfil.setManaged(true);
-	                lblUsuarioSinFoto.setVisible(false);
-	            } else {
-	                imagenPerfil.setVisible(false);
-	                imagenPerfil.setManaged(false);
-	                lblUsuarioSinFoto.setVisible(true);
-	            }
-	        }
-	    } else {
-	        System.out.println("⚠ No se ha seleccionado ningún contacto.");
-	    }
+			// Imagen de perfil
+			String rutaImagen = contactoSeleccionado.getImagen();
+			if (rutaImagen == null || rutaImagen.isEmpty()) {
+				imagenPerfil.setVisible(false);
+				imagenPerfil.setManaged(false);
+				lblUsuarioSinFoto.setVisible(true);
+			} else {
+				File archivoImagen = new File(rutaImagen);
+				if (archivoImagen.exists() && !archivoImagen.isDirectory()) {
+					imagenPerfil.setImage(new Image(archivoImagen.toURI().toString()));
+					imagenPerfil.setVisible(true);
+					imagenPerfil.setManaged(true);
+					lblUsuarioSinFoto.setVisible(false);
+				} else {
+					imagenPerfil.setVisible(false);
+					imagenPerfil.setManaged(false);
+					lblUsuarioSinFoto.setVisible(true);
+				}
+			}
+			
+			 lblSitioWeb.setText("Sitio Web: " + contactoSeleccionado.getSitioWeb());
+			
+		} else {
+			System.out.println("⚠ No se ha seleccionado ningún contacto.");
+		}
 	}
 
-
-	
+	/**
+	 * Abre la ventana para añadir un nuevo contacto. La ventana es modal, por lo
+	 * que bloquea la principal hasta que se cierre.
+	 */
 	@FXML
 	private void anadirContacto() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AnadirContacto.fxml"));
-	        Parent root = loader.load();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AnadirContacto.fxml"));
+			Parent root = loader.load();
 
-	        Stage stage = new Stage();
-	        stage.setTitle("Añadir Contacto");
-	        stage.setScene(new Scene(root));
-	        stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal hasta cerrar esta
-	        stage.showAndWait();
+			Stage stage = new Stage();
+			stage.setTitle("Añadir Contacto");
+			stage.setScene(new Scene(root));
+			stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal hasta cerrar esta
+			stage.showAndWait();
 
-	        // Después de cerrar la ventana, recargar los contactos
-	        cargarContactos();
-	    } catch (IOException e) {
-	        System.err.println("❌ Error al abrir el formulario de añadir contacto: " + e.getMessage());
-	        e.printStackTrace();
-	    }
+			// Después de cerrar la ventana, recargar los contactos
+			cargarContactos();
+		} catch (IOException e) {
+			System.err.println("❌ Error al abrir el formulario de añadir contacto: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
+
+	/**
+	 * Abre la ventana para editar un contacto seleccionado en la tabla. Si no hay
+	 * un contacto seleccionado, muestra un mensaje de error.
+	 */
 
 	@FXML
 	private void editarContacto() {
-	    Contacto seleccionado = tablaContactos.getSelectionModel().getSelectedItem();
+		Contacto seleccionado = tablaContactos.getSelectionModel().getSelectedItem();
 
-	    if (seleccionado == null) {
-	        System.err.println("⚠ Debes seleccionar un contacto para editar.");
-	        return;
-	    }
+		if (seleccionado == null) {
+			System.err.println("⚠ Debes seleccionar un contacto para editar.");
+			return;
+		}
 
-	    System.out.println("📝 Editando contacto ID: " + seleccionado.getId());
+		System.out.println("📝 Editando contacto ID: " + seleccionado.getId());
 
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarContacto.fxml"));
-	        Parent root = loader.load();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarContacto.fxml"));
+			Parent root = loader.load();
 
-	        // Obtener el controlador y pasar el contacto seleccionado
-	        EditarContactoControlador controlador = loader.getController();
-	        controlador.setContacto(seleccionado);
-	        controlador.setPrincipalControlador(this);  // ✅ Pasa referencia de `PrincipalControlador`
+			// Obtener el controlador y pasar el contacto seleccionado
+			EditarContactoControlador controlador = loader.getController();
+			controlador.setContacto(seleccionado);
+			controlador.setPrincipalControlador(this); // Pasa referencia de `PrincipalControlador`
 
-	        Stage stage = new Stage();
-	        stage.setTitle("Editar Contacto");
-	        stage.setScene(new Scene(root));
-	        stage.initModality(Modality.APPLICATION_MODAL);
-	        stage.showAndWait();
+			Stage stage = new Stage();
+			stage.setTitle("Editar Contacto");
+			stage.setScene(new Scene(root));
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
 
-	        actualizarTabla();  // 🔄 Refrescar la tabla después de cerrar la ventana
+			actualizarTabla();
 
-	    } catch (IOException e) {
-	        System.err.println("❌ Error al abrir el formulario de edición: " + e.getMessage());
-	        e.printStackTrace();
-	    }
+		} catch (IOException e) {
+			System.err.println("❌ Error al abrir el formulario de edición: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
-
-
-
-
-
 
 	/**
 	 * Método auxiliar para guardar los cambios en la edición.
 	 */
 	public void guardarCambios(Contacto contacto) {
-	    contactoService.actualizarContacto(contacto);
-	    actualizarTabla(); // ✅ Refrescar tabla correctamente
+		contactoService.actualizarContacto(contacto);
+		actualizarTabla(); // ✅ Refrescar tabla correctamente
 	}
 
-
-
-
-
+	/**
+	 * Elimina el contacto seleccionado en la tabla. Muestra una confirmación antes
+	 * de proceder con la eliminación. Si no hay un contacto seleccionado, se
+	 * muestra una advertencia.
+	 */
 	@FXML
 	private void eliminarContacto() {
 		Contacto contactoSeleccionado = tablaContactos.getSelectionModel().getSelectedItem();
@@ -288,38 +337,43 @@ public class PrincipalControlador {
 		}
 	}
 
+	/**
+	 * Busca contactos en la lista basándose en el texto ingresado. Se filtra por
+	 * nombre o localidad. Si no se encuentra coincidencia, se muestra un mensaje.
+	 * El campo de búsqueda se limpia automáticamente después de ejecutar la acción.
+	 */
 	@FXML
 	private void buscarContacto() {
-	    String filtro = txtBuscar.getText().toLowerCase();
+		String filtro = txtBuscar.getText().toLowerCase();
 
-	    if (listaContactos == null) { // 🚀 Asegurar que no sea null
-	        System.err.println("⚠ listaContactos es NULL, recargando contactos...");
-	        listaContactos = FXCollections.observableArrayList(contactoService.obtenerContactos());
-	    }
+		if (listaContactos == null) { // 🚀 Asegurar que no sea null
+			System.err.println("⚠ listaContactos es NULL, recargando contactos...");
+			listaContactos = FXCollections.observableArrayList(contactoService.obtenerContactos());
+		}
 
-	    // 🚀 Filtrar contactos basándose en nombre o localidad
-	    ObservableList<Contacto> contactosFiltrados = FXCollections.observableArrayList(
-	            listaContactos.stream()
-	                    .filter(contacto -> contacto.getNombre().toLowerCase().contains(filtro)
-	                            || contacto.getLocalidad().toLowerCase().contains(filtro))
-	                    .toList()
-	    );
+		// 🚀 Filtrar contactos basándose en nombre o localidad
+		ObservableList<Contacto> contactosFiltrados = FXCollections.observableArrayList(
+				listaContactos.stream().filter(contacto -> contacto.getNombre().toLowerCase().contains(filtro)
+						|| contacto.getLocalidad().toLowerCase().contains(filtro)).toList());
 
-	    // ✅ Refrescar la tabla con los contactos filtrados
-	    tablaContactos.setItems(contactosFiltrados);
+		// ✅ Refrescar la tabla con los contactos filtrados
+		tablaContactos.setItems(contactosFiltrados);
 
-	    if (contactosFiltrados.isEmpty()) {
-	        System.out.println("⚠ No se encontraron contactos con el filtro: " + filtro);
-	        Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se encontraron contactos que coincidan con la búsqueda.");
-	        alert.showAndWait();
-	    }
+		if (contactosFiltrados.isEmpty()) {
+			System.out.println("⚠ No se encontraron contactos con el filtro: " + filtro);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION,
+					"No se encontraron contactos que coincidan con la búsqueda.");
+			alert.showAndWait();
+		}
 
-	    // 🚀 Limpiar el campo de búsqueda después de ejecutar la acción
-	    txtBuscar.clear();
+		// 🚀 Limpiar el campo de búsqueda después de ejecutar la acción
+		txtBuscar.clear();
 	}
 
-
-
+	/**
+	 * Restablece la tabla mostrando todos los contactos almacenados en la base de
+	 * datos.
+	 */
 	@FXML
 	private void mostrarTodosContactos() {
 		listaContactos = FXCollections.observableArrayList(contactoService.obtenerContactos()); // 🔹 Recargar desde la
@@ -327,44 +381,54 @@ public class PrincipalControlador {
 		tablaContactos.setItems(listaContactos);
 	}
 
+	/**
+	 * Abre la pantalla principal de la aplicación con el diseño adecuado. Carga la
+	 * vista "Principal.fxml", aplica el CSS global y ajusta el tamaño de la
+	 * ventana. Si la ventana actual es de Login o Registro, se cierra
+	 * automáticamente.
+	 */
 	@FXML
 	private void abrirPantallaPrincipal() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
-	        Parent root = loader.load();
-	        Scene scene = new Scene(root, 800, 600); // 📌 Ajustamos el tamaño
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 800, 600); // 📌 Ajustamos el tamaño
 
-	        // 📌 Aplicar el CSS global
-	        String cssPath = "/application/application.css";
-	        if (getClass().getResource(cssPath) != null) {
-	            scene.getStylesheets().clear(); // Limpiar estilos previos para evitar conflictos
-	            scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-	        } else {
-	            System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
-	        }
+			// 📌 Aplicar el CSS global
+			String cssPath = "/application/application.css";
+			if (getClass().getResource(cssPath) != null) {
+				scene.getStylesheets().clear(); // Limpiar estilos previos para evitar conflictos
+				scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+			} else {
+				System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+			}
 
-	        Stage stage = new Stage();
-	        stage.setTitle("Gestor de Contactos");
-	        stage.setScene(scene);
-	        stage.setMinWidth(800);
-	        stage.setMinHeight(600);
-	        stage.show();
+			Stage stage = new Stage();
+			stage.setTitle("Gestor de Contactos");
+			stage.setScene(scene);
+			stage.setMinWidth(800);
+			stage.setMinHeight(600);
+			stage.show();
 
-	        // 📌 Cerrar la ventana actual (Login o Registro)
-	        Stage actualStage = (Stage) txtBuscar.getScene().getWindow();
-	        if (actualStage != null) {
-	            actualStage.close();
-	        }
+			// 📌 Cerrar la ventana actual (Login o Registro)
+			Stage actualStage = (Stage) txtBuscar.getScene().getWindow();
+			if (actualStage != null) {
+				actualStage.close();
+			}
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        Alert errorAlert = new Alert(Alert.AlertType.ERROR,
-	                "Error al abrir la pantalla principal: " + e.getMessage());
-	        errorAlert.showAndWait();
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+					"Error al abrir la pantalla principal: " + e.getMessage());
+			errorAlert.showAndWait();
+		}
 	}
 
-
+	/**
+	 * Borra todos los contactos de la base de datos y actualiza la tabla. Antes de
+	 * proceder, muestra una alerta de confirmación para evitar eliminaciones
+	 * accidentales.
+	 */
 	@FXML
 	private void borrarTodosContactos() {
 		// Mostrar una alerta de confirmación
@@ -402,78 +466,89 @@ public class PrincipalControlador {
 		});
 	}
 
+	/**
+	 * Abre la ventana de estadísticas de contactos. Carga la vista
+	 * "Estadisticas.fxml" y actualiza los datos antes de mostrarla. Si ocurre un
+	 * error al cargar la vista, se muestra una alerta informativa.
+	 */
 	@FXML
 	private void mostrarEstadisticas() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Estadisticas.fxml"));
-	        Parent root = loader.load();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Estadisticas.fxml"));
+			Parent root = loader.load();
 
-	        // ✅ Obtener el controlador y refrescar los datos antes de abrir la ventana
-	        EstadisticasControlador controlador = loader.getController();
-	        controlador.refrescarEstadisticas(); 
+			// ✅ Obtener el controlador y refrescar los datos antes de abrir la ventana
+			EstadisticasControlador controlador = loader.getController();
+			controlador.refrescarEstadisticas();
 
-	        Stage stage = new Stage();
-	        stage.setTitle("Estadísticas de Contactos");
-	        stage.setScene(new Scene(root, 600, 400));
-	        stage.show();
-	    } catch (Exception e) {
-	        System.err.println("❌ Error al abrir la ventana de estadísticas: " + e.getMessage());
-	        Alert errorAlert = new Alert(Alert.AlertType.ERROR, "Error al abrir la ventana de estadísticas.");
-	        errorAlert.showAndWait();
-	    }
+			Stage stage = new Stage();
+			stage.setTitle("Estadísticas de Contactos");
+			stage.setScene(new Scene(root, 600, 400));
+			stage.show();
+		} catch (Exception e) {
+			System.err.println("❌ Error al abrir la ventana de estadísticas: " + e.getMessage());
+			Alert errorAlert = new Alert(Alert.AlertType.ERROR, "Error al abrir la ventana de estadísticas.");
+			errorAlert.showAndWait();
+		}
 	}
 
+	/**
+	 * Muestra u oculta el formulario de agregar un nuevo contacto. Alterna la
+	 * visibilidad y el estado de gestión del formulario en la interfaz. También
+	 * actualiza el texto del botón según el estado actual.
+	 */
+	@FXML
+	private void mostrarFormulario() {
+		boolean estadoActual = formularioNuevoContacto.isVisible();
+		formularioNuevoContacto.setVisible(!estadoActual);
+		formularioNuevoContacto.setManaged(!estadoActual);
 
-	 @FXML
-	    private void mostrarFormulario() {
-	        boolean estadoActual = formularioNuevoContacto.isVisible();
-	        formularioNuevoContacto.setVisible(!estadoActual);
-	        formularioNuevoContacto.setManaged(!estadoActual);
+		btnMostrarFormulario.setText(estadoActual ? "Nuevo Contacto" : "Cerrar Formulario");
+	}
 
-	        btnMostrarFormulario.setText(estadoActual ? "Nuevo Contacto" : "Cerrar Formulario");
-	    }
-	 
-	 @FXML
-	 private void seleccionarImagen() {
-	     FileChooser fileChooser = new FileChooser();
-	     fileChooser.setTitle("Seleccionar Imagen");
+	/**
+	 * Permite al usuario seleccionar una imagen desde su sistema de archivos.
+	 * Filtra para permitir solo archivos de imagen y muestra la ruta seleccionada
+	 * en el campo de texto. También carga la imagen en el ImageView si se
+	 * selecciona correctamente.
+	 */
+	@FXML
+	private void seleccionarImagen() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Seleccionar Imagen");
 
-	     // Filtro para solo permitir imágenes
-	     fileChooser.getExtensionFilters().addAll(
-	         new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
-	     );
+		// Filtro para solo permitir imágenes
+		fileChooser.getExtensionFilters()
+				.addAll(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 
-	     File archivoSeleccionado = fileChooser.showOpenDialog(txtImagen.getScene().getWindow()); // Usar la ventana actual
-	     
-	     if (archivoSeleccionado != null) {
-	         // Mostrar la ruta en el campo txtImagen
-	         txtImagen.setText(archivoSeleccionado.toURI().toString());
+		File archivoSeleccionado = fileChooser.showOpenDialog(txtImagen.getScene().getWindow()); // Usar la ventana
+																									// actual
 
-	         // Cargar la imagen en el ImageView
-	         imagenPerfil.setImage(new Image(archivoSeleccionado.toURI().toString()));
-	     }
-	 }
+		if (archivoSeleccionado != null) {
+			// Mostrar la ruta en el campo txtImagen
+			txtImagen.setText(archivoSeleccionado.toURI().toString());
 
-	 
-	 /**
-	  * 🔄 Recargar la tabla de contactos con los datos actualizados desde la base de datos.
-	  */
-	 /**
-	  * 🔄 Recargar la tabla de contactos con los datos actualizados desde la base de datos.
-	  */
-	 public void actualizarTabla() {
-	     System.out.println("🔄 Recargando la tabla de contactos...");
+			// Cargar la imagen en el ImageView
+			imagenPerfil.setImage(new Image(archivoSeleccionado.toURI().toString()));
+		}
+	}
 
-	     // Obtener los contactos actualizados desde la base de datos
-	     List<Contacto> contactosActualizados = contactoService.obtenerContactos();
+	/**
+	 * Recarga la tabla de contactos con los datos actualizados desde la base de
+	 * datos. Obtiene la lista actualizada de contactos y la asigna a la tabla.
+	 * También se refresca la vista para reflejar los cambios de inmediato.
+	 */
+	public void actualizarTabla() {
+		System.out.println("🔄 Recargando la tabla de contactos...");
 
-	     // Limpiar la tabla y actualizar con los nuevos datos
-	     tablaContactos.getItems().setAll(contactosActualizados); // 🔹 Mejora en rendimiento
-	     tablaContactos.refresh();  // ✅ Forzar actualización visual
+		// Obtener los contactos actualizados desde la base de datos
+		List<Contacto> contactosActualizados = contactoService.obtenerContactos();
 
-	     System.out.println("✅ Tabla actualizada con éxito.");
-	 }
+		// Limpiar la tabla y actualizar con los nuevos datos
+		tablaContactos.getItems().setAll(contactosActualizados);
+		tablaContactos.refresh(); // Forzar actualización visual
 
-
+		System.out.println("✅ Tabla actualizada con éxito.");
+	}
 
 }

@@ -11136,3 +11136,108 @@ Binding(CTRL+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.913
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.915
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.917
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.918
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.933
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:20:37.937
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:30.533
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:34.319
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:34.356
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:34.388
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:48.780
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:48.797
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.119
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.138
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.147
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.149
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.151
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.157
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.159
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:42:49.161
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:43:33.696
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:44:22.536
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wst.sse.core 2 2 2025-02-05 09:44:22.573
+!MESSAGE Detected content type did not match one for which a model handler is registered: org.eclipse.fx.ide.css.ui.fxcontenttype vs. org.eclipse.wst.css.core.csssource
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.350
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.351
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.351
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.352
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.358
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 09:50:57.361
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.841
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.843
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.847
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.850
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.871
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2025-02-05 11:13:13.875
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access

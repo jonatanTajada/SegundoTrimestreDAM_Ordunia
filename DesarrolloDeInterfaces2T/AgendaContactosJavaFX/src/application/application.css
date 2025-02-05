@@ -83,15 +83,15 @@
 }
 
 .table-view .column-header-background {
-    -fx-background-color: linear-gradient(to bottom, #1976D2, #0D47A1);
-    -fx-border-radius: 5px;
+    -fx-background-color: #6D6D6D; /* Gris medio para mejor contraste */
 }
 
 .table-view .column-header {
+    -fx-background-color: transparent;
     -fx-font-size: 14px;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-text-fill: white; /* Texto en blanco para resaltar */
 }
+
 
 .table-row-cell {
     -fx-background-color: white;

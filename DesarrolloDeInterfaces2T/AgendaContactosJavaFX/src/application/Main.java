@@ -8,50 +8,58 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static Stage primaryStage;
+	private static Stage primaryStage;
 
-    @Override
-    public void start(Stage stage) {
-        primaryStage = stage;
-        cambiarVentana("/vista/Login.fxml", "Gestor de Contactos - Login", 600, 400, false);
-    }
+	@Override
+	public void start(Stage stage) {
+		primaryStage = stage;
+		cambiarVentana("/vista/Login.fxml", "Gestor de Contactos - Login", 600, 400, false);
+	}
 
-    /**
-     * 📌 Cambia entre Login, Registro y Principal reutilizando la misma ventana.
-     */
-    public static void cambiarVentana(String fxmlPath, String titulo, int width, int height, boolean resizable) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, width, height);
-            
-            aplicarCSS(scene);
+	/**
+	 * Cambia entre Login, Registro y Principal reutilizando la misma ventana.
+	 */
+	public static void cambiarVentana(String fxmlPath, String titulo, int width, int height, boolean resizable) {
+		try {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
+			Parent root = loader.load();
+			Scene scene = new Scene(root, width, height);
 
-            primaryStage.setTitle(titulo);
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("❌ Error al cargar la ventana: " + fxmlPath);
-        }
-    }
+			aplicarCSS(scene);
 
-    /**
-     * 📌 Aplica el CSS global a todas las pantallas.
-     */
-    public static void aplicarCSS(Scene scene) {
-        String cssPath = "/application/application.css";
+			primaryStage.setTitle(titulo);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(true);
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("❌ Error al cargar la ventana: " + fxmlPath);
+		}
+	}
 
-        if (Main.class.getResource(cssPath) != null) {
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(Main.class.getResource(cssPath).toExternalForm());
-        } else {
-            System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
-        }
-    }
+	/**
+	 * Aplica el CSS global a todas las pantallas.
+	 */
+	public static void aplicarCSS(Scene scene) {
+		String cssPath = "/application/application.css";
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+		if (Main.class.getResource(cssPath) != null) {
+			scene.getStylesheets().clear();
+			scene.getStylesheets().add(Main.class.getResource(cssPath).toExternalForm());
+		} else {
+			System.err.println("⚠ No se encontró el archivo CSS: " + cssPath);
+		}
+	}
+
+	
+	
+	/**
+	 * Main
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }
