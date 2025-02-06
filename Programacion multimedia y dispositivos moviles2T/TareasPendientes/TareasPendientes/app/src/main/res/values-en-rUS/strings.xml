@@ -89,6 +89,8 @@
     <string name="todas_tareas_eliminadas">Todas las tareas han sido eliminadas.</string>
     <string name="no_hay_tareas">No hay tareas para eliminar.</string>
     <string name="tarea_eliminada">Tarea eliminada correctamente.</string>
+    <string name="mensaje_confirmar_eliminar_todas">Are you sure you want to delete all tasks?</string>
+
 
     <!-- 📷 Imágenes -->
     <string name="descripcion_imagen_editar">Imagen seleccionada para la tarea</string>

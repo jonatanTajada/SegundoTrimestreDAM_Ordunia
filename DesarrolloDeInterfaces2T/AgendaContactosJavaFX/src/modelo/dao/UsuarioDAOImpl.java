@@ -27,7 +27,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement ps = conexion.prepareStatement(sql)) {
 
 			ps.setString(1, usuario.getCorreo());
-			ps.setString(2, usuario.getPassword()); // Actualmente, almacena la contraseña sin cifrar
+			ps.setString(2, usuario.getPassword()); 
 
 			return ps.executeUpdate() > 0;
 
@@ -53,7 +53,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement ps = conexion.prepareStatement(sql)) {
 
 			ps.setString(1, correo);
-			ps.setString(2, password); // En el futuro, se debería almacenar y verificar una versión cifrada
+			ps.setString(2, password); 
 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -69,8 +69,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	 * Busca un usuario en la base de datos por su correo electrónico.
 	 *
 	 * @param correo Correo electrónico del usuario a buscar.
-	 * @return Un objeto Usuario si se encuentra en la base de datos, null si no
-	 *         existe.
+	 * @return Un objeto Usuario si se encuentra en la base de datos, null si no existe.        
 	 */
 	@Override
 	public Usuario buscarPorCorreo(String correo) {

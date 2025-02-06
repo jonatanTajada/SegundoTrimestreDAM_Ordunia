@@ -38,14 +38,4 @@ INSERT INTO contactos (nombre, correo, telefono, localidad, imagen, sitioWeb) VA
 ('Natalia Rivas', 'natalia.rivas@email.com', '744556677', 'Burgos', NULL, NULL),
 ('Hugo Ramírez', 'hugo.ramirez@email.com', '755667788', 'Murcia', NULL, 'https://hugoramirez.com');
 
--- --------------------------
-
-SELECT * FROM contactos;
-
-
-
-
-
-
-
 

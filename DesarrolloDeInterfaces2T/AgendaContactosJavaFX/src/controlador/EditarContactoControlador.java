@@ -31,11 +31,13 @@ public class EditarContactoControlador {
 	private TextField txtRutaImagen;
 
 	@FXML
-	private ComboBox<String> cmbLocalidad; // ComboBox para localidades
+	private ComboBox<String> cmbLocalidad; 
 
 	private Contacto contactoSeleccionado;
+	
 	private final ContactoServiceImpl contactoService;
-	private PrincipalControlador principalControlador; // Referencia al controlador principal
+	
+	private PrincipalControlador principalControlador; 
 
 	/**
 	 * Constructor de la clase. Inicializa el servicio de contacto.
@@ -174,7 +176,7 @@ public class EditarContactoControlador {
 					principalControlador.actualizarTabla();
 				}
 
-				cancelar(); // Cerrar la ventana después de actualizar
+				cancelar(); 
 			} else {
 				Alert alert = new Alert(Alert.AlertType.ERROR, "No se pudo actualizar el contacto.");
 				alert.showAndWait();

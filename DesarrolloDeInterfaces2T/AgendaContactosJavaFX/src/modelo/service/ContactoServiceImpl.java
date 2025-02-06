@@ -127,8 +127,7 @@ public class ContactoServiceImpl implements ContactoService {
 	 *
 	 * @param contacto Objeto Contacto a verificar.
 	 * @return true si los datos son únicos, de lo contrario lanza una excepción.
-	 * @throws IllegalArgumentException si el correo o el teléfono ya están
-	 *                                  registrados.
+	 * @throws IllegalArgumentException si el correo o el teléfono ya están registrados.
 	 */
 	private boolean validarUnicidad(Contacto contacto) {
 		List<Contacto> contactosExistentes = contactoDao.obtenerContactos();
