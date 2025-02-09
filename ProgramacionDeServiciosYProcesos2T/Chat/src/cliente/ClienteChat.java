@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClienteChat extends JFrame {
-	
-	private static final long serialVersionUID = -1499745239772132863L;
-	
+
+    private static final long serialVersionUID = -1499745239772132863L;
+
     private JTextArea areaChat;
     private JTextField campoMensaje;
     private JButton btnEnviar;
@@ -27,7 +27,6 @@ public class ClienteChat extends JFrame {
     private Map<String, ClientePrivado> chatsPrivados = new HashMap<>();
 
     public ClienteChat() {
-        setTitle("Chat - Cliente");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -41,6 +40,19 @@ public class ClienteChat extends JFrame {
         JScrollPane scrollChat = new JScrollPane(areaChat);
         panel.add(scrollChat, BorderLayout.CENTER);
 
+        // Panel derecho con lista de usuarios y título
+        JPanel panelUsuarios = new JPanel(new BorderLayout());
+        JLabel labelUsuarios = new JLabel("Usuarios Conectados", JLabel.CENTER); // NUEVO LABEL
+        panelUsuarios.add(labelUsuarios, BorderLayout.NORTH);
+
+        modeloUsuarios = new DefaultListModel<>();
+        listaUsuarios = new JList<>(modeloUsuarios);
+        JScrollPane scrollUsuarios = new JScrollPane(listaUsuarios);
+        scrollUsuarios.setPreferredSize(new Dimension(150, 0));
+        panelUsuarios.add(scrollUsuarios, BorderLayout.CENTER);
+
+        panel.add(panelUsuarios, BorderLayout.EAST);
+
         // Campo de mensaje y botón enviar
         JPanel panelInferior = new JPanel(new BorderLayout());
         campoMensaje = new JTextField();
@@ -49,13 +61,6 @@ public class ClienteChat extends JFrame {
         panelInferior.add(campoMensaje, BorderLayout.CENTER);
         panelInferior.add(btnEnviar, BorderLayout.EAST);
         panel.add(panelInferior, BorderLayout.SOUTH);
-
-        // Lista de usuarios conectados
-        modeloUsuarios = new DefaultListModel<>();
-        listaUsuarios = new JList<>(modeloUsuarios);
-        JScrollPane scrollUsuarios = new JScrollPane(listaUsuarios);
-        scrollUsuarios.setPreferredSize(new Dimension(150, 0));
-        panel.add(scrollUsuarios, BorderLayout.EAST);
 
         add(panel);
 
@@ -96,6 +101,9 @@ public class ClienteChat extends JFrame {
                 System.exit(0);
             }
 
+            // Actualizar título con el nombre del usuario
+            setTitle("Chat Cliente: " + nombreUsuario);
+
             salida.println(nombreUsuario); // Enviar nombre al servidor
 
             // Hilo para recibir mensajes del servidor
@@ -108,6 +116,10 @@ public class ClienteChat extends JFrame {
                         } else if (mensaje.startsWith("[Privado]")) {
                             manejarMensajePrivado(mensaje);
                         } else {
+                            // Reemplazar el nombre del usuario con "#Tú" si es su propio mensaje
+                            if (mensaje.startsWith(nombreUsuario + ":")) {
+                                mensaje = mensaje.replaceFirst(nombreUsuario + ":", "#Tú:");
+                            }
                             areaChat.append(mensaje + "\n");
                         }
                     }
@@ -121,6 +133,7 @@ public class ClienteChat extends JFrame {
             System.exit(0);
         }
     }
+
 
     private void enviarMensaje() {
         String mensaje = campoMensaje.getText().trim();

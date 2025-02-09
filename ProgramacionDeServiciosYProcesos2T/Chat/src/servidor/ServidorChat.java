@@ -25,7 +25,7 @@ public class ServidorChat {
 
             while (servidorActivo) {
                 Socket socket = serverSocket.accept();
-                gui.actualizarLog("Nuevo cliente conectado: " + socket.getInetAddress());
+            
 
                 ManejadorCliente manejador = new ManejadorCliente(socket, this);
                 new Thread(manejador).start();
@@ -38,18 +38,23 @@ public class ServidorChat {
     }
 
     public synchronized void registrarCliente(String nombre, PrintWriter escritor) {
-        clientes.put(nombre, escritor);
-        gui.actualizarLog("Usuario registrado: " + nombre);
-        enviarListaUsuarios();
-        difundirMensaje("Servidor: " + nombre + " se ha unido al chat.");
+        if (!clientes.containsKey(nombre)) { // Evita registrar dos veces
+            clientes.put(nombre, escritor);
+            actualizarListaUsuarios(); // Solo actualizar usuarios, no difundir mensaje aquí
+        }
     }
 
+
+
+
     public synchronized void eliminarCliente(String nombre) {
-        clientes.remove(nombre);
-        gui.actualizarLog("Usuario eliminado: " + nombre);
-        enviarListaUsuarios();
-        difundirMensaje("Servidor: " + nombre + " ha salido del chat.");
+        if (clientes.containsKey(nombre)) { // Evita eliminar dos veces
+            clientes.remove(nombre);
+            actualizarListaUsuarios();
+            difundirMensaje("Servidor: " + nombre + " ha salido del chat."); // Solo una vez
+        }
     }
+
 
     public synchronized void difundirMensaje(String mensaje) {
         if (mensaje.startsWith("[Privado]")) {
@@ -100,4 +105,13 @@ public class ServidorChat {
     public ServidorChatGUI getGui() {
         return gui;
     }
+    
+    public synchronized void actualizarListaUsuarios() {
+        if (gui != null) { 
+            gui.actualizarUsuarios(clientes.keySet()); // Ahora sí actualiza la lista en la GUI del servidor
+        }
+        enviarListaUsuarios(); // Enviar lista a los clientes
+    }
+
+
 }

@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class ServidorChatGUI extends JFrame {
 	
-
 	private static final long serialVersionUID = 3911460067349997490L;
 	
 	private JTextArea logTextArea;
@@ -18,7 +17,7 @@ public class ServidorChatGUI extends JFrame {
 
     public ServidorChatGUI() {
         setTitle("Servidor de Chat");
-        setSize(500, 400);
+        setSize(600, 400); // Ajustamos el tamaño para que se vea mejor
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -31,12 +30,18 @@ public class ServidorChatGUI extends JFrame {
         JScrollPane scrollLog = new JScrollPane(logTextArea);
         panel.add(scrollLog, BorderLayout.CENTER);
 
-        // Lista de usuarios
+        // Panel derecho con usuarios conectados
+        JPanel panelUsuarios = new JPanel(new BorderLayout());
+        JLabel labelUsuarios = new JLabel("Usuarios Conectados", JLabel.CENTER); // NUEVO LABEL
+        panelUsuarios.add(labelUsuarios, BorderLayout.NORTH);
+
         modeloUsuarios = new DefaultListModel<>();
         listaUsuarios = new JList<>(modeloUsuarios);
         JScrollPane scrollUsuarios = new JScrollPane(listaUsuarios);
         scrollUsuarios.setPreferredSize(new Dimension(150, 0));
-        panel.add(scrollUsuarios, BorderLayout.EAST);
+        panelUsuarios.add(scrollUsuarios, BorderLayout.CENTER);
+
+        panel.add(panelUsuarios, BorderLayout.EAST);
 
         // Botón de iniciar/detener
         btnIniciar = new JButton("Iniciar Servidor");
