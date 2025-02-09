@@ -1,17 +1,20 @@
 package cliente;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 import java.io.PrintWriter;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import utilidades.EstilosUI;
 
 public class ClientePrivado extends JFrame {
-	
 
-	private static final long serialVersionUID = -2059344554844977256L;
+    private static final long serialVersionUID = -2059344554844977256L;
 
-	private JTextArea areaChatPrivado;
+    private JTextArea areaChatPrivado;
     private JTextField campoMensajePrivado;
     private JButton btnEnviarPrivado;
     private String usuarioDestino;
@@ -21,45 +24,46 @@ public class ClientePrivado extends JFrame {
         this.usuarioDestino = usuarioDestino;
         this.salida = salida;
 
+        // **Aplicar Estilos Correctos**
+        EstilosUI.aplicarEstilosGenerales();
+        EstilosUI.aplicarSombraVentana(this);
+        EstilosUI.estilizarTitulo(this);
+
+        // **Configuración básica de la ventana**
         setTitle("Chat Privado con " + usuarioDestino);
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel principal
-        JPanel panel = new JPanel(new BorderLayout());
+        // **Panel Principal**
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        EstilosUI.estilizarPanel(panelPrincipal, true); // ✅ Panel oscuro
 
-        // Área de chat privado
+        // **Área de Chat Privado**
         areaChatPrivado = new JTextArea();
         areaChatPrivado.setEditable(false);
+        EstilosUI.estilizarAreaTexto(areaChatPrivado, true);
         JScrollPane scrollChat = new JScrollPane(areaChatPrivado);
-        panel.add(scrollChat, BorderLayout.CENTER);
+        panelPrincipal.add(scrollChat, BorderLayout.CENTER);
 
-        // Campo de mensaje y botón enviar
+        // **Panel Inferior con Campo de Mensaje y Botón**
         JPanel panelInferior = new JPanel(new BorderLayout());
         campoMensajePrivado = new JTextField();
+        EstilosUI.estilizarCampoTexto(campoMensajePrivado, true);
+
         btnEnviarPrivado = new JButton("Enviar");
+        EstilosUI.estilizarBoton(btnEnviarPrivado);
 
         panelInferior.add(campoMensajePrivado, BorderLayout.CENTER);
         panelInferior.add(btnEnviarPrivado, BorderLayout.EAST);
-        panel.add(panelInferior, BorderLayout.SOUTH);
 
-        add(panel);
+        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
 
-        // Evento para enviar mensajes privados
-        btnEnviarPrivado.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enviarMensajePrivado();
-            }
-        });
+        add(panelPrincipal);
 
-        campoMensajePrivado.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enviarMensajePrivado();
-            }
-        });
+        // **Evento para enviar mensajes privados**
+        btnEnviarPrivado.addActionListener(e -> enviarMensajePrivado());
+        campoMensajePrivado.addActionListener(e -> enviarMensajePrivado());
     }
 
     private void enviarMensajePrivado() {

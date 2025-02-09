@@ -1,14 +1,17 @@
 package servidor;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.Set;
+import javax.swing.*;
+
+import utilidades.EstilosUI;
 
 public class ServidorChatGUI extends JFrame {
-	
-	private static final long serialVersionUID = 3911460067349997490L;
-	
-	private JTextArea logTextArea;
+
+    private static final long serialVersionUID = 3911460067349997490L;
+
+    private JTextArea logTextArea;
     private JList<String> listaUsuarios;
     private DefaultListModel<String> modeloUsuarios;
     private JButton btnIniciar;
@@ -16,23 +19,31 @@ public class ServidorChatGUI extends JFrame {
     private boolean servidorIniciado = false;
 
     public ServidorChatGUI() {
+        // **Aplicar Estilos Globales**
+        EstilosUI.aplicarEstilosGenerales();
+        EstilosUI.aplicarSombraVentana(this);
+        EstilosUI.estilizarTitulo(this);
+
         setTitle("Servidor de Chat");
-        setSize(600, 400); // Ajustamos el tamaño para que se vea mejor
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel principal
-        JPanel panel = new JPanel(new BorderLayout());
+        // **Panel Principal**
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        EstilosUI.estilizarPanel(panelPrincipal, false); // **Fondo claro**
 
-        // Área de log
+        // **Área de Log**
         logTextArea = new JTextArea();
         logTextArea.setEditable(false);
         JScrollPane scrollLog = new JScrollPane(logTextArea);
-        panel.add(scrollLog, BorderLayout.CENTER);
+        panelPrincipal.add(scrollLog, BorderLayout.CENTER);
+        EstilosUI.estilizarAreaTexto(logTextArea, false);
 
-        // Panel derecho con usuarios conectados
+        // **Panel Derecho - Lista de Usuarios**
         JPanel panelUsuarios = new JPanel(new BorderLayout());
-        JLabel labelUsuarios = new JLabel("Usuarios Conectados", JLabel.CENTER); // NUEVO LABEL
+        JLabel labelUsuarios = new JLabel("Usuarios Conectados", JLabel.CENTER);
+        EstilosUI.estilizarEtiqueta(labelUsuarios);
         panelUsuarios.add(labelUsuarios, BorderLayout.NORTH);
 
         modeloUsuarios = new DefaultListModel<>();
@@ -40,11 +51,12 @@ public class ServidorChatGUI extends JFrame {
         JScrollPane scrollUsuarios = new JScrollPane(listaUsuarios);
         scrollUsuarios.setPreferredSize(new Dimension(150, 0));
         panelUsuarios.add(scrollUsuarios, BorderLayout.CENTER);
+        panelPrincipal.add(panelUsuarios, BorderLayout.EAST);
 
-        panel.add(panelUsuarios, BorderLayout.EAST);
-
-        // Botón de iniciar/detener
+        // **Botón de Iniciar/Detener Servidor**
         btnIniciar = new JButton("Iniciar Servidor");
+        EstilosUI.estilizarBoton(btnIniciar);
+
         btnIniciar.addActionListener(e -> {
             if (!servidorIniciado) {
                 iniciarServidor();
@@ -53,11 +65,18 @@ public class ServidorChatGUI extends JFrame {
             }
         });
 
+        // **Panel del Botón**
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnIniciar);
-        panel.add(panelBoton, BorderLayout.SOUTH);
+        panelPrincipal.add(panelBoton, BorderLayout.SOUTH);
 
-        add(panel);
+        // **Aplicar Estilos**
+        EstilosUI.estilizarPanel(panelPrincipal, false); // Fondo claro
+        EstilosUI.estilizarPanel(panelUsuarios, false);
+        EstilosUI.estilizarPanel(panelBoton, false);
+        EstilosUI.estilizarBoton(btnIniciar);
+
+        add(panelPrincipal);
     }
 
     public void iniciarServidor() {
