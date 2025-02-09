@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.oomph.setup.ui.P2TaskUIServicesPrompter$UnsatisifiedRequirementsPrompter">
-		<item key="dialogWidth" value="1936"/>
-		<item key="dialogHeight" value="1056"/>
+		<item key="dialogWidth" value="1920"/>
+		<item key="dialogHeight" value="1040"/>
 	</section>
 	<section name="SetupWizard">
 		<section name="VariablePage">
