@@ -20,6 +20,12 @@ public class ClientePrivado extends JFrame {
     private String usuarioDestino;
     private PrintWriter salida;
 
+    /**
+     * Constructor del chat privado.
+     * 
+     * @param usuarioDestino Usuario con el que se abrirá el chat privado.
+     * @param salida Flujo de salida para enviar mensajes al servidor.
+     */
     public ClientePrivado(String usuarioDestino, PrintWriter salida) {
         this.usuarioDestino = usuarioDestino;
         this.salida = salida;
@@ -61,20 +67,29 @@ public class ClientePrivado extends JFrame {
 
         add(panelPrincipal);
 
-        // **Evento para enviar mensajes privados**
+        // **Eventos para enviar mensajes privados**
         btnEnviarPrivado.addActionListener(e -> enviarMensajePrivado());
         campoMensajePrivado.addActionListener(e -> enviarMensajePrivado());
     }
 
+    /**
+     * Envía un mensaje privado al usuario seleccionado.
+     * El mensaje se formatea con '@usuarioDestino mensaje' antes de enviarlo al servidor.
+     */
     private void enviarMensajePrivado() {
         String mensaje = campoMensajePrivado.getText().trim();
         if (!mensaje.isEmpty()) {
             salida.println("@" + usuarioDestino + " " + mensaje);
-            areaChatPrivado.append("Tú: " + mensaje + "\n");
-            campoMensajePrivado.setText("");
+            areaChatPrivado.append("Tú: " + mensaje + "\n"); // Agregar mensaje al área de chat
+            campoMensajePrivado.setText(""); // Limpiar el campo después de enviar
         }
     }
 
+    /**
+     * Recibe y muestra un mensaje privado en el área de chat.
+     * 
+     * @param mensaje Mensaje recibido.
+     */
     public void recibirMensajePrivado(String mensaje) {
         areaChatPrivado.append(mensaje + "\n");
     }

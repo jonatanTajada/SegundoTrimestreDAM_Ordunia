@@ -7,6 +7,11 @@ import javax.swing.*;
 
 import utilidades.EstilosUI;
 
+/**
+ * Interfaz gráfica del servidor de chat.
+ * Permite iniciar y detener el servidor, mostrar los usuarios conectados
+ * y visualizar los mensajes del log.
+ */
 public class ServidorChatGUI extends JFrame {
 
     private static final long serialVersionUID = 3911460067349997490L;
@@ -18,8 +23,11 @@ public class ServidorChatGUI extends JFrame {
     private ServidorChat servidor;
     private boolean servidorIniciado = false;
 
+    /**
+     * Constructor que inicializa la interfaz gráfica del servidor.
+     */
     public ServidorChatGUI() {
-        // **Aplicar Estilos Globales**
+        // **Aplicar estilos globales**
         EstilosUI.aplicarEstilosGenerales();
         EstilosUI.aplicarSombraVentana(this);
         EstilosUI.estilizarTitulo(this);
@@ -57,6 +65,7 @@ public class ServidorChatGUI extends JFrame {
         btnIniciar = new JButton("Iniciar Servidor");
         EstilosUI.estilizarBoton(btnIniciar);
 
+        // **Evento de inicio/detención del servidor**
         btnIniciar.addActionListener(e -> {
             if (!servidorIniciado) {
                 iniciarServidor();
@@ -70,7 +79,7 @@ public class ServidorChatGUI extends JFrame {
         panelBoton.add(btnIniciar);
         panelPrincipal.add(panelBoton, BorderLayout.SOUTH);
 
-        // **Aplicar Estilos**
+        // **Aplicar estilos adicionales**
         EstilosUI.estilizarPanel(panelPrincipal, false); // Fondo claro
         EstilosUI.estilizarPanel(panelUsuarios, false);
         EstilosUI.estilizarPanel(panelBoton, false);
@@ -79,6 +88,9 @@ public class ServidorChatGUI extends JFrame {
         add(panelPrincipal);
     }
 
+    /**
+     * Inicia el servidor de chat en un hilo separado.
+     */
     public void iniciarServidor() {
         servidor = new ServidorChat(this);
         btnIniciar.setEnabled(false);
@@ -102,6 +114,9 @@ public class ServidorChatGUI extends JFrame {
         btnIniciar.setText("Servidor en ejecución...");
     }
 
+    /**
+     * Detiene el servidor y actualiza la interfaz.
+     */
     public void detenerServidor() {
         if (servidor != null) {
             servidor.detenerServidor();
@@ -113,10 +128,20 @@ public class ServidorChatGUI extends JFrame {
         }
     }
 
+    /**
+     * Agrega un mensaje al área de log de la interfaz.
+     *
+     * @param mensaje Mensaje a mostrar en el log.
+     */
     public void actualizarLog(String mensaje) {
         SwingUtilities.invokeLater(() -> logTextArea.append(mensaje + "\n"));
     }
 
+    /**
+     * Actualiza la lista de usuarios conectados en la interfaz.
+     *
+     * @param usuarios Conjunto de nombres de usuario conectados.
+     */
     public void actualizarUsuarios(Set<String> usuarios) {
         SwingUtilities.invokeLater(() -> {
             modeloUsuarios.clear();
@@ -126,6 +151,11 @@ public class ServidorChatGUI extends JFrame {
         });
     }
 
+    /**
+     * Método principal para ejecutar la interfaz del servidor.
+     *
+     * @param args Argumentos de la línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             ServidorChatGUI ventana = new ServidorChatGUI();

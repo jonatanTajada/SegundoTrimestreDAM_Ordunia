@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class EstilosUI {
 
-    // 🎨 **PALETA DE COLORES MEJORADA**
+    // **PALETA DE COLORES MEJORADA**
     private static final Color COLOR_FONDO_CLARO = new Color(240, 240, 240);
     private static final Color COLOR_FONDO_OSCURO = new Color(40, 40, 40);
     private static final Color COLOR_BOTON = new Color(0, 123, 255);
@@ -19,7 +19,7 @@ public class EstilosUI {
     private static final Font FUENTE_TITULO = new Font("Segoe UI", Font.BOLD, 18);
     private static final Font FUENTE_TEXTO = new Font("Segoe UI", Font.PLAIN, 14);
 
-    // 1️⃣ **APLICAR TEMA GENERAL CLARO**
+    // **APLICAR TEMA GENERAL CLARO**
     public static void aplicarEstilosGenerales() {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
@@ -28,7 +28,7 @@ public class EstilosUI {
         }
     }
 
-    // 2️⃣ **APLICAR TEMA OSCURO PARA CHAT PRIVADO**
+    // **APLICAR TEMA OSCURO PARA CHAT PRIVADO**
     public static void aplicarEstilosChatPrivado() {
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -37,7 +37,7 @@ public class EstilosUI {
         }
     }
 
-    // 3️⃣ **APLICAR SOMBRA A LAS VENTANAS**
+    // **APLICAR SOMBRA A LAS VENTANAS**
     public static void aplicarSombraVentana(JFrame ventana) {
         ventana.getRootPane().setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(90, 90, 90), 2),
@@ -45,12 +45,12 @@ public class EstilosUI {
         ));
     }
 
-    // 4️⃣ **ESTILIZAR TÍTULOS**
+    //  **ESTILIZAR TÍTULOS**
     public static void estilizarTitulo(JFrame ventana) {
         ventana.setFont(FUENTE_TITULO);
     }
 
-    // 5️⃣ **BOTONES CON ESTILO MODERNO**
+    // **BOTONES CON ESTILO MODERNO**
     public static void estilizarBoton(JButton boton) {
         boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         boton.setForeground(COLOR_TEXTO_OSCURO);
@@ -59,13 +59,13 @@ public class EstilosUI {
         boton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // 🔘 **Bordes redondeados con sombra**
+        //**Bordes redondeados con sombra**
         boton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(20, 80, 180), 2),
                 BorderFactory.createEmptyBorder(8, 18, 8, 18)
         ));
 
-        // 🎨 **Efecto Hover**
+        // **Efecto Hover**
         boton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -79,13 +79,13 @@ public class EstilosUI {
         });
     }
 
-    // 6️⃣ **PANELES CON COLOR DISTINTO SEGÚN EL MODO**
+    //  **PANELES CON COLOR DISTINTO SEGÚN EL MODO**
     public static void estilizarPanel(JPanel panel, boolean oscuro) {
         panel.setBackground(oscuro ? COLOR_FONDO_OSCURO : COLOR_FONDO_CLARO);
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     }
 
-    // 7️⃣ **CAMPOS DE TEXTO ESTILIZADOS**
+    //  **CAMPOS DE TEXTO ESTILIZADOS**
     public static void estilizarCampoTexto(JTextField campo, boolean oscuro) {
         campo.setFont(FUENTE_TEXTO);
         campo.setForeground(oscuro ? COLOR_TEXTO_OSCURO : COLOR_TEXTO_CLARO);
@@ -97,7 +97,7 @@ public class EstilosUI {
         ));
     }
 
-    // 8️⃣ **ÁREAS DE TEXTO MEJORADAS**
+    // **ÁREAS DE TEXTO MEJORADAS**
     public static void estilizarAreaTexto(JTextArea area, boolean oscuro) {
         area.setFont(FUENTE_TEXTO);
         area.setForeground(oscuro ? COLOR_TEXTO_OSCURO : COLOR_TEXTO_CLARO);
@@ -106,7 +106,7 @@ public class EstilosUI {
         area.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
     }
 
-    // 9️⃣ **ETIQUETAS ESTILIZADAS**
+    //  **ETIQUETAS ESTILIZADAS**
     public static void estilizarEtiqueta(JLabel etiqueta) {
         etiqueta.setFont(FUENTE_TEXTO);
         etiqueta.setForeground(COLOR_TEXTO_CLARO);

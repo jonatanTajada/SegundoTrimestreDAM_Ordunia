@@ -7,6 +7,10 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase que representa el servidor de chat.
+ * Maneja la conexión de clientes, envío de mensajes y la actualización de la lista de usuarios.
+ */
 public class ServidorChat {
     private static final int PUERTO = 5003;
     private Map<String, PrintWriter> clientes = new HashMap<>();
@@ -14,10 +18,18 @@ public class ServidorChat {
     private ServidorChatGUI gui;
     private boolean servidorActivo = true;
 
+    /**
+     * Constructor del servidor de chat.
+     *
+     * @param gui Interfaz gráfica del servidor.
+     */
     public ServidorChat(ServidorChatGUI gui) {
         this.gui = gui;
     }
 
+    /**
+     * Inicia el servidor y espera conexiones de clientes.
+     */
     public void iniciarServidor() {
         try {
             serverSocket = new ServerSocket(PUERTO);
@@ -25,8 +37,8 @@ public class ServidorChat {
 
             while (servidorActivo) {
                 Socket socket = serverSocket.accept();
-            
 
+                // Crea un manejador de cliente y lo ejecuta en un nuevo hilo.
                 ManejadorCliente manejador = new ManejadorCliente(socket, this);
                 new Thread(manejador).start();
             }
@@ -37,28 +49,40 @@ public class ServidorChat {
         }
     }
 
+    /**
+     * Registra un nuevo cliente en el servidor.
+     *
+     * @param nombre   Nombre del usuario.
+     * @param escritor Objeto PrintWriter para enviar mensajes al cliente.
+     */
     public synchronized void registrarCliente(String nombre, PrintWriter escritor) {
-        if (!clientes.containsKey(nombre)) { // Evita registrar dos veces
+        if (!clientes.containsKey(nombre)) { // Evita registrar el mismo usuario dos veces.
             clientes.put(nombre, escritor);
-            actualizarListaUsuarios(); // Solo actualizar usuarios, no difundir mensaje aquí
+            actualizarListaUsuarios(); // Actualiza la lista de usuarios en el chat.
         }
     }
 
-
-
-
+    /**
+     * Elimina un cliente del servidor cuando se desconecta.
+     *
+     * @param nombre Nombre del usuario a eliminar.
+     */
     public synchronized void eliminarCliente(String nombre) {
-        if (clientes.containsKey(nombre)) { // Evita eliminar dos veces
+        if (clientes.containsKey(nombre)) { // Verifica si el usuario está registrado antes de eliminarlo.
             clientes.remove(nombre);
             actualizarListaUsuarios();
-            difundirMensaje("Servidor: " + nombre + " ha salido del chat."); // Solo una vez
+            difundirMensaje("Servidor: " + nombre + " ha salido del chat."); // Notifica a los demás usuarios.
         }
     }
 
-
+    /**
+     * Difunde un mensaje a todos los clientes conectados.
+     *
+     * @param mensaje Mensaje a enviar.
+     */
     public synchronized void difundirMensaje(String mensaje) {
         if (mensaje.startsWith("[Privado]")) {
-            return; // No enviar mensajes privados a todos
+            return; // No enviar mensajes privados a todos los clientes.
         }
         for (PrintWriter escritor : clientes.values()) {
             escritor.println(mensaje);
@@ -66,6 +90,12 @@ public class ServidorChat {
         gui.actualizarLog("Mensaje público: " + mensaje);
     }
 
+    /**
+     * Envía un mensaje privado a un usuario específico.
+     *
+     * @param destinatario Nombre del usuario destinatario.
+     * @param mensaje      Mensaje a enviar.
+     */
     public synchronized void enviarMensajePrivado(String destinatario, String mensaje) {
         PrintWriter escritor = clientes.get(destinatario);
         if (escritor != null) {
@@ -75,6 +105,9 @@ public class ServidorChat {
         }
     }
 
+    /**
+     * Envía la lista de usuarios conectados a todos los clientes.
+     */
     public synchronized void enviarListaUsuarios() {
         StringBuilder lista = new StringBuilder("[Usuarios]");
         for (String usuario : clientes.keySet()) {
@@ -87,6 +120,9 @@ public class ServidorChat {
         }
     }
 
+    /**
+     * Detiene el servidor y cierra la conexión del socket.
+     */
     public void detenerServidor() {
         servidorActivo = false;
         try {
@@ -97,21 +133,32 @@ public class ServidorChat {
             gui.actualizarLog("Error al detener el servidor: " + e.getMessage());
         }
     }
-    
+
+    /**
+     * Obtiene el mapa de clientes conectados.
+     *
+     * @return Mapa con los nombres de usuario y sus respectivos PrintWriter.
+     */
     public synchronized Map<String, PrintWriter> getClientes() {
         return clientes;
     }
 
+    /**
+     * Obtiene la interfaz gráfica del servidor.
+     *
+     * @return Objeto ServidorChatGUI.
+     */
     public ServidorChatGUI getGui() {
         return gui;
     }
-    
+
+    /**
+     * Actualiza la lista de usuarios en la GUI del servidor y la envía a los clientes.
+     */
     public synchronized void actualizarListaUsuarios() {
         if (gui != null) { 
-            gui.actualizarUsuarios(clientes.keySet()); // Ahora sí actualiza la lista en la GUI del servidor
+            gui.actualizarUsuarios(clientes.keySet()); // Actualiza la lista en la interfaz del servidor.
         }
-        enviarListaUsuarios(); // Enviar lista a los clientes
+        enviarListaUsuarios(); // Envia la lista de usuarios a los clientes.
     }
-
-
 }
