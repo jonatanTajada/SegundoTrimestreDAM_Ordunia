@@ -204,3 +204,7 @@ org.eclipse.core.runtime.CoreException: Launch configuration MainApp references 
 2025-02-09 11:43:43,150 [org.eclipse.jdt.internal.ui.text.JavaReconciler] INFO  o.hibernate.eclipse.HibernatePlugin - HibernatePlugin Started
 2025-02-09 11:48:52,610 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2025-02-09 11:49:01,528 [org.eclipse.jdt.internal.ui.text.JavaReconciler] INFO  o.hibernate.eclipse.HibernatePlugin - HibernatePlugin Started
+2025-02-10 19:42:12,326 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-02-10 19:42:23,487 [org.eclipse.jdt.internal.ui.text.JavaReconciler] INFO  o.hibernate.eclipse.HibernatePlugin - HibernatePlugin Started
+2025-02-11 05:47:24,187 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-02-11 05:47:31,447 [org.eclipse.jdt.internal.ui.text.JavaReconciler] INFO  o.hibernate.eclipse.HibernatePlugin - HibernatePlugin Started

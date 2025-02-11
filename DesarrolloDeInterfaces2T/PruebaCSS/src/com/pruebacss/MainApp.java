@@ -8,8 +8,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
+	
     @Override
     public void start(Stage primaryStage) {
+    	
         // Contenedor principal
         VBox root = new VBox(10);
         root.setStyle("-fx-alignment: center; -fx-padding: 20px; -fx-background-color: #f4f4f4;");
